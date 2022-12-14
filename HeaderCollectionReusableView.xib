@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="U6b-Vx-4bR">
+            <rect key="frame" x="0.0" y="0.0" width="479" height="140"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vuq-DH-Olq">
+                    <rect key="frame" x="25" y="30" width="429" height="80"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Categories">
+                        <fontDescription key="titleFontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                        <color key="baseBackgroundColor" red="0.18823529780000001" green="0.19215688110000001" blue="0.2941176593" alpha="0.7016245861" colorSpace="custom" customColorSpace="displayP3"/>
+                    </buttonConfiguration>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Vuq-DH-Olq" secondAttribute="bottom" constant="30" id="7Rt-5y-mO6"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="Vuq-DH-Olq" secondAttribute="trailing" constant="25" id="ApS-ZP-3dt"/>
+                <constraint firstItem="Vuq-DH-Olq" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="30" id="CEt-gn-1j4"/>
+                <constraint firstItem="Vuq-DH-Olq" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="Zcb-fT-qz5"/>
+                <constraint firstItem="Vuq-DH-Olq" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="25" id="z3K-Pe-Fv7"/>
+            </constraints>
+            <point key="canvasLocation" x="156.15384615384616" y="41.587677725118482"/>
+        </collectionReusableView>
+    </objects>
+</document>

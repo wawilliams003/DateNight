@@ -9,21 +9,35 @@
 /* Begin PBXBuildFile section */
 		B0BF954B294950200099C33F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954A294950200099C33F /* AppDelegate.swift */; };
 		B0BF954D294950200099C33F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954C294950200099C33F /* SceneDelegate.swift */; };
-		B0BF954F294950200099C33F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954E294950200099C33F /* ViewController.swift */; };
+		B0BF954F294950200099C33F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954E294950200099C33F /* HomeViewController.swift */; };
 		B0BF9552294950200099C33F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9550294950200099C33F /* Main.storyboard */; };
 		B0BF9554294950210099C33F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9553294950210099C33F /* Assets.xcassets */; };
 		B0BF9557294950210099C33F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9555294950210099C33F /* LaunchScreen.storyboard */; };
+		B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BF955E294960EC0099C33F /* Koloda.framework */; };
+		B0BF9561294986930099C33F /* CategoriesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF9560294986930099C33F /* CategoriesCollectionView.swift */; };
+		B0BF956329498AE40099C33F /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF956229498AE40099C33F /* CategoryCollectionViewCell.swift */; };
+		B0BF9566294999DF0099C33F /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF9564294999DF0099C33F /* HeaderCollectionReusableView.swift */; };
+		B0BF9567294999DF0099C33F /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */; };
+		BE20F9012548500A175D3ED4 /* Pods_DateNight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DateNight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CEE1F98F8142C5A3EB66C91 /* Pods-DateNight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.debug.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.debug.xcconfig"; sourceTree = "<group>"; };
+		9FAC6A53F2581DFB8D1699A6 /* Pods-DateNight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.release.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.release.xcconfig"; sourceTree = "<group>"; };
 		B0BF9547294950200099C33F /* DateNight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DateNight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0BF954A294950200099C33F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0BF954C294950200099C33F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B0BF954E294950200099C33F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B0BF954E294950200099C33F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B0BF9551294950200099C33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0BF9553294950210099C33F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0BF9556294950210099C33F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0BF9558294950210099C33F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0BF955E294960EC0099C33F /* Koloda.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Koloda.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0BF9560294986930099C33F /* CategoriesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionView.swift; sourceTree = "<group>"; };
+		B0BF956229498AE40099C33F /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		B0BF9564294999DF0099C33F /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +45,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */,
+				BE20F9012548500A175D3ED4 /* Pods_DateNight.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		58D15786B3578B693A24669E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3CEE1F98F8142C5A3EB66C91 /* Pods-DateNight.debug.xcconfig */,
+				9FAC6A53F2581DFB8D1699A6 /* Pods-DateNight.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		5ACACE4E97B72D94911865BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0BF955E294960EC0099C33F /* Koloda.framework */,
+				009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B0BF953E294950200099C33F = {
 			isa = PBXGroup;
 			children = (
+				B0BF9564294999DF0099C33F /* HeaderCollectionReusableView.swift */,
+				B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */,
 				B0BF9549294950200099C33F /* DateNight */,
 				B0BF9548294950200099C33F /* Products */,
+				58D15786B3578B693A24669E /* Pods */,
+				5ACACE4E97B72D94911865BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +96,10 @@
 			children = (
 				B0BF954A294950200099C33F /* AppDelegate.swift */,
 				B0BF954C294950200099C33F /* SceneDelegate.swift */,
-				B0BF954E294950200099C33F /* ViewController.swift */,
+				B0BF954E294950200099C33F /* HomeViewController.swift */,
 				B0BF9550294950200099C33F /* Main.storyboard */,
+				B0BF956229498AE40099C33F /* CategoryCollectionViewCell.swift */,
+				B0BF9560294986930099C33F /* CategoriesCollectionView.swift */,
 				B0BF9553294950210099C33F /* Assets.xcassets */,
 				B0BF9555294950210099C33F /* LaunchScreen.storyboard */,
 				B0BF9558294950210099C33F /* Info.plist */,
@@ -74,9 +114,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0BF955B294950210099C33F /* Build configuration list for PBXNativeTarget "DateNight" */;
 			buildPhases = (
+				F35F5447131EE1125C237E12 /* [CP] Check Pods Manifest.lock */,
 				B0BF9543294950200099C33F /* Sources */,
 				B0BF9544294950200099C33F /* Frameworks */,
 				B0BF9545294950200099C33F /* Resources */,
+				0C44A961AAAD78B7C4BCBE23 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0BF9567294999DF0099C33F /* HeaderCollectionReusableView.xib in Resources */,
 				B0BF9557294950210099C33F /* LaunchScreen.storyboard in Resources */,
 				B0BF9554294950210099C33F /* Assets.xcassets in Resources */,
 				B0BF9552294950200099C33F /* Main.storyboard in Resources */,
@@ -133,13 +176,58 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0C44A961AAAD78B7C4BCBE23 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DateNight/Pods-DateNight-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DateNight/Pods-DateNight-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DateNight/Pods-DateNight-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F35F5447131EE1125C237E12 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DateNight-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B0BF9543294950200099C33F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0BF954F294950200099C33F /* ViewController.swift in Sources */,
+				B0BF954F294950200099C33F /* HomeViewController.swift in Sources */,
+				B0BF956329498AE40099C33F /* CategoryCollectionViewCell.swift in Sources */,
 				B0BF954B294950200099C33F /* AppDelegate.swift in Sources */,
+				B0BF9561294986930099C33F /* CategoriesCollectionView.swift in Sources */,
+				B0BF9566294999DF0099C33F /* HeaderCollectionReusableView.swift in Sources */,
 				B0BF954D294950200099C33F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,6 +370,7 @@
 		};
 		B0BF955C294950210099C33F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CEE1F98F8142C5A3EB66C91 /* Pods-DateNight.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -294,6 +383,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -309,6 +399,7 @@
 		};
 		B0BF955D294950210099C33F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FAC6A53F2581DFB8D1699A6 /* Pods-DateNight.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -321,6 +412,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
