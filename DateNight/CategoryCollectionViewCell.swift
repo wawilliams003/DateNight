@@ -9,4 +9,19 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var catButton: UIButton!
+    @IBOutlet weak var categeoryTitle: UILabel!
+    @IBOutlet weak var likesCount: UILabel!
+
+
+    var categories: Categories? {
+        didSet {
+            guard let categories = categories else {return}
+            let color = UIColor.init(categories.color, alpha: 1.0)
+            catButton.tintColor = color
+            catButton.setImage(UIImage(systemName: categories.image), for: .normal)
+            categeoryTitle.text = categories.title
+            categeoryTitle.textColor = color
+        }
+    }
 }

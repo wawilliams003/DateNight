@@ -47,7 +47,7 @@
                                         <color key="tintColor" systemColor="systemRedColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled">
-                                            <imageReference key="image" image="xmark" catalog="system" symbolScale="medium"/>
+                                            <imageReference key="image" image="play.fill" catalog="system" symbolScale="medium"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="22" scale="medium" weight="semibold"/>
                                             <color key="baseBackgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
@@ -82,7 +82,7 @@
                                             <color key="baseBackgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="saveCard" destination="BYZ-38-t0r" eventType="touchUpInside" id="6Aa-Up-0Vf"/>
+                                            <action selector="optionButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="e5R-29-DKN"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -115,6 +115,18 @@
                                     <action selector="showCategories" destination="BYZ-38-t0r" eventType="touchUpInside" id="nbF-yx-qUw"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ac5-5B-rSv">
+                                <rect key="frame" x="312" y="47" width="50" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="MC0-If-1vg"/>
+                                    <constraint firstAttribute="width" constant="50" id="lvw-1S-Cba"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="...">
+                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="30"/>
+                                    <color key="baseBackgroundColor" red="0.18823529780000001" green="0.19215688110000001" blue="0.2941176593" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.1019607931" green="0.1019607931" blue="0.20000001789999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -123,7 +135,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bbq-X7-MJ1" secondAttribute="trailing" constant="30" id="7kd-s1-n9o"/>
                             <constraint firstItem="bbq-X7-MJ1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="87Q-dO-qsp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="YZC-Jq-TB1" secondAttribute="bottom" constant="30" id="I3V-3d-PFP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ac5-5B-rSv" secondAttribute="trailing" constant="30" id="Jyc-bW-s6r"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YZC-Jq-TB1" secondAttribute="trailing" constant="30" id="LbX-qA-E96"/>
+                            <constraint firstItem="ac5-5B-rSv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="TyW-xT-fSA"/>
                             <constraint firstItem="bbq-X7-MJ1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="151" id="W2x-GG-nLe"/>
                             <constraint firstItem="YZC-Jq-TB1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="azS-RP-kZE"/>
                             <constraint firstItem="bbq-X7-MJ1" firstAttribute="top" secondItem="HQI-HZ-byX" secondAttribute="bottom" constant="25" id="uN4-xE-2Lk"/>
@@ -131,7 +145,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="categoryTitleButton" destination="HQI-HZ-byX" id="PSt-rM-iZM"/>
                         <outlet property="kView" destination="bbq-X7-MJ1" id="GwR-13-aBi"/>
+                        <outlet property="stackView" destination="YZC-Jq-TB1" id="Qha-tp-Ajq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -213,6 +229,10 @@
                                         <integer key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="catButton" destination="qKN-8U-gnh" id="jKm-zK-HyM"/>
+                                    <outlet property="categeoryTitle" destination="TNu-1g-CYn" id="iji-ox-Tka"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cdb-1i-OJ3" customClass="HeaderCollectionReusableView" customModule="DateNight" customModuleProvider="target">
@@ -235,8 +255,8 @@
         <image name="gobackward" catalog="system" width="119" height="128"/>
         <image name="heart" catalog="system" width="128" height="107"/>
         <image name="heart.fill" catalog="system" width="128" height="107"/>
+        <image name="play.fill" catalog="system" width="117" height="128"/>
         <image name="suit.heart" catalog="system" width="128" height="107"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

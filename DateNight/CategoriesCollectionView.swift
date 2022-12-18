@@ -11,12 +11,31 @@ private let reuseIdentifier = "Cell"
 
 class CategoriesCollectionView: UICollectionViewController {
 
+    //MARK: Properties
+    
+    var categories = [Categories]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        FetchData.parseJSON { [weak self] categories in
+            self?.categories = categories
+            self?.collectionView.reloadData()
+        }
 
+        setupCollectiobView()
+
+    }
+    
+    
+    
+    //MARK: Helper Functions
+    
+    fileprivate func setupCollectiobView() {
         if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.minimumLineSpacing = 20
-           // flowLayout.minimumInteritemSpacing = 15
+            // flowLayout.minimumInteritemSpacing = 15
             flowLayout.itemSize = CGSize(width: (view.frame.size.width/2)-30,
                                          height: 170)
             flowLayout.sectionInset = UIEdgeInsets(top: 15, left: 20, bottom: 5, right: 20)
@@ -24,7 +43,6 @@ class CategoriesCollectionView: UICollectionViewController {
         
         let nib = UINib(nibName: "HeaderCollectionReusableView", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
-
     }
 
 
@@ -38,12 +56,13 @@ class CategoriesCollectionView: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 10
+        return categories.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
     
+        cell.categories = categories[indexPath.row]
         // Configure the cell
     
         return cell

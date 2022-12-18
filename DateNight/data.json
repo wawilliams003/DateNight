@@ -1,0 +1,51 @@
+{
+    "categories": [
+        
+     {
+         "title": "Love",
+         "image": "heart",
+         "color": "e76f51",
+         "items": [
+             "Do you love yourself?",
+             "What is your definition of love?",
+             "Do you know how to love",
+             "Who do you love?"
+         ]
+     },
+     {
+         "title": "Health",
+         "image": "heart.fill",
+         "color": "ff0054",
+         "items": [
+             "Do you live a healthy lifestyle?",
+             "Do you take care of your health",
+             "How do you take care of your health?",
+             "Do you eat healthy?"
+         ]
+     },
+     {
+         "title": "Life",
+         "image": "tray.fill",
+         "color": "f20089",
+         "items": [
+             "Are you living a fullfilling life?",
+             "What is the purpose if your life?",
+             "What is one thing that you're working to achieve in life",
+             "Who do are the most important people in your life?"
+         ]
+     },
+     {
+         "title": "Goals",
+         "image": "tray",
+         "color": "f0a6ca",
+         "items": [
+             "Do you set goals?",
+             "What goal/s are you currently working on?",
+             "Do you believe in going after what you want?",
+             "What is your goal in a relationship?",
+             "Are you an ambitious person?"
+             
+         ]
+     }
+    ]
+}
