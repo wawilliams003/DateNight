@@ -13,7 +13,7 @@ class CategoriesCollectionView: UICollectionViewController {
 
     //MARK: Properties
     
-    var categories = [Categories]()
+    var categories = [Category]()
     
     
     override func viewDidLoad() {
@@ -86,6 +86,17 @@ class CategoriesCollectionView: UICollectionViewController {
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
 
         return CGSize(width: view.frame.size.width, height: 100)
+    }
+    
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = categories[indexPath.row]
+        let homeVC = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        homeVC.selectedCategory = item
+        //homeVC.categories.removeAll()
+        homeVC.viewWillAppear(true)
+       // homeVC.kView.reloadData()
+        self.dismiss(animated: true)
     }
     
     /*

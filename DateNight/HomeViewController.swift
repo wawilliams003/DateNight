@@ -11,10 +11,19 @@ import LGButton
 import iCarousel
 import AVFoundation
 
+struct ColorTheme {
+    static let lightColor = UIColor.init("30314B", alpha: 1.0)
+}
+
+
+
+
+
 class HomeViewController: UIViewController {
 
     
-    @IBOutlet weak var kView: KolodaView!
+    @IBOutlet weak var myView: UIView!
+   // @IBOutlet weak var mainCarousel: iCarousel!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var categoryTitleButton: UIButton!
@@ -23,7 +32,21 @@ class HomeViewController: UIViewController {
     var speechLabel = UILabel()
     let synthesizer = AVSpeechSynthesizer()
     var carouselCurrentIndex = 0
-    var categories = [Categories]()
+    var categories = [Category]()
+    var selectedCategory: Category!
+    var category: Category!
+    
+    let mainCarousel: iCarousel = {
+        let view = iCarousel()
+        view.type = .rotary
+        view.scrollSpeed = 0.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isPagingEnabled = true
+        return view
+    }()
+    
+    
+    
     
     let myCarousel: iCarousel = {
         let view = iCarousel()
@@ -46,13 +69,13 @@ class HomeViewController: UIViewController {
     let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .darkGray
-      //  button.titleLabel?.text = "Cancel"
+        button.backgroundColor = ColorTheme.lightColor
+        
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("Done", for: .normal)
+        button.setTitle("X", for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 25
         button.clipsToBounds = true
         button.titleLabel?.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
         button.addTarget(nil, action: #selector(cancelButtonAction), for: .touchUpInside)
@@ -76,27 +99,42 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         FetchData.parseJSON { [weak self] categories in
-            self?.categories = categories.shuffled()
+           // self?.categories = categories.shuffled()
+            self?.category = categories.randomElement()
+            self?.mainCarousel.reloadData()
         }
+        setupViews()
+       
         
-        setupKView()
-        
-        view.addSubview(myCarousel)
-        view.addSubview(fontCarousel)
-        view.addSubview(cancelButton)
-        fontCarousel.isHidden = true
-        myCarousel.isHidden = true
-        cancelButton.isHidden = true
-        activeConstraint()
-        //cancelButton.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200)
-       // fontCarousel.frame = CGRect(x: 0, y: 380, width: view.frame.size.width, height: 100)
-        myCarousel.dataSource = self
-        myCarousel.delegate = self
-        fontCarousel.dataSource = self
-        fontCarousel.delegate = self
-        
+       // categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 32)
         // Do any additional setup after loading the view.
     }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if selectedCategory != nil {
+            
+            //self.category.items.removeAll()
+            self.category = selectedCategory
+            self.mainCarousel.scrollToItem(at: 2, animated: true)
+            //mainCarousel.dataSource = self
+           // print("Category \(selectedCategory)")
+            //self.mainCarousel.reloadItem(at: 1, animated: true)
+            self.mainCarousel.reloadData()
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //mainCarousel.dataSource = nil
+    }
+    
+    
     
     //MARK: Helper Functions
     
@@ -119,18 +157,35 @@ class HomeViewController: UIViewController {
         
     }
 
-    func setupKView(){
-        kView.delegate = self
-        kView.dataSource = self
-        kView.layer.cornerRadius = 20
-        kView.clipsToBounds = true
-        
+    func setupViews(){
+        view.addSubview(mainCarousel)
+        view.addSubview(myCarousel)
+        view.addSubview(fontCarousel)
+        view.addSubview(cancelButton)
+        fontCarousel.isHidden = true
+        myCarousel.isHidden = true
+        cancelButton.isHidden = true
+        activateConstraint()
+        //cancelButton.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200)
+       // fontCarousel.frame = CGRect(x: 0, y: 380, width: view.frame.size.width, height: 100)
+        myCarousel.dataSource = self
+        myCarousel.delegate = self
+        fontCarousel.dataSource = self
+        fontCarousel.delegate = self
+        mainCarousel.dataSource = self
+        mainCarousel.delegate = self
     }
     
     
-    func activeConstraint() {
+    func activateConstraint() {
         
         NSLayoutConstraint.activate([
+            
+            mainCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            mainCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            mainCarousel.topAnchor.constraint(equalTo: self.categoryTitleButton.bottomAnchor, constant: 50),
+            mainCarousel.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -50),
+
             myCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             myCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             myCarousel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -140,13 +195,7 @@ class HomeViewController: UIViewController {
             fontCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             fontCarousel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -170),
             fontCarousel.heightAnchor.constraint(equalToConstant: 100),
-            
-            cancelButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            //cancelButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -265),
-            cancelButton.heightAnchor.constraint(equalToConstant: 45),
-            cancelButton.widthAnchor.constraint(equalToConstant: 120)
-        
+ 
         ])
         
         
@@ -159,7 +208,7 @@ class HomeViewController: UIViewController {
             self?.cancelButton.isHidden = true
             self?.stackView.isHidden = false
         })
-        kView.isUserInteractionEnabled = true
+       
     }
     
     func showViews() {
@@ -170,7 +219,16 @@ class HomeViewController: UIViewController {
             self?.stackView.isHidden = true
         })
         
-        kView.isUserInteractionEnabled = false
+    }
+    
+    
+    func changeLikeBtnImage(state: Bool) {
+        if state == true {
+            likeButton.setImage(UIImage(systemName: "heart.fill"), for: [])
+        } else {
+            likeButton.setImage(UIImage(systemName: "heart"), for: [])
+        }
+        
     }
     
     /*
@@ -213,19 +271,30 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func removeCard()  {
-        if let items = categories.first?.items {
+        let items = self.category.items//{
             let text = items[currentIndex]
             let utterance = AVSpeechUtterance(string: text)
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-            utterance.rate = 0.5
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            utterance.rate = 0.4
             synthesizer.speak(utterance)
-        }
+       // }
         
         
     }
     
+    var isSaved = false
+    
     @IBAction func likeCard()  {
-        
+        let items = self.category.items
+        let text = items[currentIndex]
+        let card = Card(text: text, category: category.title)
+        if DataManager().chekIfSaved(card: card) {
+            changeLikeBtnImage(state: false)
+            DataManager().removeCard(card: card)
+        } else {
+            changeLikeBtnImage(state: true)
+            DataManager().saveCard(card: card)
+        }
         
     }
     
@@ -245,6 +314,36 @@ extension HomeViewController: iCarouselDataSource {
     
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        
+        if carousel == mainCarousel {
+            currentIndex = carousel.currentItemIndex
+           
+            
+            let imageView = UIImageView(image: UIImage(named: "merry-christmas"))
+            imageView.frame = mainCarousel.frame
+            imageView.backgroundColor  = .systemRed
+            
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.textAlignment = .center
+            label.font = UIFont.boldSystemFont(ofSize: 40)
+            label.clipsToBounds = true
+            label.shadowColor = UIColor.darkGray
+            label.layer.shadowOpacity = 0.5
+            label.sizeToFit()
+            //label.wordWrap = .characterWrap
+            imageView.addSubview(label)
+            //label.adjustsFontSizeToFitWidth = true
+            label.frame = CGRect(x: 15, y: 35, width: imageView.frame.width - 20, height: 200)
+            if let category = category {
+                categoryTitleButton.setTitle(category.title, for: .normal)
+                label.text = category.items[index]
+            }
+            
+            
+            return imageView
+        }
+        
         if carousel == myCarousel {
             carouselCurrentIndex = carousel.currentItemIndex
             let view = UIImageView(image: UIImage(named: frames[index]))
@@ -277,6 +376,9 @@ extension HomeViewController: iCarouselDataSource {
     
     
     func numberOfItems(in carousel: iCarousel) -> Int {
+        if carousel == mainCarousel {
+            return category.items.count
+        }
         if carousel == myCarousel {
             return frames.count
         }
@@ -286,35 +388,22 @@ extension HomeViewController: iCarouselDataSource {
     
     func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
         
-        
-        //kView.backgroundColor = .red
-//        kView.resetCurrentCardIndex()
-//        kView.reloadData()
-        //kView.dataSource = nil
-        /*
-        let label = kView.viewWithTag(123) as? UILabel
-        label?.text = "Hello"
-        //print("Label \(label?.text)")
-        
-        let imageView = kView.viewWithTag(12) as? UIImageView
-        imageView?.image = UIImage(named: "christmas")
-        */
-//        for subView in kView.subviews {
-//            print("IMAGE \(subView)")
-//            if let imageView = subView as? UIImageView {
-//                print("IMAGE \(imageView)")
-//            }
-//        }
+        let items = self.category.items
+        let text = items[carousel.currentItemIndex]
+        let card = Card(text: text, category: category.title)
+        if DataManager().chekIfSaved(card: card) {
+            changeLikeBtnImage(state: true)
+        } else {
+            changeLikeBtnImage(state: false)
+        }
+
     }
     
     func carouselDidScroll(_ carousel: iCarousel) {
         carouselCurrentIndex = carousel.currentItemIndex
+        currentIndex = carousel.currentItemIndex
     }
-    
-    func carouselWillBeginScrollingAnimation(_ carousel: iCarousel) {
-        //kView.dataSource = nil
-    }
-    
+
 }
 
 
@@ -344,74 +433,10 @@ extension HomeViewController: iCarouselDelegate {
 
 //MARK: Delegate
 
-extension HomeViewController: KolodaViewDelegate {
-    
-    func kolodaDidRunOutOfCards(_ koloda: KolodaView) {
-        koloda.resetCurrentCardIndex()
-        koloda.reloadData()
-    }
-    
-    func kolodaShouldApplyAppearAnimation(_ koloda: KolodaView) -> Bool {
-        true
-    }
-    
-    func koloda(_ koloda: KolodaView, didSwipeCardAt index: Int, in direction: SwipeResultDirection) {
-        currentIndex = koloda.currentCardIndex
-       
-    }
-}
 
 
 //MARK: DataSource
-extension HomeViewController: KolodaViewDataSource {
-    
-    func koloda(_ koloda: Koloda.KolodaView, viewForCardAt index: Int) -> UIView {
-        
-        let category = categories.first
-        
-        let kView = UIImageView(image: UIImage(named: (category?.items[index])!))
-        let coverView = UIView(frame: CGRect(x: 0, y: 0, width: koloda.frame.width, height: 150))
-        coverView.backgroundColor = .black
-        coverView.layer.opacity = 0.050
-        kView.addSubview(coverView)
-        kView.image = UIImage(named: "border")
-        kView.backgroundColor = .purple
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 40)
-        label.clipsToBounds = true
-        label.shadowColor = UIColor.darkGray
-        label.layer.shadowOpacity = 0.5
-        kView.addSubview(label)
-        //label.adjustsFontSizeToFitWidth = true
-        label.frame = CGRect(x: 20, y: 35, width: koloda.frame.width-20, height: 200)
-        if let category = category {
-            categoryTitleButton.setTitle(category.title, for: .normal)
-            label.text = category.items[index]
-        }
-        
-        label.tag = 123
-       
-       // speechLabel = label
-        kView.layer.cornerRadius = 20
-        kView.clipsToBounds = true
-        currentIndex = koloda.currentCardIndex
-        kView.tag = 12
-        return kView
-    }
-    
-    func kolodaNumberOfCards(_ koloda: Koloda.KolodaView) -> Int {
-        categories.first?.items.count ?? 0
-    }
-    
-    func kolodaSpeedThatCardShouldDrag(_ koloda: KolodaView) -> DragSpeed {
-            return .fast
-        }
-    
-    
-    
-}
+
 
 extension UIColor {
   

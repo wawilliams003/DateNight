@@ -10,25 +10,25 @@ import Foundation
 
 
 struct Result: Decodable {
-    let categories: [Categories]
+    let categories: [Category]
     
 }
 
 
-struct Categories: Decodable {
+struct Category: Decodable {
     let title: String
     let image: String
     let color: String
-    let items : [String]
+    var items : [String]
 }
 
 
 class FetchData {
     
-    static func parseJSON (completion: @escaping ([Categories])-> () ) {
+    static func parseJSON (completion: @escaping ([Category])-> () ) {
         guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {return}
         let url = URL(fileURLWithPath: path)
-        var categories = [Categories]()
+        var categories = [Category]()
         do {
             let jsonData = try Data(contentsOf: url)
             let results = try JSONDecoder().decode(Result.self, from: jsonData)

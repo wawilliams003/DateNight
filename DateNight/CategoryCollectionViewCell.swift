@@ -14,7 +14,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var likesCount: UILabel!
 
 
-    var categories: Categories? {
+    var categories: Category? {
         didSet {
             guard let categories = categories else {return}
             let color = UIColor.init(categories.color, alpha: 1.0)

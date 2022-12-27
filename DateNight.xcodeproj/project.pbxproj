@@ -20,6 +20,9 @@
 		B0BF9567294999DF0099C33F /* HeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */; };
 		B0C6FA6F294EDF8B00C5B3EB /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = B0C6FA6E294EDF8B00C5B3EB /* data.json */; };
 		B0C6FA72294EE23500C5B3EB /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6FA71294EE23500C5B3EB /* Model.swift */; };
+		B0C6FA772958290500C5B3EB /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = B0C6FA762958290500C5B3EB /* Disk */; };
+		B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6FA7A2958295800C5B3EB /* DataManager.swift */; };
+		B0C6FA7D29582BAB00C5B3EB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */; };
 		BE20F9012548500A175D3ED4 /* Pods_DateNight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +45,8 @@
 		B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		B0C6FA6E294EDF8B00C5B3EB /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		B0C6FA71294EE23500C5B3EB /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B0C6FA7A2958295800C5B3EB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */,
+				B0C6FA772958290500C5B3EB /* Disk in Frameworks */,
 				BE20F9012548500A175D3ED4 /* Pods_DateNight.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,9 +84,9 @@
 		B0BF953E294950200099C33F = {
 			isa = PBXGroup;
 			children = (
+				B0C6FA792958294900C5B3EB /* Helpers */,
+				B0C6FA782958293200C5B3EB /* Views */,
 				B0C6FA70294EE21F00C5B3EB /* Model */,
-				B0BF9564294999DF0099C33F /* HeaderCollectionReusableView.swift */,
-				B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */,
 				B0BF9549294950200099C33F /* DateNight */,
 				B0BF9548294950200099C33F /* Products */,
 				58D15786B3578B693A24669E /* Pods */,
@@ -121,6 +127,24 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		B0C6FA782958293200C5B3EB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B0BF9564294999DF0099C33F /* HeaderCollectionReusableView.swift */,
+				B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B0C6FA792958294900C5B3EB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B0C6FA7A2958295800C5B3EB /* DataManager.swift */,
+				B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +163,9 @@
 			dependencies = (
 			);
 			name = DateNight;
+			packageProductDependencies = (
+				B0C6FA762958290500C5B3EB /* Disk */,
+			);
 			productName = DateNight;
 			productReference = B0BF9547294950200099C33F /* DateNight.app */;
 			productType = "com.apple.product-type.application";
@@ -167,6 +194,9 @@
 				Base,
 			);
 			mainGroup = B0BF953E294950200099C33F;
+			packageReferences = (
+				B0C6FA752958290500C5B3EB /* XCRemoteSwiftPackageReference "Disk" */,
+			);
 			productRefGroup = B0BF9548294950200099C33F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -239,6 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0C6FA72294EE23500C5B3EB /* Model.swift in Sources */,
+				B0C6FA7D29582BAB00C5B3EB /* Extensions.swift in Sources */,
+				B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */,
 				B0BF954F294950200099C33F /* HomeViewController.swift in Sources */,
 				B0BF956329498AE40099C33F /* CategoryCollectionViewCell.swift in Sources */,
 				B0BF954B294950200099C33F /* AppDelegate.swift in Sources */,
@@ -464,6 +496,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B0C6FA752958290500C5B3EB /* XCRemoteSwiftPackageReference "Disk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/saoudrizwan/Disk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.6.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B0C6FA762958290500C5B3EB /* Disk */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0C6FA752958290500C5B3EB /* XCRemoteSwiftPackageReference "Disk" */;
+			productName = Disk;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B0BF953F294950200099C33F /* Project object */;
 }
