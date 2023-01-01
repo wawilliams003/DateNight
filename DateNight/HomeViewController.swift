@@ -16,6 +16,19 @@ struct ColorTheme {
 }
 
 
+@IBDesignable class GradientView: UIView {
+    @IBInspectable var topColor: UIColor = UIColor.white
+    @IBInspectable var bottomColor: UIColor = UIColor.black
+
+    override class var layerClass: AnyClass {
+        return CAGradientLayer.self
+    }
+
+    override func layoutSubviews() {
+        (layer as! CAGradientLayer).colors = [topColor.cgColor, bottomColor.cgColor]
+    }
+}
+
 
 
 
@@ -35,6 +48,7 @@ class HomeViewController: UIViewController {
     var categories = [Category]()
     var selectedCategory: Category!
     var category: Category!
+    
     
     let mainCarousel: iCarousel = {
         let view = iCarousel()
@@ -75,7 +89,7 @@ class HomeViewController: UIViewController {
         button.setTitle("X", for: .normal)
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 1
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 20
         button.clipsToBounds = true
         button.titleLabel?.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
         button.addTarget(nil, action: #selector(cancelButtonAction), for: .touchUpInside)
@@ -104,27 +118,12 @@ class HomeViewController: UIViewController {
             self?.mainCarousel.reloadData()
         }
         setupViews()
-       
-        
-       // categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 32)
-        // Do any additional setup after loading the view.
     }
     
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if selectedCategory != nil {
-            
-            //self.category.items.removeAll()
-            self.category = selectedCategory
-            self.mainCarousel.scrollToItem(at: 2, animated: true)
-            //mainCarousel.dataSource = self
-           // print("Category \(selectedCategory)")
-            //self.mainCarousel.reloadItem(at: 1, animated: true)
-            self.mainCarousel.reloadData()
-        }
         
     }
     
@@ -146,15 +145,9 @@ class HomeViewController: UIViewController {
         do {
             let jsonData = try Data(contentsOf: url)
             let result = try JSONDecoder().decode(Result.self, from: jsonData)
-            
-            //if let result = result {
-                print("RESULT: \(result)")
-           // }
         } catch {
-            
             print("ERROR GETTING DATA \(error.localizedDescription)")
         }
-        
     }
 
     func setupViews(){
@@ -190,11 +183,16 @@ class HomeViewController: UIViewController {
             myCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             myCarousel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             myCarousel.heightAnchor.constraint(equalToConstant: 200),
-        
+
             fontCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             fontCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             fontCarousel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -170),
             fontCarousel.heightAnchor.constraint(equalToConstant: 100),
+            
+            cancelButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            cancelButton.widthAnchor.constraint(equalToConstant: 40),
+            cancelButton.heightAnchor.constraint(equalToConstant: 40),
+            cancelButton.bottomAnchor.constraint(equalTo: self.fontCarousel.topAnchor, constant: -25)
  
         ])
         
@@ -212,12 +210,30 @@ class HomeViewController: UIViewController {
     }
     
     func showViews() {
-        UIView.transition(with: fontCarousel, duration: 0.7, options: .transitionCrossDissolve,  animations: {[weak self] in
+        
+        let customizeVC = storyboard!.instantiateViewController(withIdentifier: "CustomizeViewController") as! CustomizeViewController
+        
+        guard let sheet = customizeVC.presentationController as? UISheetPresentationController else {return}
+        sheet.detents = [.medium(), .large()]
+        sheet.largestUndimmedDetentIdentifier = .medium
+        sheet.preferredCornerRadius = 20
+        sheet.prefersGrabberVisible = true
+        sheet.largestUndimmedDetentIdentifier = .none
+        present(customizeVC, animated: true)
+        
+        
+        
+        
+        /*UIView.transition(with: fontCarousel, duration: 0.7, options: .transitionCrossDissolve,  animations: {[weak self] in
             self?.fontCarousel.isHidden = false
             self?.myCarousel.isHidden = false
             self?.cancelButton.isHidden = false
             self?.stackView.isHidden = true
         })
+        */
+        
+        
+        
         
     }
     
@@ -256,8 +272,7 @@ class HomeViewController: UIViewController {
    
     @IBAction func showCategories()  {
         let vc = storyboard!.instantiateViewController(withIdentifier: "CategoriesCollectionView") as! CategoriesCollectionView
-       // let storyboard = UIStoryboard(name: "CategoriesCollectionView", bundle: nil)
-       // let categoryVC = storyboard.instantiateViewController(withIdentifier: "CategoriesCollectionView") as! CategoriesCollectionView
+        vc.delegate = self
         self.present(vc, animated: true)
         
         
@@ -308,6 +323,23 @@ class HomeViewController: UIViewController {
     
 }
 
+//MARK: Category View Controller Delegate
+extension HomeViewController: CategoriesVCDelegate {
+   
+    func onDismiss(category: Category) {
+        categoryTitleButton.setTitle(category.title, for: .normal)
+        //categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
+        self.category.items.removeAll()
+          self.category = category
+          self.mainCarousel.reloadData()
+    }
+}
+
+
+
+
+
+
 //MARK: MyCarousel Delegate
 
 extension HomeViewController: iCarouselDataSource {
@@ -320,6 +352,8 @@ extension HomeViewController: iCarouselDataSource {
            
             
             let imageView = UIImageView(image: UIImage(named: "merry-christmas"))
+            imageView.layer.cornerRadius = 20
+            imageView.clipsToBounds = true
             imageView.frame = mainCarousel.frame
             imageView.backgroundColor  = .systemRed
             
@@ -425,6 +459,11 @@ extension HomeViewController: iCarouselDelegate {
         default: return value
         }
         
+    }
+    
+    
+    func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
+       
     }
     
 }

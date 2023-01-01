@@ -9,12 +9,21 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+
+protocol CategoriesVCDelegate {
+    func onDismiss(category: Category)
+}
+
+
+
+
 class CategoriesCollectionView: UICollectionViewController {
 
     //MARK: Properties
     
     var categories = [Category]()
-    
+    var onCategoryVCDismissed: (() -> ())?
+    var delegate: CategoriesVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,11 +99,12 @@ class CategoriesCollectionView: UICollectionViewController {
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let item = categories[indexPath.row]
+        let category = categories[indexPath.row]
         let homeVC = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        homeVC.selectedCategory = item
+        //homeVC.selectedCategory = item
+        delegate?.onDismiss(category: category)
         //homeVC.categories.removeAll()
-        homeVC.viewWillAppear(true)
+       // homeVC.viewWillAppear(true)
        // homeVC.kView.reloadData()
         self.dismiss(animated: true)
     }
