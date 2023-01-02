@@ -8,8 +8,8 @@
 
 import UIKit
 
-@IBDesignable
-class UIButtonX: UIButton {
+
+@IBDesignable class UIButtonX: UIButton {
     
     enum FromDirection:Int {
         case Top = 0

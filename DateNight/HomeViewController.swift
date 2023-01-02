@@ -13,6 +13,10 @@ import AVFoundation
 
 struct ColorTheme {
     static let lightColor = UIColor.init("30314B", alpha: 1.0)
+    static let lightTeal = UIColor.init("089E97", alpha: 1.0)
+    static let mainColor = UIColor.init("e0aaff", alpha: 1.0)
+
+    
 }
 
 
@@ -46,9 +50,10 @@ class HomeViewController: UIViewController {
     let synthesizer = AVSpeechSynthesizer()
     var carouselCurrentIndex = 0
     var categories = [Category]()
-    var selectedCategory: Category!
     var category: Category!
-    
+    var framesNameString = "border"
+    var fontNameString = "Georgia-Bold"
+    var backgroundColor = ColorTheme.mainColor
     
     let mainCarousel: iCarousel = {
         let view = iCarousel()
@@ -106,7 +111,7 @@ class HomeViewController: UIViewController {
     let frames = ["birthday", "border", "christmas", "merry-christmas"]
     
     let fonts = ["AmericanTypewriter-CondensedLight","Avenir-HeavyOblique",
-                 "AvenirNext-Italic", "ChalkboardSE-Regular", "HelveticaNeue-CondensedBlack", "HelveticaNeue-Italic"]
+                 "AvenirNext-Italic", "ChalkboardSE-Regular", "HelveticaNeue-CondensedBlack", "HelveticaNeue-Italic", "AcademyEngravedLetPlain"]
     
     
     override func viewDidLoad() {
@@ -136,7 +141,7 @@ class HomeViewController: UIViewController {
     
     
     //MARK: Helper Functions
-    
+    /*
     func parseJSON() {
         guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {return}
         
@@ -149,6 +154,7 @@ class HomeViewController: UIViewController {
             print("ERROR GETTING DATA \(error.localizedDescription)")
         }
     }
+     */
 
     func setupViews(){
         view.addSubview(mainCarousel)
@@ -219,6 +225,7 @@ class HomeViewController: UIViewController {
         sheet.preferredCornerRadius = 20
         sheet.prefersGrabberVisible = true
         sheet.largestUndimmedDetentIdentifier = .none
+        customizeVC.delegate = self
         present(customizeVC, animated: true)
         
         
@@ -336,8 +343,26 @@ extension HomeViewController: CategoriesVCDelegate {
 }
 
 
-
-
+//MARK: Customs View Controller Delegate
+extension HomeViewController: CustomizeViewControllerDelegate {
+    
+    func selectedColor(color: UIColor) {
+        backgroundColor = color
+        mainCarousel.reloadData()
+    }
+    
+    func frameNameString(nameString: String) {
+        framesNameString = nameString
+        mainCarousel.reloadData()
+    }
+    
+    func fontNameString(nameString: String) {
+        fontNameString = nameString
+        mainCarousel.reloadData()
+    }
+    
+    
+}
 
 
 //MARK: MyCarousel Delegate
@@ -347,76 +372,37 @@ extension HomeViewController: iCarouselDataSource {
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         
-        if carousel == mainCarousel {
+       // if carousel == mainCarousel {
             currentIndex = carousel.currentItemIndex
-           
-            
-            let imageView = UIImageView(image: UIImage(named: "merry-christmas"))
+            let imageView = UIImageView(image: UIImage(named: framesNameString))
             imageView.layer.cornerRadius = 20
             imageView.clipsToBounds = true
             imageView.frame = mainCarousel.frame
-            imageView.backgroundColor  = .systemRed
-            
+            imageView.backgroundColor  = backgroundColor
             let label = UILabel()
             label.numberOfLines = 0
             label.textAlignment = .center
-            label.font = UIFont.boldSystemFont(ofSize: 40)
             label.clipsToBounds = true
             label.shadowColor = UIColor.darkGray
             label.layer.shadowOpacity = 0.5
             label.sizeToFit()
-            //label.wordWrap = .characterWrap
+            label.font = UIFont(name: fontNameString, size: 40)
             imageView.addSubview(label)
-            //label.adjustsFontSizeToFitWidth = true
             label.frame = CGRect(x: 15, y: 35, width: imageView.frame.width - 20, height: 200)
             if let category = category {
                 categoryTitleButton.setTitle(category.title, for: .normal)
                 label.text = category.items[index]
             }
             
-            
             return imageView
-        }
         
-        if carousel == myCarousel {
-            carouselCurrentIndex = carousel.currentItemIndex
-            let view = UIImageView(image: UIImage(named: frames[index]))
-            view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width/4, height: 150)
-            
-            view.backgroundColor = .purple
-            view.layer.cornerRadius = 10
-            view.layer.borderColor = UIColor.white.cgColor
-            view.layer.borderWidth = 1
-            view.clipsToBounds = true
-            return view
-        }
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width/4, height: 50))
-        let label = UILabel(frame: view.frame)
-        view.addSubview(label)
-        
-        label.text = "Aa"
-        label.textAlignment = .center
-        label.font = UIFont(name: fonts[index], size: 30)
-       // label.font = UIFont.systemFont(ofSize: 25, weight: .semibold)
-        view.backgroundColor = .brown
-        view.layer.cornerRadius = 10
-        view.layer.borderColor = UIColor.white.cgColor
-        view.layer.borderWidth = 1
-        view.clipsToBounds = true
-        return view
         
     }
     
     
     func numberOfItems(in carousel: iCarousel) -> Int {
-        if carousel == mainCarousel {
+       // if carousel == mainCarousel {
             return category.items.count
-        }
-        if carousel == myCarousel {
-            return frames.count
-        }
-        return fonts.count
     }
     
     
@@ -434,7 +420,7 @@ extension HomeViewController: iCarouselDataSource {
     }
     
     func carouselDidScroll(_ carousel: iCarousel) {
-        carouselCurrentIndex = carousel.currentItemIndex
+      //  carouselCurrentIndex = carousel.currentItemIndex
         currentIndex = carousel.currentItemIndex
     }
 
