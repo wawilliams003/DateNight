@@ -14,9 +14,7 @@ import AVFoundation
 struct ColorTheme {
     static let lightColor = UIColor.init("30314B", alpha: 1.0)
     static let lightTeal = UIColor.init("089E97", alpha: 1.0)
-    static let mainColor = UIColor.init("e0aaff", alpha: 1.0)
-
-    
+    static let mainColor = UIColor.init("4361ee", alpha: 1.0)
 }
 
 
@@ -221,7 +219,7 @@ class HomeViewController: UIViewController {
         
         guard let sheet = customizeVC.presentationController as? UISheetPresentationController else {return}
         sheet.detents = [.medium(), .large()]
-        sheet.largestUndimmedDetentIdentifier = .medium
+        //sheet.largestUndimmedDetentIdentifier = .medium
         sheet.preferredCornerRadius = 20
         sheet.prefersGrabberVisible = true
         sheet.largestUndimmedDetentIdentifier = .none
@@ -244,6 +242,27 @@ class HomeViewController: UIViewController {
         
     }
     
+    
+    func showBottomSheetVC(){
+        let bottomSheetVC = storyboard!.instantiateViewController(withIdentifier: "BottomSheetViewController") as! BottomSheetViewController
+        
+        guard let sheet = bottomSheetVC.presentationController as? UISheetPresentationController
+        else {return}
+        
+        if #available(iOS 16.0, *) {
+            sheet.detents = [.custom {_ in
+                300
+            }]
+        } else {
+            // Fallback on earlier versions
+        }
+        sheet.preferredCornerRadius = 24
+        sheet.prefersGrabberVisible = false
+        sheet.largestUndimmedDetentIdentifier = .none
+       // sheet.largestUndimmedDetentIdentifier = .medium
+        
+        present(bottomSheetVC, animated: true)
+    }
     
     func changeLikeBtnImage(state: Bool) {
         if state == true {
@@ -388,7 +407,7 @@ extension HomeViewController: iCarouselDataSource {
             label.sizeToFit()
             label.font = UIFont(name: fontNameString, size: 40)
             imageView.addSubview(label)
-            label.frame = CGRect(x: 15, y: 35, width: imageView.frame.width - 20, height: 200)
+            label.frame = CGRect(x: 15, y: 35, width: imageView.frame.width - 20, height: 250)
             if let category = category {
                 categoryTitleButton.setTitle(category.title, for: .normal)
                 label.text = category.items[index]
@@ -449,7 +468,7 @@ extension HomeViewController: iCarouselDelegate {
     
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-       
+        showBottomSheetVC()
     }
     
 }

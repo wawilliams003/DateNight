@@ -17,7 +17,7 @@ protocol CategoriesVCDelegate {
 
 
 
-class CategoriesCollectionView: UICollectionViewController {
+class CategoriesCollectionView: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     //MARK: Properties
     
@@ -48,10 +48,14 @@ class CategoriesCollectionView: UICollectionViewController {
             flowLayout.itemSize = CGSize(width: (view.frame.size.width/2)-30,
                                          height: 170)
             flowLayout.sectionInset = UIEdgeInsets(top: 15, left: 20, bottom: 5, right: 20)
+            //flowLayout.headerReferenceSize =  CGSize(width: view.frame.size.width, height: 100)
         }
         
         let nib = UINib(nibName: "HeaderCollectionReusableView", bundle: nil)
         collectionView.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
+        
+        let favsNib = UINib(nibName: "FavoritesCollectionReusableView", bundle: nil)
+        collectionView.register(favsNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesCollectionReusableView.identifier)
     }
 
 
@@ -59,22 +63,29 @@ class CategoriesCollectionView: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return categories.count
+        return (section == 0) ? categories.count : 6
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
-    
-        cell.categories = categories[indexPath.row]
-        // Configure the cell
-    
-        return cell
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
+            
+            cell.categories = categories[indexPath.row]
+            // Configure the cell
+            
+            return cell
+        } else {
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
+            
+            return cell
+        }
     }
     
     
@@ -86,21 +97,31 @@ class CategoriesCollectionView: UICollectionViewController {
         guard kind == UICollectionView.elementKindSectionHeader else {
         return UICollectionReusableView()
         }
+        
+        if indexPath.section == 0 {
             let header =  collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath)
+            return header
+            
+        }
+        
+        let header =  collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: FavoritesCollectionReusableView.identifier, for: indexPath)
         return header
+        
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-        return CGSize(width: view.frame.size.width, height: 100)
+        return CGSize(width: view.frame.size.width, height: 80)
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = categories[indexPath.row]
-        let homeVC = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        //let homeVC = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         //homeVC.selectedCategory = item
         delegate?.onDismiss(category: category)
         //homeVC.categories.removeAll()
@@ -108,6 +129,8 @@ class CategoriesCollectionView: UICollectionViewController {
        // homeVC.kView.reloadData()
         self.dismiss(animated: true)
     }
+    
+    
     
     /*
     func collectionView(_ collectionView: UICollectionView,

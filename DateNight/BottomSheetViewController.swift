@@ -2,12 +2,12 @@
 //  BottomSheetViewController.swift
 //  DateNight
 //
-//  Created by Wayne Williams on 12/28/22.
+//  Created by Wayne Williams on 1/3/23.
 //
 
 import UIKit
 
-class BottomSheetViewController: UITableViewController {
+class BottomSheetViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
