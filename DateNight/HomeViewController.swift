@@ -35,10 +35,10 @@ struct ColorTheme {
 
 
 class HomeViewController: UIViewController {
-
+    
     
     @IBOutlet weak var myView: UIView!
-   // @IBOutlet weak var mainCarousel: iCarousel!
+    // @IBOutlet weak var mainCarousel: iCarousel!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var categoryTitleButton: UIButton!
@@ -70,7 +70,7 @@ class HomeViewController: UIViewController {
         view.type = .rotary
         view.scrollSpeed = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
-       // view.contentOffset = CGSize(width: 50, height: 50)
+        // view.contentOffset = CGSize(width: 50, height: 50)
         //view.numberOfVisibleItems = 5
         return view
     }()
@@ -116,11 +116,13 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         FetchData.parseJSON { [weak self] categories in
-           // self?.categories = categories.shuffled()
+            // self?.categories = categories.shuffled()
             self?.category = categories.randomElement()
             self?.mainCarousel.reloadData()
         }
         setupViews()
+        
+        print("FETCHED CAT\(DataManager().fetchSavedCategories())")
     }
     
     
@@ -140,20 +142,20 @@ class HomeViewController: UIViewController {
     
     //MARK: Helper Functions
     /*
-    func parseJSON() {
-        guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {return}
-        
-        let url = URL(fileURLWithPath: path)
-        
-        do {
-            let jsonData = try Data(contentsOf: url)
-            let result = try JSONDecoder().decode(Result.self, from: jsonData)
-        } catch {
-            print("ERROR GETTING DATA \(error.localizedDescription)")
-        }
-    }
+     func parseJSON() {
+     guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {return}
+     
+     let url = URL(fileURLWithPath: path)
+     
+     do {
+     let jsonData = try Data(contentsOf: url)
+     let result = try JSONDecoder().decode(Result.self, from: jsonData)
+     } catch {
+     print("ERROR GETTING DATA \(error.localizedDescription)")
+     }
+     }
      */
-
+    
     func setupViews(){
         view.addSubview(mainCarousel)
         view.addSubview(myCarousel)
@@ -164,7 +166,7 @@ class HomeViewController: UIViewController {
         cancelButton.isHidden = true
         activateConstraint()
         //cancelButton.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200)
-       // fontCarousel.frame = CGRect(x: 0, y: 380, width: view.frame.size.width, height: 100)
+        // fontCarousel.frame = CGRect(x: 0, y: 380, width: view.frame.size.width, height: 100)
         myCarousel.dataSource = self
         myCarousel.delegate = self
         fontCarousel.dataSource = self
@@ -182,12 +184,12 @@ class HomeViewController: UIViewController {
             mainCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainCarousel.topAnchor.constraint(equalTo: self.categoryTitleButton.bottomAnchor, constant: 50),
             mainCarousel.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -50),
-
+            
             myCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             myCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             myCarousel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             myCarousel.heightAnchor.constraint(equalToConstant: 200),
-
+            
             fontCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             fontCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             fontCarousel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -170),
@@ -197,7 +199,7 @@ class HomeViewController: UIViewController {
             cancelButton.widthAnchor.constraint(equalToConstant: 40),
             cancelButton.heightAnchor.constraint(equalToConstant: 40),
             cancelButton.bottomAnchor.constraint(equalTo: self.fontCarousel.topAnchor, constant: -25)
- 
+            
         ])
         
         
@@ -210,7 +212,7 @@ class HomeViewController: UIViewController {
             self?.cancelButton.isHidden = true
             self?.stackView.isHidden = false
         })
-       
+        
     }
     
     func showViews() {
@@ -230,12 +232,12 @@ class HomeViewController: UIViewController {
         
         
         /*UIView.transition(with: fontCarousel, duration: 0.7, options: .transitionCrossDissolve,  animations: {[weak self] in
-            self?.fontCarousel.isHidden = false
-            self?.myCarousel.isHidden = false
-            self?.cancelButton.isHidden = false
-            self?.stackView.isHidden = true
-        })
-        */
+         self?.fontCarousel.isHidden = false
+         self?.myCarousel.isHidden = false
+         self?.cancelButton.isHidden = false
+         self?.stackView.isHidden = true
+         })
+         */
         
         
         
@@ -259,7 +261,7 @@ class HomeViewController: UIViewController {
         sheet.preferredCornerRadius = 24
         sheet.prefersGrabberVisible = false
         sheet.largestUndimmedDetentIdentifier = .none
-       // sheet.largestUndimmedDetentIdentifier = .medium
+        // sheet.largestUndimmedDetentIdentifier = .medium
         
         present(bottomSheetVC, animated: true)
     }
@@ -271,6 +273,34 @@ class HomeViewController: UIViewController {
             likeButton.setImage(UIImage(systemName: "heart"), for: [])
         }
         
+    }
+    
+    
+    private func showHeart(){
+        let imageView = UIImageView(image: UIImage(systemName: "heart.fill"))
+        
+        let size = mainCarousel.frame.width/4
+        imageView.tintColor = .systemRed
+        mainCarousel.addSubview(imageView)
+        imageView.center = mainCarousel.center
+        imageView.frame = CGRect(x: (mainCarousel.frame.width-size)/2,
+                                 y: (mainCarousel.frame.height-size)/2, width: size, height: size )
+        
+        //DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+        UIView.animate(withDuration: 0.5, animations: {
+                imageView.alpha = 1
+            }) { done in
+                if done {
+                    UIView.animate(withDuration: 1.5, animations: {
+                        imageView.alpha = 0
+                    }) { done in
+                        if done {
+                            imageView.removeFromSuperview()
+                        }
+                    }
+                }
+            }
+        //})
     }
     
     /*
@@ -305,7 +335,8 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func reloadCards()  {
-        
+        let back = currentIndex-1
+        mainCarousel.scrollToItem(at: back, animated: true)
         
     }
     
@@ -318,9 +349,6 @@ class HomeViewController: UIViewController {
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
             utterance.rate = 0.4
             synthesizer.speak(utterance)
-       // }
-        
-        
     }
     
     var isSaved = false
@@ -328,15 +356,17 @@ class HomeViewController: UIViewController {
     @IBAction func likeCard()  {
         let items = self.category.items
         let text = items[currentIndex]
-        let card = Card(text: text, category: category.title)
-        if DataManager().chekIfSaved(card: card) {
-            changeLikeBtnImage(state: false)
-            DataManager().removeCard(card: card)
-        } else {
-            changeLikeBtnImage(state: true)
-            DataManager().saveCard(card: card)
-        }
         
+        let category = Category(title: category.title, image: category.image,
+                                color: category.color, items: [text])
+        if DataManager().chekIfSaved(category: category) {
+            changeLikeBtnImage(state: false)
+            DataManager().removeCategory(category: category)
+        } else {
+            showHeart()
+            changeLikeBtnImage(state: true)
+            DataManager().saveCard(category: category)
+        }
     }
     
     @IBAction func optionButton()  {
@@ -429,8 +459,9 @@ extension HomeViewController: iCarouselDataSource {
         
         let items = self.category.items
         let text = items[carousel.currentItemIndex]
-        let card = Card(text: text, category: category.title)
-        if DataManager().chekIfSaved(card: card) {
+        let category = Category(title: category.title, image: category.image,
+                                color: category.color, items: [text])
+        if DataManager().chekIfSaved(category: category) {
             changeLikeBtnImage(state: true)
         } else {
             changeLikeBtnImage(state: false)

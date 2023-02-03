@@ -15,7 +15,7 @@ struct Result: Decodable {
 }
 
 
-struct Category: Decodable {
+struct Category: Codable {
     let title: String
     let image: String
     let color: String

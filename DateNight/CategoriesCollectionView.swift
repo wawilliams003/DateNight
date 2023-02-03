@@ -24,15 +24,17 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
     var categories = [Category]()
     var onCategoryVCDismissed: (() -> ())?
     var delegate: CategoriesVCDelegate?
+    var favorites = [Category]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         FetchData.parseJSON { [weak self] categories in
             self?.categories = categories
+            self?.favorites = DataManager().fetchFavorites()
             self?.collectionView.reloadData()
         }
-
+        
         setupCollectiobView()
 
     }
@@ -69,7 +71,7 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return (section == 0) ? categories.count : 6
+        return (section == 0) ? categories.count : favorites.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -83,6 +85,9 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
         } else {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
+            
+            //let categories =
+            cell.categories = favorites[indexPath.row]
             
             return cell
         }
@@ -120,15 +125,19 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
     
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let category = categories[indexPath.row]
-        //let homeVC = storyboard!.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        //homeVC.selectedCategory = item
-        delegate?.onDismiss(category: category)
-        //homeVC.categories.removeAll()
-       // homeVC.viewWillAppear(true)
-       // homeVC.kView.reloadData()
-        self.dismiss(animated: true)
-    }
+        if indexPath.section == 0 {
+            let category = categories[indexPath.row]
+            delegate?.onDismiss(category: category)
+            self.dismiss(animated: true)
+        } else {
+                let category = favorites[indexPath.row]
+                delegate?.onDismiss(category: category)
+                self.dismiss(animated: true)
+            
+        }
+        }
+        
+        
     
     
     
