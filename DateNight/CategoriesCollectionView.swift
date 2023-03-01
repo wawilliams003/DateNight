@@ -36,6 +36,8 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
         }
         
         setupCollectiobView()
+        
+        closeBtn()
 
     }
     
@@ -58,6 +60,15 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
         
         let favsNib = UINib(nibName: "FavoritesCollectionReusableView", bundle: nil)
         collectionView.register(favsNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: FavoritesCollectionReusableView.identifier)
+    }
+    
+    func closeBtn() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeBtnAction))
+    }
+    
+    
+   @objc func closeBtnAction () {
+       dismiss(animated: true)
     }
 
 

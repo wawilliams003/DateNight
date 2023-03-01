@@ -25,6 +25,7 @@
 		B0C6FA772958290500C5B3EB /* Disk in Frameworks */ = {isa = PBXBuildFile; productRef = B0C6FA762958290500C5B3EB /* Disk */; };
 		B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6FA7A2958295800C5B3EB /* DataManager.swift */; };
 		B0C6FA7D29582BAB00C5B3EB /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */; };
+		B0E3C2A329ABE70A00BBFE91 /* CreateCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3C2A229ABE70A00BBFE91 /* CreateCardViewController.swift */; };
 		B0F8D8AC2964C0D10069B057 /* BottomSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F8D8AB2964C0D10069B057 /* BottomSheetViewController.swift */; };
 		B0F8D8AF29655A230069B057 /* FavoritesCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F8D8AD29655A230069B057 /* FavoritesCollectionReusableView.swift */; };
 		B0F8D8B029655A230069B057 /* FavoritesCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F8D8AE29655A230069B057 /* FavoritesCollectionReusableView.xib */; };
@@ -54,6 +55,7 @@
 		B0C6FA71294EE23500C5B3EB /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		B0C6FA7A2958295800C5B3EB /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B0E3C2A229ABE70A00BBFE91 /* CreateCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardViewController.swift; sourceTree = "<group>"; };
 		B0F8D8AB2964C0D10069B057 /* BottomSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetViewController.swift; sourceTree = "<group>"; };
 		B0F8D8AD29655A230069B057 /* FavoritesCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCollectionReusableView.swift; sourceTree = "<group>"; };
 		B0F8D8AE29655A230069B057 /* FavoritesCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				B0BF9558294950210099C33F /* Info.plist */,
 				B0C4D28B296201A800E3AB50 /* CustomizeViewController.swift */,
 				B0F8D8AB2964C0D10069B057 /* BottomSheetViewController.swift */,
+				B0E3C2A229ABE70A00BBFE91 /* CreateCardViewController.swift */,
 			);
 			path = DateNight;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				B0C6FA7D29582BAB00C5B3EB /* Extensions.swift in Sources */,
 				B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */,
 				B0C4D28C296201A800E3AB50 /* CustomizeViewController.swift in Sources */,
+				B0E3C2A329ABE70A00BBFE91 /* CreateCardViewController.swift in Sources */,
 				B0BF954F294950200099C33F /* HomeViewController.swift in Sources */,
 				B0BF956329498AE40099C33F /* CategoryCollectionViewCell.swift in Sources */,
 				B0BF954B294950200099C33F /* AppDelegate.swift in Sources */,

@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
     var carouselCurrentIndex = 0
     var categories = [Category]()
     var category: Category!
-    var framesNameString = "border"
+    var framesNameString = "frame3"
     var fontNameString = "Georgia-Bold"
     var backgroundColor = ColorTheme.mainColor
     
@@ -329,14 +329,20 @@ class HomeViewController: UIViewController {
     @IBAction func showCategories()  {
         let vc = storyboard!.instantiateViewController(withIdentifier: "CategoriesCollectionView") as! CategoriesCollectionView
         vc.delegate = self
-        self.present(vc, animated: true)
+        let navVC = UINavigationController(rootViewController: vc)
+        self.present(navVC, animated: true)
         
         
     }
     
     @IBAction func reloadCards()  {
-        let back = currentIndex-1
-        mainCarousel.scrollToItem(at: back, animated: true)
+        //let back = currentIndex-1
+        //mainCarousel.scrollToItem(at: back, animated: true)
+       
+        let vc = storyboard!.instantiateViewController(withIdentifier: "CreateCardViewController") as!
+        CreateCardViewController
+        let navVC = UINavigationController(rootViewController: vc)
+        self.present(navVC, animated: true)
         
     }
     
@@ -427,8 +433,9 @@ extension HomeViewController: iCarouselDataSource {
             imageView.layer.cornerRadius = 20
             imageView.clipsToBounds = true
             imageView.frame = mainCarousel.frame
-            imageView.backgroundColor  = backgroundColor
+        imageView.backgroundColor  = UIColor.white//systemBlue.withAlphaComponent(1.0)//backgroundColor
             let label = UILabel()
+            //label.tintColor = UIColor.red
             label.numberOfLines = 0
             label.textAlignment = .center
             label.clipsToBounds = true
