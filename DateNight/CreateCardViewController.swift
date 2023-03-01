@@ -7,27 +7,59 @@
 
 import UIKit
 
-class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLayout {
+class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
     
     @IBOutlet var categoryCollectionView: UICollectionView!
     //@IBOutlet weak var fontsView: UIView!
     @IBOutlet weak var PhotoFrameView: UIView!
     @IBOutlet weak var colorView: UIView!
+    @IBOutlet weak var wordCountLbl: UILabel!
     @IBOutlet weak var textView: UITextView!
-    
+    @IBOutlet weak var previewTextLbl: UILabel!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textView.delegate = self
+        textView.tintColor = UIColor.white
         self.title = "Create Card"
         closeBtn()
         setupCollectionView()
         miscViews()
+       // previewTextLbl.text = "currentText"
         // Do any additional setup after loading the view.
     }
     
     //MARK: - Helper Functions
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else {return false}
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        wordCountLbl.text = "\(80 - updatedText.count)"
+        previewTextLbl.text = updatedText
+        
+        return updatedText.count < 80
+    }
+    
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+         if textView.textColor == UIColor.white {
+             textView.text = nil
+             textView.textColor = UIColor.white
+        }
+     }
+     func textViewDidEndEditing(_ textView: UITextView) {
+         if textView.text.isEmpty {
+             textView.text = "enter text..."
+             textView.textColor = UIColor.white
+         }
+     }
+ //}
+    
     
     func miscViews(){
         colorView.layer.cornerRadius = 10
@@ -36,7 +68,9 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         PhotoFrameView.layer.cornerRadius = 10
         PhotoFrameView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
         PhotoFrameView.layer.borderWidth = 1
-        
+        textView.layer.cornerRadius = 10
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
     }
 
     func closeBtn() {
@@ -59,6 +93,9 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         }
         
     }
+    
+    
+    
     
     @IBAction func colorPickerBtn(_ sender: Any) {
         
