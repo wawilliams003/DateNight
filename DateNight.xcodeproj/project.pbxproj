@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0AFEA6829B2C4A3007A29B9 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFEA6729B2C4A3007A29B9 /* CustomCollectionViewCell.swift */; };
 		B0BF954B294950200099C33F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954A294950200099C33F /* AppDelegate.swift */; };
 		B0BF954D294950200099C33F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954C294950200099C33F /* SceneDelegate.swift */; };
 		B0BF954F294950200099C33F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954E294950200099C33F /* HomeViewController.swift */; };
@@ -36,6 +37,7 @@
 		009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DateNight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEE1F98F8142C5A3EB66C91 /* Pods-DateNight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.debug.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.debug.xcconfig"; sourceTree = "<group>"; };
 		9FAC6A53F2581DFB8D1699A6 /* Pods-DateNight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.release.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.release.xcconfig"; sourceTree = "<group>"; };
+		B0AFEA6729B2C4A3007A29B9 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		B0BF9547294950200099C33F /* DateNight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DateNight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0BF954A294950200099C33F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0BF954C294950200099C33F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				B0C4D28B296201A800E3AB50 /* CustomizeViewController.swift */,
 				B0F8D8AB2964C0D10069B057 /* BottomSheetViewController.swift */,
 				B0E3C2A229ABE70A00BBFE91 /* CreateCardViewController.swift */,
+				B0AFEA6729B2C4A3007A29B9 /* CustomCollectionViewCell.swift */,
 			);
 			path = DateNight;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0C6FA72294EE23500C5B3EB /* Model.swift in Sources */,
+				B0AFEA6829B2C4A3007A29B9 /* CustomCollectionViewCell.swift in Sources */,
 				B0F8D8AC2964C0D10069B057 /* BottomSheetViewController.swift in Sources */,
 				B0C6FA7D29582BAB00C5B3EB /* Extensions.swift in Sources */,
 				B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */,

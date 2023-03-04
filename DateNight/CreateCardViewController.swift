@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import iCarousel
 
 class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
@@ -17,21 +18,51 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     @IBOutlet weak var wordCountLbl: UILabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var previewTextLbl: UILabel!
+    @IBOutlet weak var previewContentView: UIView!
+    @IBOutlet weak var previewImage: UIImageView!
     
+    let categories = ["Love", "Health", "Life", "Goals"]
+    let frames = ["frame1", "frame2", "frame3", "frame4"]
+    var framesNameString: String?
+    var selectedColor: UIColor?
+    
+    let framesCarousel: iCarousel = {
+        let view = iCarousel()
+        view.type = .rotary
+        view.scrollSpeed = 0.5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCollectionView()
         textView.delegate = self
         textView.tintColor = UIColor.white
-        self.title = "Create Card"
+        self.title = "CREATE CARD"
+        view.addSubview(framesCarousel)
+        framesCarousel.delegate = self
+        framesCarousel.dataSource = self
+        previewContentView.clipsToBounds = true
+        previewContentView.layer.cornerRadius = 10
+        activateConstraints()
         closeBtn()
-        setupCollectionView()
+        
         miscViews()
        // previewTextLbl.text = "currentText"
         // Do any additional setup after loading the view.
     }
     
     //MARK: - Helper Functions
+    
+    func activateConstraints() {
+        NSLayoutConstraint.activate([
+            framesCarousel.leadingAnchor.constraint(equalTo: PhotoFrameView.leadingAnchor, constant: 10),
+            framesCarousel.trailingAnchor.constraint(equalTo: PhotoFrameView.trailingAnchor, constant: -10),
+            framesCarousel.topAnchor.constraint(equalTo: PhotoFrameView.topAnchor, constant: 10),
+            framesCarousel.bottomAnchor.constraint(equalTo: PhotoFrameView.bottomAnchor, constant: -10),
+        ])
+    }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
@@ -98,7 +129,9 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     
     
     @IBAction func colorPickerBtn(_ sender: Any) {
-        
+        let colorPickerVC = UIColorPickerViewController()
+        colorPickerVC.delegate = self
+        present(colorPickerVC, animated: true)
         
         
     }
@@ -118,18 +151,17 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
 
 extension CreateCardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 7
+        return categories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
-        cell.layer.cornerRadius = 20
-        
-        
+       //cell.categoryLbl.text = "LOVE"
+        //cell.backgroundColor = .red
+        cell.topicLbl.text = categories[indexPath.row]
         return cell
     }
-    
     
     
     
@@ -140,7 +172,96 @@ extension CreateCardViewController: UICollectionViewDataSource {
 
 extension CreateCardViewController: UICollectionViewDelegate {
     
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
 
+        
+    }
+
+}
+
+//MARK: Carousel Delegates
+
+extension CreateCardViewController: iCarouselDataSource {
+    func numberOfItems(in carousel: iCarousel) -> Int {
+       
+        //if carousel == framesCarousel {
+            return frames.count
+        
+    }
+    
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
+        
+       // if carousel == framesCarousel {
+           // carouselCurrentIndex = carousel.currentItemIndex
+            let view = UIImageView(image: UIImage(named: frames[index]))
+        view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width/3.5, height: 150)
+            view.backgroundColor = .white
+            view.layer.cornerRadius = 10
+            view.layer.borderColor = UIColor.white.cgColor
+            view.layer.borderWidth = 1
+            view.clipsToBounds = true
+            return view
+       // }
+        
+    }
+    
+    func carouselDidEndScrollingAnimation(_ carousel: iCarousel) {
+        
+    }
+    
+    
+    func carouselDidScroll(_ carousel: iCarousel) {
+       // if carousel == framesCarousel {
+            let name = frames[carousel.currentItemIndex]
+           // framesNameString = name
+        previewImage.image = UIImage(named: name)
+       
+    }
+}
+
+
+
+extension CreateCardViewController: iCarouselDelegate {
+    
+    func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
+        
+        switch option {
+            
+        case .spacing:
+           // if carousel == framesCarousel {
+                return value * 2.9
+            //}
+           // return value * 1.8
+        case .visibleItems: return 3
+            
+        //case .offsetMultiplier: return 2
+        default: return value
+        }
+        
+    }
+    
+    
+    func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
+       
+    }
+    
+}
+
+
+extension CreateCardViewController: UIColorPickerViewControllerDelegate {
+    func colorPickerViewController(_ viewController: UIColorPickerViewController, didSelect color: UIColor, continuously: Bool) {
+        let color = viewController.selectedColor
+        colorView.backgroundColor = color
+        selectedColor = color
+        previewContentView.backgroundColor = color
+    }
+    
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        let color = viewController.selectedColor
+        colorView.backgroundColor = color
+        selectedColor = color
+        previewContentView.backgroundColor = color
+    }
 }
 
