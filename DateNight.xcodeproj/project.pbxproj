@@ -7,7 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45B29F6295E0075E816 /* CircleButtonView.swift */; };
+		B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */; };
+		B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A46129F634760075E816 /* ShowCreatedCatCell.swift */; };
+		B038A4662A04ADFA0075E816 /* CustomToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A4652A04ADFA0075E816 /* CustomToastView.swift */; };
+		B038A4682A04AE050075E816 /* CustomToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B038A4672A04AE050075E816 /* CustomToastView.xib */; };
+		B03FE0992A86F14600944998 /* HistoryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B03FE0972A86F14600944998 /* HistoryModel.xcdatamodeld */; };
+		B03FE09C2A86F2ED00944998 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = B03FE09B2A86F2ED00944998 /* OpenAISwift */; };
+		B03FE09E2A86F3B100944998 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE09D2A86F3B100944998 /* MainView.swift */; };
+		B03FE0A02A86F41700944998 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE09F2A86F41700944998 /* HistoryView.swift */; };
+		B03FE0A22A86F44000944998 /* SwiftUIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE0A12A86F44000944998 /* SwiftUIModel.swift */; };
+		B03FE0A42A86F46700944998 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE0A32A86F46700944998 /* CoreDataManager.swift */; };
+		B03FE0A62A86F4A400944998 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE0A52A86F4A400944998 /* String+Extension.swift */; };
+		B03FE0A92A8B04F600944998 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE0A82A8B04F600944998 /* ContentView.swift */; };
+		B03FE0AB2A92ED3200944998 /* ShowPaymentOptionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B03FE0AA2A92ED3200944998 /* ShowPaymentOptionsView.xib */; };
+		B03FE0AD2A92EE3700944998 /* ShowPaymentOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03FE0AC2A92EE3700944998 /* ShowPaymentOptionsView.swift */; };
 		B0AFEA6829B2C4A3007A29B9 /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFEA6729B2C4A3007A29B9 /* CustomCollectionViewCell.swift */; };
+		B0AFEA6B29B92D04007A29B9 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = B0AFEA6A29B92D04007A29B9 /* Toast */; };
 		B0BF954B294950200099C33F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954A294950200099C33F /* AppDelegate.swift */; };
 		B0BF954D294950200099C33F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954C294950200099C33F /* SceneDelegate.swift */; };
 		B0BF954F294950200099C33F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF954E294950200099C33F /* HomeViewController.swift */; };
@@ -37,6 +53,20 @@
 		009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DateNight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEE1F98F8142C5A3EB66C91 /* Pods-DateNight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.debug.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.debug.xcconfig"; sourceTree = "<group>"; };
 		9FAC6A53F2581DFB8D1699A6 /* Pods-DateNight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.release.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.release.xcconfig"; sourceTree = "<group>"; };
+		B038A45B29F6295E0075E816 /* CircleButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
+		B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatViewController.swift; sourceTree = "<group>"; };
+		B038A46129F634760075E816 /* ShowCreatedCatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatCell.swift; sourceTree = "<group>"; };
+		B038A4652A04ADFA0075E816 /* CustomToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomToastView.swift; sourceTree = "<group>"; };
+		B038A4672A04AE050075E816 /* CustomToastView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomToastView.xib; sourceTree = "<group>"; };
+		B03FE0982A86F14600944998 /* HistoryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HistoryModel.xcdatamodel; sourceTree = "<group>"; };
+		B03FE09D2A86F3B100944998 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		B03FE09F2A86F41700944998 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B03FE0A12A86F44000944998 /* SwiftUIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIModel.swift; sourceTree = "<group>"; };
+		B03FE0A32A86F46700944998 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B03FE0A52A86F4A400944998 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		B03FE0A82A8B04F600944998 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B03FE0AA2A92ED3200944998 /* ShowPaymentOptionsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowPaymentOptionsView.xib; sourceTree = "<group>"; };
+		B03FE0AC2A92EE3700944998 /* ShowPaymentOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPaymentOptionsView.swift; sourceTree = "<group>"; };
 		B0AFEA6729B2C4A3007A29B9 /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		B0BF9547294950200099C33F /* DateNight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DateNight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0BF954A294950200099C33F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +98,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0AFEA6B29B92D04007A29B9 /* Toast in Frameworks */,
+				B03FE09C2A86F2ED00944998 /* OpenAISwift in Frameworks */,
 				B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */,
 				B0C6FA772958290500C5B3EB /* Disk in Frameworks */,
 				BE20F9012548500A175D3ED4 /* Pods_DateNight.framework in Frameworks */,
@@ -95,9 +127,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B03FE0A72A86FEE500944998 /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				B03FE09D2A86F3B100944998 /* MainView.swift */,
+				B03FE09F2A86F41700944998 /* HistoryView.swift */,
+				B03FE0A12A86F44000944998 /* SwiftUIModel.swift */,
+				B03FE0A32A86F46700944998 /* CoreDataManager.swift */,
+				B03FE0A52A86F4A400944998 /* String+Extension.swift */,
+				B03FE0A82A8B04F600944998 /* ContentView.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		B0BF953E294950200099C33F = {
 			isa = PBXGroup;
 			children = (
+				B03FE0972A86F14600944998 /* HistoryModel.xcdatamodeld */,
 				B0C6FA792958294900C5B3EB /* Helpers */,
 				B0C6FA782958293200C5B3EB /* Views */,
 				B0C6FA70294EE21F00C5B3EB /* Model */,
@@ -120,11 +166,14 @@
 		B0BF9549294950200099C33F /* DateNight */ = {
 			isa = PBXGroup;
 			children = (
+				B038A46129F634760075E816 /* ShowCreatedCatCell.swift */,
 				B0C6FA6E294EDF8B00C5B3EB /* data.json */,
 				B0BF954A294950200099C33F /* AppDelegate.swift */,
 				B0BF954C294950200099C33F /* SceneDelegate.swift */,
 				B0BF954E294950200099C33F /* HomeViewController.swift */,
 				B0BF9550294950200099C33F /* Main.storyboard */,
+				B038A4652A04ADFA0075E816 /* CustomToastView.swift */,
+				B038A4672A04AE050075E816 /* CustomToastView.xib */,
 				B0BF956229498AE40099C33F /* CategoryCollectionViewCell.swift */,
 				B0BF9560294986930099C33F /* CategoriesCollectionView.swift */,
 				B0BF9553294950210099C33F /* Assets.xcassets */,
@@ -134,6 +183,7 @@
 				B0F8D8AB2964C0D10069B057 /* BottomSheetViewController.swift */,
 				B0E3C2A229ABE70A00BBFE91 /* CreateCardViewController.swift */,
 				B0AFEA6729B2C4A3007A29B9 /* CustomCollectionViewCell.swift */,
+				B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */,
 			);
 			path = DateNight;
 			sourceTree = "<group>";
@@ -153,6 +203,9 @@
 				B0BF9565294999DF0099C33F /* HeaderCollectionReusableView.xib */,
 				B0F8D8AD29655A230069B057 /* FavoritesCollectionReusableView.swift */,
 				B0F8D8AE29655A230069B057 /* FavoritesCollectionReusableView.xib */,
+				B03FE0AA2A92ED3200944998 /* ShowPaymentOptionsView.xib */,
+				B03FE0AC2A92EE3700944998 /* ShowPaymentOptionsView.swift */,
+				B03FE0A72A86FEE500944998 /* SwiftUI */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -160,6 +213,7 @@
 		B0C6FA792958294900C5B3EB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B038A45B29F6295E0075E816 /* CircleButtonView.swift */,
 				B0C6FA7A2958295800C5B3EB /* DataManager.swift */,
 				B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */,
 			);
@@ -186,6 +240,8 @@
 			name = DateNight;
 			packageProductDependencies = (
 				B0C6FA762958290500C5B3EB /* Disk */,
+				B0AFEA6A29B92D04007A29B9 /* Toast */,
+				B03FE09B2A86F2ED00944998 /* OpenAISwift */,
 			);
 			productName = DateNight;
 			productReference = B0BF9547294950200099C33F /* DateNight.app */;
@@ -217,6 +273,8 @@
 			mainGroup = B0BF953E294950200099C33F;
 			packageReferences = (
 				B0C6FA752958290500C5B3EB /* XCRemoteSwiftPackageReference "Disk" */,
+				B0AFEA6929B92D04007A29B9 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 			);
 			productRefGroup = B0BF9548294950200099C33F /* Products */;
 			projectDirPath = "";
@@ -236,7 +294,9 @@
 				B0C4D29029622C7500E3AB50 /* DesignableX in Resources */,
 				B0F8D8B029655A230069B057 /* FavoritesCollectionReusableView.xib in Resources */,
 				B0BF9557294950210099C33F /* LaunchScreen.storyboard in Resources */,
+				B03FE0AB2A92ED3200944998 /* ShowPaymentOptionsView.xib in Resources */,
 				B0BF9554294950210099C33F /* Assets.xcassets in Resources */,
+				B038A4682A04AE050075E816 /* CustomToastView.xib in Resources */,
 				B0C6FA6F294EDF8B00C5B3EB /* data.json in Resources */,
 				B0BF9552294950200099C33F /* Main.storyboard in Resources */,
 			);
@@ -292,17 +352,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0C6FA72294EE23500C5B3EB /* Model.swift in Sources */,
+				B03FE0A92A8B04F600944998 /* ContentView.swift in Sources */,
+				B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */,
 				B0AFEA6829B2C4A3007A29B9 /* CustomCollectionViewCell.swift in Sources */,
 				B0F8D8AC2964C0D10069B057 /* BottomSheetViewController.swift in Sources */,
+				B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */,
+				B038A4662A04ADFA0075E816 /* CustomToastView.swift in Sources */,
 				B0C6FA7D29582BAB00C5B3EB /* Extensions.swift in Sources */,
+				B03FE0A02A86F41700944998 /* HistoryView.swift in Sources */,
+				B03FE0A42A86F46700944998 /* CoreDataManager.swift in Sources */,
 				B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */,
 				B0C4D28C296201A800E3AB50 /* CustomizeViewController.swift in Sources */,
 				B0E3C2A329ABE70A00BBFE91 /* CreateCardViewController.swift in Sources */,
+				B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */,
 				B0BF954F294950200099C33F /* HomeViewController.swift in Sources */,
+				B03FE0992A86F14600944998 /* HistoryModel.xcdatamodeld in Sources */,
+				B03FE09E2A86F3B100944998 /* MainView.swift in Sources */,
+				B03FE0A62A86F4A400944998 /* String+Extension.swift in Sources */,
 				B0BF956329498AE40099C33F /* CategoryCollectionViewCell.swift in Sources */,
+				B03FE0AD2A92EE3700944998 /* ShowPaymentOptionsView.swift in Sources */,
 				B0BF954B294950200099C33F /* AppDelegate.swift in Sources */,
 				B0BF9561294986930099C33F /* CategoriesCollectionView.swift in Sources */,
 				B0F8D8AF29655A230069B057 /* FavoritesCollectionReusableView.swift in Sources */,
+				B03FE0A22A86F44000944998 /* SwiftUIModel.swift in Sources */,
 				B0BF9566294999DF0099C33F /* HeaderCollectionReusableView.swift in Sources */,
 				B0BF954D294950200099C33F /* SceneDelegate.swift in Sources */,
 			);
@@ -459,7 +531,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -488,7 +560,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -526,6 +598,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		B0AFEA6929B92D04007A29B9 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		B0C6FA752958290500C5B3EB /* XCRemoteSwiftPackageReference "Disk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/saoudrizwan/Disk";
@@ -537,12 +625,35 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B03FE09B2A86F2ED00944998 /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
+		B0AFEA6A29B92D04007A29B9 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B0AFEA6929B92D04007A29B9 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
 		B0C6FA762958290500C5B3EB /* Disk */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B0C6FA752958290500C5B3EB /* XCRemoteSwiftPackageReference "Disk" */;
 			productName = Disk;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		B03FE0972A86F14600944998 /* HistoryModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B03FE0982A86F14600944998 /* HistoryModel.xcdatamodel */,
+			);
+			currentVersion = B03FE0982A86F14600944998 /* HistoryModel.xcdatamodel */;
+			path = HistoryModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B0BF953F294950200099C33F /* Project object */;
 }

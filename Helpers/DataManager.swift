@@ -14,6 +14,7 @@ class DataManager {
     static let instance = DataManager()
     let folders = ["Health","Life","Goals","Love"]
     let favoriteString = "Favorites/"
+    let createdFolder = "Created/"
     
     func saveCard(category: Category) {
         let folder =  favoriteString + category.title
@@ -112,12 +113,6 @@ class DataManager {
             }
         }
         return result
-
-        
-        
-        
-        
-        
     }
     
     func fetchSavedCategories() -> [[Category]] {
@@ -148,6 +143,56 @@ class DataManager {
             }
         }
     }
+    
+    
+    func saveCreatedCategory(category: Category) {
+        let folder =  createdFolder + category.title
+        if Disk.exists(folder, in: .documents){
+            do {
+                var fetchedcategory =  try Disk.retrieve(folder, from: .documents, as: Category.self)
+                var items = fetchedcategory.items
+                items.append(category.items.first!)
+                fetchedcategory.items.append(category.items.first!)
+                try Disk.save(fetchedcategory, to: .documents, as: folder)
+            }catch {
+                print("Error \(error.localizedDescription)")
+            }
+        } else {
+            try! Disk.save(category, to: .documents, as: folder)
+        }
+        print("CARD SAVED")
+        let url = try! Disk.url(for: category.title, in: .documents)
+        print("FILE URL \(url)")
+    }
+    
+    func fetchCreatedCategories() -> [Category] {
+        var result = [Category]()
+        if Disk.exists(createdFolder, in: .documents) {
+            for folder in folders {
+                let folder =  createdFolder + folder
+                do {
+                    let category =  try Disk.retrieve(folder, from: .documents, as: Category.self)
+                    result.append(category)
+                }catch {
+                    print("Error \(error.localizedDescription)")
+                }
+            }
+        }
+        return result
+    }
+    
+    
+    func fetchUserCreatedCategories() -> [[Category]] {
+        var result = [[Category]] ()
+        for folder in folders {
+            let folder =  favoriteString + folder
+            let fetched = self.fetchCategories(name: folder)
+            result.append(fetched)
+            result.removeAll(where: {$0.isEmpty})
+        }
+        return result
+    }
+    
 
 }
 

@@ -20,6 +20,7 @@ struct Category: Codable {
     let image: String
     let color: String
     var items : [String]
+    var frame: String? = nil
 }
 
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import iCarousel
+import Toast
 
 class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
@@ -24,7 +25,11 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     let categories = ["Love", "Health", "Life", "Goals"]
     let frames = ["frame1", "frame2", "frame3", "frame4"]
     var framesNameString: String?
-    var selectedColor: UIColor?
+    var selectedColorString: String?
+    var selectedCategory: String?
+    var enteredText: String?
+    var selectedColor: UIColor!
+    
     
     let framesCarousel: iCarousel = {
         let view = iCarousel()
@@ -39,6 +44,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         setupCollectionView()
         textView.delegate = self
         textView.tintColor = UIColor.white
+        //textView.text = "n/ enter text"
         self.title = "CREATE CARD"
         view.addSubview(framesCarousel)
         framesCarousel.delegate = self
@@ -49,6 +55,8 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         closeBtn()
         
         miscViews()
+        
+        //print("CREATED CARDS \(DataManager().fetchCreatedCategories())")
        // previewTextLbl.text = "currentText"
         // Do any additional setup after loading the view.
     }
@@ -72,7 +80,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         
         wordCountLbl.text = "\(80 - updatedText.count)"
         previewTextLbl.text = updatedText
-        
+        self.enteredText = updatedText
         return updatedText.count < 80
     }
     
@@ -80,6 +88,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     func textViewDidBeginEditing(_ textView: UITextView) {
          if textView.textColor == UIColor.white {
              textView.text = nil
+             textView.font = UIFont.systemFont(ofSize: 20, weight: .medium)
              textView.textColor = UIColor.white
         }
      }
@@ -87,6 +96,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
          if textView.text.isEmpty {
              textView.text = "enter text..."
              textView.textColor = UIColor.white
+             textView.font = UIFont.systemFont(ofSize: 12, weight: .regular)
          }
      }
  //}
@@ -127,7 +137,6 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     
     
     
-    
     @IBAction func colorPickerBtn(_ sender: Any) {
         let colorPickerVC = UIColorPickerViewController()
         colorPickerVC.delegate = self
@@ -137,18 +146,32 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     }
     
     @IBAction func doneBtn(_ sender: Any) {
+        guard selectedCategory != nil else {
+            self.view.makeToast("Select a Topic", duration: 3.0, position: .center)
+            return}
+        guard !textView.text.isEmpty && textView.text != "enter text..."  else {
+            self.view.makeToast("Add some text", duration: 3.0, position: .center)
+            return}
         
-        
+        let imageStr = framesNameString ?? "frame1"
+        let category = Category(title: selectedCategory!, image: imageStr, color: "", items: [enteredText!])
+        DataManager().saveCreatedCategory(category: category )
+        self.dismiss(animated: true)
         
     }
     
     
 }
 
+//MARK: OPtions Buttons
 
 
 
 
+
+
+
+//MARK: CollectionView
 extension CreateCardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categories.count
@@ -173,8 +196,10 @@ extension CreateCardViewController: UICollectionViewDataSource {
 extension CreateCardViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-
+        //let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
+        
+        let text = categories[indexPath.row]
+        selectedCategory = text
         
     }
 
@@ -214,8 +239,8 @@ extension CreateCardViewController: iCarouselDataSource {
     func carouselDidScroll(_ carousel: iCarousel) {
        // if carousel == framesCarousel {
             let name = frames[carousel.currentItemIndex]
-           // framesNameString = name
-        previewImage.image = UIImage(named: name)
+            framesNameString = name
+            previewImage.image = UIImage(named: name)
        
     }
 }
@@ -255,6 +280,8 @@ extension CreateCardViewController: UIColorPickerViewControllerDelegate {
         colorView.backgroundColor = color
         selectedColor = color
         previewContentView.backgroundColor = color
+        let colorString = color.colorToHex()
+        selectedColorString = colorString
     }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
@@ -262,6 +289,8 @@ extension CreateCardViewController: UIColorPickerViewControllerDelegate {
         colorView.backgroundColor = color
         selectedColor = color
         previewContentView.backgroundColor = color
+        let colorString = color.colorToHex()
+        selectedColorString = colorString
     }
 }
 

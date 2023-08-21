@@ -10,6 +10,8 @@ import Koloda
 import LGButton
 import iCarousel
 import AVFoundation
+import SwiftUI
+import MessageUI
 
 struct ColorTheme {
     static let lightColor = UIColor.init("30314B", alpha: 1.0)
@@ -34,7 +36,8 @@ struct ColorTheme {
 
 
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
+  
     
     
     @IBOutlet weak var myView: UIView!
@@ -52,10 +55,13 @@ class HomeViewController: UIViewController {
     var framesNameString = "frame3"
     var fontNameString = "Georgia-Bold"
     var backgroundColor = ColorTheme.mainColor
+    var fontColor = ""
+    var currentCarouselView: UIView?
+    
     
     let mainCarousel: iCarousel = {
         let view = iCarousel()
-        view.type = .rotary
+        view.type = .coverFlow
         view.scrollSpeed = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isPagingEnabled = true
@@ -100,7 +106,17 @@ class HomeViewController: UIViewController {
         
     }()
     
-    
+    func tapGesture(){
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        myCarousel.addGestureRecognizer(tap)
+        tap.numberOfTapsRequired = 2
+        //view.addGestureRecognizer(tap)
+        myCarousel.isUserInteractionEnabled = true
+        //self.view.addSubview(view)
+
+        // function which is triggered when handleTap is called
+       
+    }
     
     //let cards = ["dr", "thor", "ironman", "spider", "avenger"]
     
@@ -121,9 +137,11 @@ class HomeViewController: UIViewController {
             self?.mainCarousel.reloadData()
         }
         setupViews()
-        
+       // tapGesture()
         print("FETCHED CAT\(DataManager().fetchSavedCategories())")
-    }
+        categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        
+        }
     
     
     
@@ -155,6 +173,12 @@ class HomeViewController: UIViewController {
      }
      }
      */
+    
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        print("Hello Tapped")
+    }
+    
     
     func setupViews(){
         view.addSubview(mainCarousel)
@@ -262,7 +286,8 @@ class HomeViewController: UIViewController {
         sheet.prefersGrabberVisible = false
         sheet.largestUndimmedDetentIdentifier = .none
         // sheet.largestUndimmedDetentIdentifier = .medium
-        
+        let image = currentCarouselView?.screenshot()
+        bottomSheetVC.screenshot = image
         present(bottomSheetVC, animated: true)
     }
     
@@ -302,30 +327,32 @@ class HomeViewController: UIViewController {
             }
         //})
     }
-    
-    /*
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            hideView()
-            
-            let location = touch.location(in: view)
-            if fontCarousel.frame.contains(location) {
-                print("FONTVIEWTAPPED")
-            }
-        } else {
-            print("Remove Views")
-        }
-        
-    }
-    */
 
+
+    func loadToast(){
+        let customView = (Bundle.main.loadNibNamed("CustomToastView", owner: self)!.first as? CustomToastView)!
+        self.view.showToast(customView, duration: 2.0, position: .center)
+  
+    }
+    
+    
+    
    //MARK: Buttons
     
     @objc func cancelButtonAction() {
         hideView()
         
     }
-   
+    
+    
+    @IBAction func showChat(_ sender: Any) {
+        
+        let vc = UIHostingController(rootView: ContentView())
+        present(vc, animated: true)
+        
+        
+    }
+    
     @IBAction func showCategories()  {
         let vc = storyboard!.instantiateViewController(withIdentifier: "CategoriesCollectionView") as! CategoriesCollectionView
         vc.delegate = self
@@ -349,12 +376,27 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func removeCard()  {
+       // loadToast()
+        let customView = (Bundle.main.loadNibNamed("CustomToastView", owner: self)!.first as? CustomToastView)!
+        let width = view.frame.width/1.15
+        customView.frame = CGRect(x: 0, y: 0, width: width, height: 250)
+        customView.layer.cornerRadius = 20
+        customView.textLabel.layer.borderColor = UIColor.white.cgColor
+        customView.textLabel.layer.borderWidth = 1
+        customView.textLabel.layer.cornerRadius = 10
+        self.view.showToast(customView, duration: 4.0, position: .bottom)
+        let items = self.category.items//{
+        let text = items[currentIndex]
+        customView.loadSpeech(text: text)
+        
+        /*
         let items = self.category.items//{
             let text = items[currentIndex]
             let utterance = AVSpeechUtterance(string: text)
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-            utterance.rate = 0.4
+            utterance.rate = 0.5
             synthesizer.speak(utterance)
+         */
     }
     
     var isSaved = false
@@ -377,6 +419,16 @@ class HomeViewController: UIViewController {
     
     @IBAction func optionButton()  {
        showViews()
+        
+    }
+    
+    
+    @IBAction func showCreatedCategoryBtn()  {
+        let vc = storyboard!.instantiateViewController(withIdentifier: "ShowCreatedCatViewController") as!
+        ShowCreatedCatViewController
+        vc.categoryVCDelegate = self
+        let navVC = UINavigationController(rootViewController: vc)
+        self.present(navVC, animated: true)
         
     }
     
@@ -427,33 +479,66 @@ extension HomeViewController: iCarouselDataSource {
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         
-       // if carousel == mainCarousel {
+            
             currentIndex = carousel.currentItemIndex
-            let imageView = UIImageView(image: UIImage(named: framesNameString))
+        let imageView = UIImageView()
+        
+        let myIndex = 1 + index
+        
+        if let frameString = category.frame {
+            imageView.image = UIImage(named: frameString)
+        } else {
+            imageView.image = UIImage(named: framesNameString)
+        }
+        
             imageView.layer.cornerRadius = 20
             imageView.clipsToBounds = true
             imageView.frame = mainCarousel.frame
-        imageView.backgroundColor  = UIColor.white//systemBlue.withAlphaComponent(1.0)//backgroundColor
+             imageView.backgroundColor  = UIColor.secondarySystemBackground
+            //imageView.layer.borderColor = UIColor.lightGray.cgColor
+            //imageView.layer.borderWidth = 1
             let label = UILabel()
+           // label.textColor = .black
+            label.textColor = backgroundColor
             //label.tintColor = UIColor.red
             label.numberOfLines = 0
             label.textAlignment = .center
             label.clipsToBounds = true
-            label.shadowColor = UIColor.darkGray
-            label.layer.shadowOpacity = 0.5
+            //label.shadowColor = UIColor.black
+            //label.layer.shadowOpacity = 0.5
             label.sizeToFit()
-            label.font = UIFont(name: fontNameString, size: 40)
+            label.font = UIFont(name: fontNameString, size: 35)
             imageView.addSubview(label)
-            label.frame = CGRect(x: 15, y: 35, width: imageView.frame.width - 20, height: 250)
+            label.frame = CGRect(x: 20, y: 35, width: imageView.frame.size.width - 30, height: 250)
             if let category = category {
                 categoryTitleButton.setTitle(category.title, for: .normal)
                 label.text = category.items[index]
             }
-            
-            return imageView
+        
+           
+            let remainingCard = category.items.count
+        
+            let infoLbl = UILabel()
+            infoLbl.text = "\(myIndex)/\(remainingCard)"
+            infoLbl.textColor = backgroundColor//.withAlphaComponent(0.9)
+            let frameWidth = imageView.frame.width / 2 - 30
+            let height = imageView.frame.size.height - 70
+            infoLbl.textAlignment = .center
+            infoLbl.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            infoLbl.frame = CGRect(x: frameWidth , y: height, width: 50, height: 50)
+            imageView.addSubview(infoLbl)
+            infoLbl.layer.cornerRadius = 25
+            infoLbl.clipsToBounds = true
+        infoLbl.layer.borderColor = backgroundColor.cgColor //UIColor.darkGray.cgColor.copy(alpha: 0.6)
+            infoLbl.layer.borderWidth = 2
+        currentCarouselView = imageView
+        imageView.dropShadow()
+        return imageView
         
         
     }
+    
+    
     
     
     func numberOfItems(in carousel: iCarousel) -> Int {
@@ -473,11 +558,34 @@ extension HomeViewController: iCarouselDataSource {
         } else {
             changeLikeBtnImage(state: false)
         }
+        
+        carouselCurrentIndex = carousel.currentItemIndex
+        
+        guard let currentView = carousel.currentItemView else {return}
+        currentCarouselView = currentView//.snapshotView(afterScreenUpdates: true)
+        
+        if carousel.currentItemIndex == 2 {
+            showPaymentOptionsView()
+        }
 
+    }
+    
+    
+    func showPaymentOptionsView() {
+            let customView = ShowPaymentOptionsView.loadNib()
+            let width = view.frame.width/1.15
+            let height = view.frame.height/2
+            customView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            customView.layer.cornerRadius = 20
+        customView.layer.borderWidth = 1.5
+        customView.layer.borderColor = UIColor.red.cgColor
+            self.view.showToast(customView, duration: 20.0, position: .bottom)
+            //mainCarousel.isUserInteractionEnabled = false
     }
     
     func carouselDidScroll(_ carousel: iCarousel) {
       //  carouselCurrentIndex = carousel.currentItemIndex
+        
         currentIndex = carousel.currentItemIndex
     }
 
@@ -498,7 +606,7 @@ extension HomeViewController: iCarouselDelegate {
             
         case .visibleItems: return 3
             
-        //case .offsetMultiplier: return 2
+            //case .offsetMultiplier: return 2
         default: return value
         }
         
@@ -506,39 +614,87 @@ extension HomeViewController: iCarouselDelegate {
     
     
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int) {
-        showBottomSheetVC()
+        
+        let interaction = UIContextMenuInteraction(delegate: self)
+        
+        //guard let view = carousel.currentItemView else {return}
+        carousel.addInteraction(interaction)
+        //imageView.addInteraction(interaction)
+        // imageView.isUserInteractionEnabled = true
+        
+        //showBottomSheetVC()
     }
+    
+    
+    func createContextMenu() -> UIMenu {
+        let shareAction = UIAction(title: "Message", image: UIImage(systemName: "message.fill")) { [weak self] _ in
+            self?.showMessage()
+        }
+        
+        let options = UIAction(title: "More Options", image: UIImage(systemName: "list.bullet.circle")) {[weak self] _ in
+            self?.showActivityController()
+        }
+        
+        let saveToPhotos = UIAction(title: "Add To Photos", image: UIImage(systemName: "photo")) { [weak self] _ in
+            self?.savePhoto()
+        }
+        
+        return UIMenu(title: "", children: [shareAction, saveToPhotos , options ])
+    }
+    
+    
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
+            return self.createContextMenu()
+        }
+        
+        
+    }
+    
+    
+    
+    //MARK: Delegate
+    
+    
+    
+    //MARK: DataSource
+    
     
 }
 
-
-
-//MARK: Delegate
-
-
-
-//MARK: DataSource
-
-
-extension UIColor {
-  
-  convenience init(_ hex: String, alpha: CGFloat = 1.0) {
-    var cString = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+extension HomeViewController: MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate {
     
-    if cString.hasPrefix("#") { cString.removeFirst() }
     
-    if cString.count != 6 {
-      self.init("ff0000") // return red color for wrong hex input
-      return
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        
     }
     
-    var rgbValue: UInt64 = 0
-    Scanner(string: cString).scanHexInt64(&rgbValue)
+    func showMessage() {
+        if MFMessageComposeViewController.canSendText() {
+            let messageVC = MFMessageComposeViewController()
+            messageVC.messageComposeDelegate = self
+            messageVC.body = "From DateNight App"
+            let screenshot = currentCarouselView?.screenshot()
+            guard let image = screenshot, let data = image.pngData() else {return}
+            messageVC.addAttachmentData(data, typeIdentifier: "public.data", filename: "image.png")
+            self.present(messageVC, animated: true)
+        }
+    }
     
-    self.init(red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-              green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-              blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-              alpha: alpha)
-  }
-
+    func showActivityController() {
+        
+        guard let image = currentCarouselView?.screenshot() else {return}
+        let activityController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        print("IMAGE \(image)")
+       present(activityController, animated: true)
+    }
+    
+    
+    func savePhoto() {
+        guard let image = currentCarouselView?.screenshot() else {return}
+        UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+        
+    }
+    
 }

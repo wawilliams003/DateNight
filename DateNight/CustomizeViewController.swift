@@ -53,7 +53,7 @@ class CustomizeViewController: UIViewController {
     
     let fonts = ["AmericanTypewriter-CondensedLight","Avenir-HeavyOblique",
                  "AvenirNext-Italic", "ChalkboardSE-Regular", "HelveticaNeue-CondensedBlack", "HelveticaNeue-Italic", "ChalkboardSE-Bold","AcademyEngravedLetPlain"]
-    let frames = ["birthday", "border", "christmas", "merry-christmas"]
+    let frames = ["frame1", "frame2", "frame3", "frame4", "frame5"]
     
     
     override func viewDidLoad() {
@@ -78,26 +78,38 @@ class CustomizeViewController: UIViewController {
         
     }
     
+    @IBAction func done() {
+       
+        applyEdits()
+        dismiss(animated: true)
+        
+    }
     
     
     
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    
+    fileprivate func applyEdits() {
         if framesNameString != nil {
             delegate?.frameNameString(nameString: framesNameString ?? "")
         }
-       
+        
         if fontNameString != nil {
             delegate?.fontNameString(nameString: fontNameString ?? "")
         }
         
-       // guard (selectedColor != nil) else {return}
+        // guard (selectedColor != nil) else {return}
         
         if selectedColor != nil {
             delegate?.selectedColor(color: selectedColor ?? UIColor())
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        applyEdits()
         
     }
     
@@ -190,7 +202,7 @@ extension CustomizeViewController: iCarouselDataSource {
            // carouselCurrentIndex = carousel.currentItemIndex
             let view = UIImageView(image: UIImage(named: frames[index]))
             view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width/4, height: 150)
-            view.backgroundColor = .purple
+            view.backgroundColor = .white
             view.layer.cornerRadius = 10
             view.layer.borderColor = UIColor.white.cgColor
             view.layer.borderWidth = 1
