@@ -16,19 +16,21 @@ class ShowCreatedCatCell: UICollectionViewCell {
     @IBOutlet weak var imageViewBackgroundView: UIView!
     @IBOutlet weak var blurView: UIBlurEffect!
     
-    
-   
+
     
     
     var category: Category? {
         didSet {
+            
+            self.layer.cornerRadius = 10
+            self.clipsToBounds = true
             guard let categories = category else {return}
             let color = UIColor.init(categories.color, alpha: 1.0)
-            imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
-            catImageView.tintColor = color
-            catImageView.image = UIImage(systemName: categories.image)
+            //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
+            //catImageView.tintColor = color
+            //catImageView.image = UIImage(systemName: categories.image)
             categeoryTitle.text = categories.title
-            categeoryTitle.textColor = color
+            //categeoryTitle.textColor = color
             
             switch paymentOption {
             case .basic:

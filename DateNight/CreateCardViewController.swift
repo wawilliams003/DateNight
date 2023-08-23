@@ -43,14 +43,15 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         super.viewDidLoad()
         setupCollectionView()
         textView.delegate = self
-        textView.tintColor = UIColor.white
+        textView.tintColor = UIColor.label
         //textView.text = "n/ enter text"
         self.title = "CREATE CARD"
         view.addSubview(framesCarousel)
         framesCarousel.delegate = self
         framesCarousel.dataSource = self
-        previewContentView.clipsToBounds = true
-        previewContentView.layer.cornerRadius = 10
+        
+        //previewContentView.clipsToBounds = true
+        
         activateConstraints()
         closeBtn()
         
@@ -86,7 +87,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-         if textView.textColor == UIColor.white {
+         if textView.textColor == UIColor.label {
              textView.text = nil
              textView.font = UIFont.systemFont(ofSize: 20, weight: .medium)
              textView.textColor = UIColor.white
@@ -94,7 +95,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
      }
      func textViewDidEndEditing(_ textView: UITextView) {
          if textView.text.isEmpty {
-             textView.text = "enter text..."
+             textView.text = "Add Some Text..."
              textView.textColor = UIColor.white
              textView.font = UIFont.systemFont(ofSize: 12, weight: .regular)
          }
@@ -104,14 +105,21 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     
     func miscViews(){
         colorView.layer.cornerRadius = 10
-        colorView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
-        colorView.layer.borderWidth = 1
+        colorView.dropShadow()
         PhotoFrameView.layer.cornerRadius = 10
-        PhotoFrameView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
-        PhotoFrameView.layer.borderWidth = 1
+//        PhotoFrameView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
+//        PhotoFrameView.layer.borderWidth = 1
+        PhotoFrameView.dropShadow()
         textView.layer.cornerRadius = 10
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
+        textView.dropShadow()
+        //previewContentView.layer.cornerRadius = 10
+        previewContentView.layer.cornerRadius = 10
+        previewContentView.dropShadow()
+        
+        previewImage.layer.cornerRadius = 10
+        //previewImage.dropShadow()
+//        textView.layer.borderWidth = 1
+//        textView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
     }
 
     func closeBtn() {
@@ -149,7 +157,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         guard selectedCategory != nil else {
             self.view.makeToast("Select a Topic", duration: 3.0, position: .center)
             return}
-        guard !textView.text.isEmpty && textView.text != "enter text..."  else {
+        guard !textView.text.isEmpty && textView.text != "Add Some Text..."  else {
             self.view.makeToast("Add some text", duration: 3.0, position: .center)
             return}
         
@@ -221,11 +229,12 @@ extension CreateCardViewController: iCarouselDataSource {
            // carouselCurrentIndex = carousel.currentItemIndex
             let view = UIImageView(image: UIImage(named: frames[index]))
         view.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width/3.5, height: 150)
-            view.backgroundColor = .white
+        view.backgroundColor = UIColor.systemGroupedBackground
             view.layer.cornerRadius = 10
-            view.layer.borderColor = UIColor.white.cgColor
-            view.layer.borderWidth = 1
-            view.clipsToBounds = true
+//            view.layer.borderColor = UIColor.white.cgColor
+//            view.layer.borderWidth = 1
+            //view.clipsToBounds = true
+        view.dropShadow()
             return view
        // }
         

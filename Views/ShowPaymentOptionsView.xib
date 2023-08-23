@@ -38,9 +38,12 @@
                             <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="buttonAction" destination="iN0-l3-epB" eventType="touchUpInside" id="ExI-1d-tdz"/>
+                    </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="fMh-Ow-iG2">
-                    <rect key="frame" x="143" y="85" width="176.33333333333337" height="49.666666666666657"/>
+                    <rect key="frame" x="143" y="75" width="176.33333333333337" height="49.666666666666657"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premium Version" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pso-ot-eCk">
                             <rect key="frame" x="0.0" y="0.0" width="176.33333333333334" height="27.666666666666668"/>
@@ -57,15 +60,15 @@
                     </subviews>
                 </stackView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crown.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Vr5-GX-af7">
-                    <rect key="frame" x="171" y="15.666666666666664" width="120" height="57.999999999999993"/>
+                    <rect key="frame" x="181" y="15.666666666666664" width="100" height="47.999999999999993"/>
                     <color key="tintColor" systemColor="systemRedColor"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="60" id="Ts3-O3-ycd"/>
-                        <constraint firstAttribute="width" constant="120" id="XEl-GR-HF3"/>
+                        <constraint firstAttribute="height" constant="50" id="Ts3-O3-ycd"/>
+                        <constraint firstAttribute="width" constant="100" id="XEl-GR-HF3"/>
                     </constraints>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="caD-ia-TsH">
-                    <rect key="frame" x="36.000000000000014" y="151" width="214.33333333333337" height="104.66666666666669"/>
+                    <rect key="frame" x="36.000000000000014" y="141" width="214.33333333333337" height="104.66666666666669"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jtI-Uy-Ued">
                             <rect key="frame" x="0.0" y="0.0" width="20" height="104.66666666666667"/>

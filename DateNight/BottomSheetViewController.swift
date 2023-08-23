@@ -9,7 +9,7 @@ import UIKit
 import MessageUI
 
 
-class BottomSheetViewController: UIViewController, MFMessageComposeViewControllerDelegate, UINavigationControllerDelegate{
+class BottomSheetViewController: UIViewController{
    
     
 
@@ -21,48 +21,23 @@ class BottomSheetViewController: UIViewController, MFMessageComposeViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let paymentOptionsView = ShowPaymentOptionsView()
+//        let customView = ShowPaymentOptionsView.loadNib()
+//        customView.frame = self.view.frame
+//        self.view.addSubview(customView)
+//       // paymentOptionsView.buttonAction()
+//        paymentOptionsView.onButtonTapCallback = {
+//            print("Tapped")
+//
+//        }
         // Do any additional setup after loading the view.
     }
-    
-    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
-        
-    }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
-    @IBAction func message(_ sender: Any) {
-        if MFMessageComposeViewController.canSendText() {
-            let messageVC = MFMessageComposeViewController()
-            messageVC.messageComposeDelegate = self
-            messageVC.body = "From DateNight App"
-            guard let image = screenshot, let data = image.pngData() else {return}
-            messageVC.addAttachmentData(data, typeIdentifier: "public.data", filename: "image.png")
-            self.present(messageVC, animated: true)
-        }
-        
-    }
-    
-    
-    @IBAction func photos(_ sender: Any) {
+    @IBAction func showPurchaseOptions(_ sender: Any) {
         
         
     }
     
-    @IBAction func options(_ sender: Any) {
-    }
-    
-    
-    @IBAction func close(_ sender: Any) {
-        
-        dismiss(animated: true)
-    }
     
 }

@@ -130,14 +130,13 @@ class CustomizeViewController: UIViewController {
         
         
         fontsView.layer.cornerRadius = 10
-        fontsView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
-        fontsView.layer.borderWidth = 1
+        fontsView.dropShadow()
+        //fontsView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
+        //fontsView.layer.borderWidth = 1
         PhotoFrameView.layer.cornerRadius = 10
-        PhotoFrameView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
-        PhotoFrameView.layer.borderWidth = 1
+        PhotoFrameView.dropShadow()
         colorView.layer.cornerRadius = 10
-        colorView.layer.borderColor = UIColor(white: 1, alpha: 0.3).cgColor
-        colorView.layer.borderWidth = 1
+        colorView.dropShadow()
         
     }
     
@@ -207,21 +206,24 @@ extension CustomizeViewController: iCarouselDataSource {
             view.layer.borderColor = UIColor.white.cgColor
             view.layer.borderWidth = 1
             view.clipsToBounds = true
+            view.dropShadow()
             return view
         }
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.fontsView.frame.size.width/4, height: 70))
         let label = UILabel(frame: view.frame)
+        label.textColor = UIColor.systemBlue
         view.addSubview(label)
         label.text = "Aa"
         label.textAlignment = .center
         label.font = UIFont(name: fonts[index], size: 30)
         //label.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
-        view.backgroundColor = ColorTheme.lightColor
+        view.backgroundColor = UIColor.systemBackground//ColorTheme.lightColor
         view.layer.cornerRadius = 10
         view.layer.borderColor = UIColor.white.cgColor
         view.layer.borderWidth = 1
         view.clipsToBounds = true
+        view.dropShadow()
         return view
     }
     

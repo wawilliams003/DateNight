@@ -277,7 +277,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         
         if #available(iOS 16.0, *) {
             sheet.detents = [.custom {_ in
-                300
+                370
             }]
         } else {
             // Fallback on earlier versions
@@ -565,7 +565,8 @@ extension HomeViewController: iCarouselDataSource {
         currentCarouselView = currentView//.snapshotView(afterScreenUpdates: true)
         
         if carousel.currentItemIndex == 2 {
-            showPaymentOptionsView()
+            //showPaymentOptionsView()
+            showBottomSheetVC()
         }
 
     }

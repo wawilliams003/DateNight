@@ -90,6 +90,7 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
             
             cell.categories = categories[indexPath.row]
+            cell.dropShadow()
             // Configure the cell
             
             return cell
@@ -99,7 +100,7 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
             
             //let categories =
             cell.categories = favorites[indexPath.row]
-            
+            cell.dropShadow()
             return cell
         }
     }

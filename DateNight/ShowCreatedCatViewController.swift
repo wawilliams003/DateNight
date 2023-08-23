@@ -72,7 +72,7 @@ extension ShowCreatedCatViewController: UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ShowCreatedCatCell
         
         cell.category = createdCategories[indexPath.row]
-        
+       // cell.dropShadow()
         
         return cell
         

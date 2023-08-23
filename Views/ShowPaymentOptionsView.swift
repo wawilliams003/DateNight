@@ -10,10 +10,19 @@ import UIKit
 class ShowPaymentOptionsView: UIView {
 
     
+    var onButtonTapCallback: (()->())?
+    
     static func loadNib () -> UIView{
         
         let customView = Bundle.main.loadNibNamed("ShowPaymentOptionsView", owner: self)?.first as! ShowPaymentOptionsView
         return customView
+    }
+    
+    
+    
+    @IBAction func buttonAction() {
+        onButtonTapCallback?()
+       // print("tapped")
     }
     
     /*
