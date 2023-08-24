@@ -9,6 +9,28 @@ import UIKit
 import iCarousel
 import Toast
 
+
+
+struct CreateCardModel {
+    var categoryTitle: String
+    var colorString: String
+    
+    init(titleString: String, colorString: String) {
+        self.colorString = colorString
+        self.categoryTitle = titleString
+    }
+    
+    static func loadCardStyle() -> [CreateCardModel] {
+        var style = [CreateCardModel]()
+        style.append(CreateCardModel(titleString: "Family", colorString: "00a261"))
+        style.append(CreateCardModel(titleString: "Religion", colorString: "0083ff"))
+        style.append(CreateCardModel(titleString: "Goals", colorString: "ff60cb"))
+        style.append(CreateCardModel(titleString: "Love", colorString: "ff009b"))
+        return style
+    }
+    
+}
+
 class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLayout, UITextViewDelegate {
 
     
@@ -22,14 +44,18 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
     @IBOutlet weak var previewContentView: UIView!
     @IBOutlet weak var previewImage: UIImageView!
     
-    let categories = ["Love", "Health", "Life", "Goals"]
+    //let categories = ["Love", "Health", "Life", "Goals"]
     let frames = ["frame1", "frame2", "frame3", "frame4"]
+    let colors = ["00a261","0083ff","ff60cb", "ff009b"]
+    
+    var cardsModel = [CreateCardModel]()
+    
     var framesNameString: String?
     var selectedColorString: String?
     var selectedCategory: String?
     var enteredText: String?
     var selectedColor: UIColor!
-    
+    var colorString = ""
     
     let framesCarousel: iCarousel = {
         let view = iCarousel()
@@ -50,7 +76,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
         framesCarousel.delegate = self
         framesCarousel.dataSource = self
         
-        //previewContentView.clipsToBounds = true
+        cardsModel = CreateCardModel.loadCardStyle()
         
         activateConstraints()
         closeBtn()
@@ -90,13 +116,13 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
          if textView.textColor == UIColor.label {
              textView.text = nil
              textView.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-             textView.textColor = UIColor.white
+             textView.textColor = UIColor.label
         }
      }
      func textViewDidEndEditing(_ textView: UITextView) {
          if textView.text.isEmpty {
              textView.text = "Add Some Text..."
-             textView.textColor = UIColor.white
+             textView.textColor = UIColor.label
              textView.font = UIFont.systemFont(ofSize: 12, weight: .regular)
          }
      }
@@ -158,11 +184,11 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
             self.view.makeToast("Select a Topic", duration: 3.0, position: .center)
             return}
         guard !textView.text.isEmpty && textView.text != "Add Some Text..."  else {
-            self.view.makeToast("Add some text", duration: 3.0, position: .center)
+            self.view.makeToast("Add Some Text", duration: 3.0, position: .center)
             return}
         
         let imageStr = framesNameString ?? "frame1"
-        let category = Category(title: selectedCategory!, image: imageStr, color: "", items: [enteredText!])
+        let category = Category(title: selectedCategory!, image: imageStr, color: colorString, items: [enteredText!])
         DataManager().saveCreatedCategory(category: category )
         self.dismiss(animated: true)
         
@@ -182,7 +208,7 @@ class CreateCardViewController: UIViewController,UICollectionViewDelegateFlowLay
 //MARK: CollectionView
 extension CreateCardViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categories.count
+        return cardsModel.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -190,7 +216,7 @@ extension CreateCardViewController: UICollectionViewDataSource {
         
        //cell.categoryLbl.text = "LOVE"
         //cell.backgroundColor = .red
-        cell.topicLbl.text = categories[indexPath.row]
+        cell.cardModel = cardsModel[indexPath.row]
         return cell
     }
     
@@ -206,9 +232,9 @@ extension CreateCardViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CustomCollectionViewCell
         
-        let text = categories[indexPath.row]
-        selectedCategory = text
-        
+        let model = cardsModel[indexPath.row]
+        selectedCategory = model.categoryTitle
+        colorString = model.colorString
     }
 
 }

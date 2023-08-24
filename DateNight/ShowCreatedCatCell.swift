@@ -25,11 +25,12 @@ class ShowCreatedCatCell: UICollectionViewCell {
             self.layer.cornerRadius = 10
             self.clipsToBounds = true
             guard let categories = category else {return}
-            let color = UIColor.init(categories.color, alpha: 1.0)
+            let color = UIColor.init(categories.color)
             //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
-            //catImageView.tintColor = color
+            catImageView.tintColor = color
             //catImageView.image = UIImage(systemName: categories.image)
             categeoryTitle.text = categories.title
+            self.contentView.backgroundColor = color//UIColor(categories.color, alpha: 1)
             //categeoryTitle.textColor = color
             
             switch paymentOption {
@@ -47,6 +48,7 @@ class ShowCreatedCatCell: UICollectionViewCell {
         self.viewWithTag(5)?.removeFromSuperview()
     }
     
+    /*
     var categories: [Category]? {
         didSet {
             guard let categories = categories else {return}
@@ -64,6 +66,6 @@ class ShowCreatedCatCell: UICollectionViewCell {
             print("TITLE\(categories[0].title)")
         }
     }
-    
+    */
     
 }

@@ -377,17 +377,44 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     @IBAction func removeCard()  {
        // loadToast()
-        let customView = (Bundle.main.loadNibNamed("CustomToastView", owner: self)!.first as? CustomToastView)!
-        let width = view.frame.width/1.15
-        customView.frame = CGRect(x: 0, y: 0, width: width, height: 250)
-        customView.layer.cornerRadius = 20
-        customView.textLabel.layer.borderColor = UIColor.white.cgColor
-        customView.textLabel.layer.borderWidth = 1
-        customView.textLabel.layer.cornerRadius = 10
-        self.view.showToast(customView, duration: 4.0, position: .bottom)
+//        let TextToSpeechVC = storyboard!.instantiateViewController(withIdentifier: "TextToSpeechViewController") as!
+//        TextToSpeechViewController
+//        present(TextToSpeechVC, animated: true)
+        
+        let bottomSheetVC = storyboard!.instantiateViewController(withIdentifier: "TextToSpeechViewController") as! TextToSpeechViewController
+        
+        guard let sheet = bottomSheetVC.presentationController as? UISheetPresentationController
+        else {return}
+        
+        if #available(iOS 16.0, *) {
+            sheet.detents = [.custom {_ in
+                375
+            }]
+        } else {
+            // Fallback on earlier versions
+        }
+        sheet.preferredCornerRadius = 24
+        sheet.prefersGrabberVisible = false
+        sheet.largestUndimmedDetentIdentifier = .none
+        // sheet.largestUndimmedDetentIdentifier = .medium
+        //let image = currentCarouselView?.screenshot()
+        //bottomSheetVC.screenshot = image
         let items = self.category.items//{
         let text = items[currentIndex]
-        customView.loadSpeech(text: text)
+        bottomSheetVC.textInfo = text
+        present(bottomSheetVC, animated: true)
+        
+//        let customView = (Bundle.main.loadNibNamed("CustomToastView", owner: self)!.first as? CustomToastView)!
+//        let width = view.frame.width/1.15
+//        customView.frame = CGRect(x: 0, y: 0, width: width, height: 250)
+//        customView.layer.cornerRadius = 20
+//        customView.textLabel.layer.borderColor = UIColor.white.cgColor
+//        customView.textLabel.layer.borderWidth = 1
+//        customView.textLabel.layer.cornerRadius = 10
+//        self.view.showToast(customView, duration: 4.0, position: .bottom)
+//        let items = self.category.items//{
+//        let text = items[currentIndex]
+//        customView.loadSpeech(text: text)
         
         /*
         let items = self.category.items//{

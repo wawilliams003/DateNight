@@ -12,7 +12,7 @@ import UIKit
 class DataManager {
     
     static let instance = DataManager()
-    let folders = ["Health","Life","Goals","Love"]
+    let folders = ["Health","Life","Goals","Love", "Family", "Religion"]
     let favoriteString = "Favorites/"
     let createdFolder = "Created/"
     

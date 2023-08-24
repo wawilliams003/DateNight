@@ -19,26 +19,29 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         didSet {
             guard let categories = categories else {return}
             let color = UIColor.init(categories.color, alpha: 1.0)
-            imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
+            contentView.backgroundColor = color
+            //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
             catImageView.tintColor = color
             catImageView.image = UIImage(systemName: categories.image)
             categeoryTitle.text = categories.title
-            categeoryTitle.textColor = color
+            categeoryTitle.textColor = UIColor.white
         }
     }
     
-    
+    /*
     var favoritesCategories: [Category]? {
         didSet {
             guard let categories = favoritesCategories else {return}
             for favCat in categories {
                 let color = UIColor.init(favCat.color, alpha: 1.0)
-                imageViewBackgroundView.backgroundColor = UIColor(favCat.color, alpha: 0.25)
-                catImageView.tintColor = color
+                contentView.backgroundColor = color
+                //imageViewBackgroundView.backgroundColor = UIColor(favCat.color, alpha: 0.25)
+                //catImageView.tintColor = color
                 catImageView.image = UIImage(systemName: favCat.image)
                 categeoryTitle.text = favCat.title
-                categeoryTitle.textColor = color
+                categeoryTitle.textColor = UIColor.white
             }
         }
     }
+     */
 }
