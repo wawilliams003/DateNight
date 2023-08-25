@@ -53,7 +53,7 @@ class CustomizeViewController: UIViewController {
     
     let fonts = ["AmericanTypewriter-CondensedLight","Avenir-HeavyOblique",
                  "AvenirNext-Italic", "ChalkboardSE-Regular", "HelveticaNeue-CondensedBlack", "HelveticaNeue-Italic", "ChalkboardSE-Bold","AcademyEngravedLetPlain"]
-    let frames = ["frame1", "frame2", "frame3", "frame4", "frame5"]
+    let frames = ["frame1", "frame2", "frame3", "frame4", "frame5", "frame6", "frame7"]
     
     
     override func viewDidLoad() {
@@ -253,7 +253,7 @@ extension CustomizeViewController: iCarouselDelegate {
             
         case .spacing:
             if carousel == framesCarousel {
-                return value * 2.9
+                return value * 1.75
             }
             return value * 1.8
             

@@ -52,9 +52,9 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     var carouselCurrentIndex = 0
     var categories = [Category]()
     var category: Category!
-    var framesNameString = "frame3"
+    var framesNameString = "frame6"
     var fontNameString = "Georgia-Bold"
-    var backgroundColor = ColorTheme.mainColor
+    var backgroundColor = UIColor.label//ColorTheme.mainColor
     var fontColor = ""
     var currentCarouselView: UIView?
     
@@ -521,7 +521,8 @@ extension HomeViewController: iCarouselDataSource {
             imageView.layer.cornerRadius = 20
             imageView.clipsToBounds = true
             imageView.frame = mainCarousel.frame
-             imageView.backgroundColor  = UIColor.secondarySystemBackground
+        imageView.backgroundColor  = UIColor.tertiarySystemBackground
+        imageView.tintColor = backgroundColor
             //imageView.layer.borderColor = UIColor.lightGray.cgColor
             //imageView.layer.borderWidth = 1
             let label = UILabel()
@@ -534,9 +535,16 @@ extension HomeViewController: iCarouselDataSource {
             //label.shadowColor = UIColor.black
             //label.layer.shadowOpacity = 0.5
             label.sizeToFit()
+        //label.backgroundColor = .blue
             label.font = UIFont(name: fontNameString, size: 35)
+        //label.frame = CGRect(x: 40, y: 35, width: imageView.frame.size.width - 80, height: 250)
             imageView.addSubview(label)
-            label.frame = CGRect(x: 20, y: 35, width: imageView.frame.size.width - 30, height: 250)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.leftAnchor.constraint(equalTo: imageView.leftAnchor, constant: 25).isActive = true
+        label.rightAnchor.constraint(equalTo: imageView.rightAnchor, constant: -25).isActive = true
+        label.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 30).isActive = true
+        label.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -85).isActive = true
+        
             if let category = category {
                 categoryTitleButton.setTitle(category.title, for: .normal)
                 label.text = category.items[index]
@@ -548,16 +556,16 @@ extension HomeViewController: iCarouselDataSource {
             let infoLbl = UILabel()
             infoLbl.text = "\(myIndex)/\(remainingCard)"
             infoLbl.textColor = backgroundColor//.withAlphaComponent(0.9)
-            let frameWidth = imageView.frame.width / 2 - 30
-            let height = imageView.frame.size.height - 70
+            let frameWidth = imageView.frame.width / 2 - 20
+            let height = imageView.frame.size.height - 85
             infoLbl.textAlignment = .center
-            infoLbl.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-            infoLbl.frame = CGRect(x: frameWidth , y: height, width: 50, height: 50)
+            infoLbl.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
+            infoLbl.frame = CGRect(x: frameWidth , y: height, width: 40, height: 40)
             imageView.addSubview(infoLbl)
-            infoLbl.layer.cornerRadius = 25
+            infoLbl.layer.cornerRadius = 20
             infoLbl.clipsToBounds = true
-        infoLbl.layer.borderColor = backgroundColor.cgColor //UIColor.darkGray.cgColor.copy(alpha: 0.6)
-            infoLbl.layer.borderWidth = 2
+            infoLbl.layer.borderColor = backgroundColor.cgColor //UIColor.darkGray.cgColor.copy(alpha: 0.6)
+        infoLbl.layer.borderWidth = 1.5
         currentCarouselView = imageView
         imageView.dropShadow()
         return imageView

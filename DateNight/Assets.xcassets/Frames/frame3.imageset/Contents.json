@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "pngwing.com-2.png",
+      "filename" : "frame3.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "frame3@2x.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "frame3@3x.pdf",
       "idiom" : "universal",
       "scale" : "3x"
     }
