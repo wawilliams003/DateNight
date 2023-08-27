@@ -21,6 +21,7 @@ struct MainView: View {
     //@StateObject var model = SwiftUIModel()
     @State private var isSearching: Bool = false
     
+    @State var keyboardYOffset: CGFloat = 0
     
     //let keyString = ("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")
     var openAI =  OpenAISwift(config: OpenAISwift.Config.makeDefaultOpenAI(apiKey: "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"))

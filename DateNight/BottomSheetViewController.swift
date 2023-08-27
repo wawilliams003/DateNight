@@ -35,7 +35,8 @@ class BottomSheetViewController: UIViewController{
 
     
     @IBAction func showPurchaseOptions(_ sender: Any) {
-        
+        let vc = storyboard!.instantiateViewController(withIdentifier: "PaymentViewController") as! PaymentViewController
+        present(vc, animated: true)
         
     }
     
