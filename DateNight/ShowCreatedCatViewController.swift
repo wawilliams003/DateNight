@@ -71,19 +71,45 @@ extension ShowCreatedCatViewController: UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ShowCreatedCatCell
         
-        cell.category = createdCategories[indexPath.row]
+        let category = createdCategories[indexPath.row]
+        cell.category = category
+        cell.likesCount.text = "\(category.items.count)"
+        
        // cell.dropShadow()
         
         return cell
         
     }
     
-    
+    /*
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let category = createdCategories[indexPath.row]
         categoryVCDelegate?.onDismiss(category: category)
         dismiss(animated: true)
     }
-    
+    */
+        
+        
+     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? ShowCreatedCatCell else {return}
+      //  guard let topCell = collectionView.cellForItem(at: indexPath) as? TopSpeakersCollecViewCell else {return}
+        
+        UIView.animate(withDuration: 0.3) {
+            cell.transform = .init(scaleX: 0.95, y: 0.95)
+        } completion: { (done) in
+            if done {
+                UIView.animate(withDuration: 0.1) {
+                    cell.transform = .identity
+                } completion: { [ weak self](done) in
+                    if done {
+                        guard let category = self?.createdCategories[indexPath.row] else {return}
+                        self?.categoryVCDelegate?.onDismiss(category: category)
+                        self?.dismiss(animated: true)
+                    }
+                }
+            }
+        }
+
+    }
     
 }

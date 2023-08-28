@@ -89,6 +89,8 @@ class PaymentViewController: UIViewController {
             self?.basicView.layer.borderColor = UIColor.systemRed.cgColor
             self?.basicView.layer.borderWidth = 2
             self?.isSelected = false
+            self?.collectionView.scrollToItem(at: IndexPath(item: 1, section: 0), at: .right, animated: true)
+            //self?.collectionView.reloadData()
         })
        
         
@@ -102,6 +104,8 @@ class PaymentViewController: UIViewController {
             self?.basicView.layer.borderColor = self!.isSelected ? UIColor.red.cgColor : UIColor.clear.cgColor
             self?.popularView.layer.borderColor = UIColor.systemRed.cgColor
             self?.isSelected = true
+            self?.collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .right, animated: true)
+
         })
     }
     
@@ -114,11 +118,13 @@ class PaymentViewController: UIViewController {
     
     @IBAction func basicBtn(){
         
-        popularView.layer.borderColor = isSelected ? UIColor.systemRed.cgColor : UIColor.clear.cgColor
-        popularView.layer.borderWidth = 2
-        basicView.layer.borderColor = UIColor.systemRed.cgColor
-        basicView.layer.borderWidth = 2
-        isSelected = false
+
+    }
+    
+    
+    @IBAction func closeBtn(){
+        dismiss(animated: true)
+
     }
 
 }

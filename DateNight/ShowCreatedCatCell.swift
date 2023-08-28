@@ -29,8 +29,9 @@ class ShowCreatedCatCell: UICollectionViewCell {
             //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
             catImageView.tintColor = color
             //catImageView.image = UIImage(systemName: categories.image)
-            categeoryTitle.text = categories.title
+            categeoryTitle.text = categories.title.uppercased()
             self.contentView.backgroundColor = color//UIColor(categories.color, alpha: 1)
+            
             //categeoryTitle.textColor = color
             
             switch paymentOption {

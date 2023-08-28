@@ -89,17 +89,19 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
             
-            cell.categories = categories[indexPath.row]
+            let category = categories[indexPath.row]
+            cell.categories = category
             //cell.dropShadow()
             // Configure the cell
-            
+            cell.likesCount.text = "\(category.items.count)"
             return cell
         } else {
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CategoryCollectionViewCell
             
-            //let categories =
-            cell.categories = favorites[indexPath.row]
+            let favorites = favorites[indexPath.row]
+            cell.categories = favorites
+            cell.likesCount.text = "\(favorites.items.count)"
             //cell.dropShadow()
             return cell
         }
@@ -135,8 +137,9 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
         return CGSize(width: view.frame.size.width, height: 80)
     }
     
-    
+    /*
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         if indexPath.section == 0 {
             let category = categories[indexPath.row]
             delegate?.onDismiss(category: category)
@@ -147,10 +150,43 @@ class CategoriesCollectionView: UICollectionViewController, UICollectionViewDele
                 self.dismiss(animated: true)
             
         }
+        
         }
+     */
+     
+    func cellTappedAction(indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let category = categories[indexPath.row]
+            delegate?.onDismiss(category: category)
+            self.dismiss(animated: true)
+        } else {
+                let category = favorites[indexPath.row]
+                delegate?.onDismiss(category: category)
+                self.dismiss(animated: true)
+            
+        }
+    }
         
         
-    
+    override func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell else {return}
+      //  guard let topCell = collectionView.cellForItem(at: indexPath) as? TopSpeakersCollecViewCell else {return}
+        
+        UIView.animate(withDuration: 0.3) {
+            cell.transform = .init(scaleX: 0.95, y: 0.95)
+        } completion: { (done) in
+            if done {
+                UIView.animate(withDuration: 0.1) {
+                    cell.transform = .identity
+                } completion: { [ weak self](done) in
+                    if done {
+                        self?.cellTappedAction(indexPath: indexPath)
+                    }
+                }
+            }
+        }
+
+    }
     
     
     /*
