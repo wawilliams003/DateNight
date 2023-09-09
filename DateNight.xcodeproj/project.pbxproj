@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B020D3C72AA3A6CD003B1BED /* HomeCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3C62AA3A6CD003B1BED /* HomeCategoryCollectionViewCell.swift */; };
 		B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45B29F6295E0075E816 /* CircleButtonView.swift */; };
 		B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */; };
 		B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A46129F634760075E816 /* ShowCreatedCatCell.swift */; };
@@ -57,6 +58,7 @@
 		009AF38AFBCBC5FC482807F7 /* Pods_DateNight.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DateNight.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CEE1F98F8142C5A3EB66C91 /* Pods-DateNight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.debug.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.debug.xcconfig"; sourceTree = "<group>"; };
 		9FAC6A53F2581DFB8D1699A6 /* Pods-DateNight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DateNight.release.xcconfig"; path = "Target Support Files/Pods-DateNight/Pods-DateNight.release.xcconfig"; sourceTree = "<group>"; };
+		B020D3C62AA3A6CD003B1BED /* HomeCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		B038A45B29F6295E0075E816 /* CircleButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
 		B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatViewController.swift; sourceTree = "<group>"; };
 		B038A46129F634760075E816 /* ShowCreatedCatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatCell.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 		B0BF953E294950200099C33F = {
 			isa = PBXGroup;
 			children = (
+				B020D3C62AA3A6CD003B1BED /* HomeCategoryCollectionViewCell.swift */,
 				B076CA442A9ACE0D00FCC868 /* PurchaseInfoCollectionViewCell.swift */,
 				B076CA402A9AC3E000FCC868 /* PaymentViewController.swift */,
 				B03FE0AE2A96D11800944998 /* TextToSpeechViewController.swift */,
@@ -377,6 +380,7 @@
 				B03FE0A02A86F41700944998 /* HistoryView.swift in Sources */,
 				B03FE0A42A86F46700944998 /* CoreDataManager.swift in Sources */,
 				B0C6FA7B2958295800C5B3EB /* DataManager.swift in Sources */,
+				B020D3C72AA3A6CD003B1BED /* HomeCategoryCollectionViewCell.swift in Sources */,
 				B0C4D28C296201A800E3AB50 /* CustomizeViewController.swift in Sources */,
 				B0E3C2A329ABE70A00BBFE91 /* CreateCardViewController.swift in Sources */,
 				B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */,

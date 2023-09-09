@@ -26,11 +26,11 @@ class ShowCreatedCatCell: UICollectionViewCell {
             self.clipsToBounds = true
             guard let categories = category else {return}
             let color = UIColor.init(categories.color)
-            //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
-            catImageView.tintColor = color
+            imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 1)
+            //catImageView.tintColor = color
             //catImageView.image = UIImage(systemName: categories.image)
             categeoryTitle.text = categories.title.uppercased()
-            self.contentView.backgroundColor = color//UIColor(categories.color, alpha: 1)
+           // self.contentView.backgroundColor = color//UIColor(categories.color, alpha: 1)
             
             //categeoryTitle.textColor = color
             

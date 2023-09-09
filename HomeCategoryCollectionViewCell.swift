@@ -1,31 +1,31 @@
 //
-//  CustomCollectionViewCell.swift
+//  HomeCategoryCollectionViewCell.swift
 //  DateNight
 //
-//  Created by Wayne Williams on 3/3/23.
+//  Created by Wayne Williams on 9/2/23.
 //
 
 import UIKit
 
-class CustomCollectionViewCell: UICollectionViewCell {
+class HomeCategoryCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var topicLbl: UILabel!
-    @IBOutlet weak var bgkView: UIView!
+    @IBOutlet weak var categoryLbl: UILabel!
+    @IBOutlet weak var coverView: UIView!
+    var color = UIColor.white
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-            self.clipsToBounds = true
-            self.layer.cornerRadius = 20
-            bgkView.layer.cornerRadius = 20
-        
-    }
-    
-    var cardModel: CreateCardModel? {
+    var categories: Category? {
         didSet {
-            guard let model = cardModel else {return}
-            topicLbl.text = model.categoryTitle
-            bgkView.backgroundColor = UIColor.init(model.colorString)
+            guard let categories = categories else {return}
+            let color = UIColor.init(categories.color, alpha: 1.0)
+            contentView.backgroundColor = color
+            self.color = color
+            //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
+            //catImageView.tintColor = color
+            //catImageView.image = UIImage(named: categories.image)
+            categoryLbl.text = categories.title.uppercased()
+            //categoryLbl.textColor = UIColor.black
             
+            self.layer.cornerRadius = 20
         }
     }
     
@@ -34,7 +34,7 @@ class CustomCollectionViewCell: UICollectionViewCell {
            didSet {
                UIView.animate(withDuration: 0.3) { [weak self] in
                    self?.transform = self!.isSelected ? .init(scaleX: 0.85, y: 0.85) : .identity
-                   self?.backgroundColor = self!.isSelected ? UIColor.white.withAlphaComponent(0.3): UIColor.clear
+                   self?.coverView.backgroundColor = self!.isSelected ? UIColor.white.withAlphaComponent(0.3): UIColor.clear
                } completion: { (done) in
                    if done {
                        UIView.animate(withDuration: 0.1) {
@@ -53,13 +53,5 @@ class CustomCollectionViewCell: UICollectionViewCell {
            }
        }
     
-    /*
-    override var isSelected: Bool {
-           didSet {
-               //self.contentView.backgroundColor = isSelected ? ColorTheme.lightTeal : UIColor.clear
-               self.bgkView.layer.borderWidth = isSelected ? 2 : 0 ///0/UIColor.clear
-               self.bgkView.layer.borderColor = isSelected ? UIColor.label.cgColor : UIColor.clear.cgColor //UIColor.label.cgColor
-           }
-       }
-    */
+    
 }

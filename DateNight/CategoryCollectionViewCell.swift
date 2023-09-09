@@ -18,13 +18,13 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     var categories: Category? {
         didSet {
             guard let categories = categories else {return}
-            let color = UIColor.init(categories.color, alpha: 1.0)
-            contentView.backgroundColor = color
-            //imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
-            catImageView.tintColor = color
-            catImageView.image = UIImage(named: categories.image)
+            //let color = UIColor.init(categories.color, alpha: 1.0)
+           // contentView.backgroundColor = color
+            imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
+           // catImageView.tintColor = color
+            catImageView.image = UIImage(systemName: "person.fill")//UIImage(named: categories.image)
             categeoryTitle.text = categories.title.uppercased()
-            categeoryTitle.textColor = UIColor.white
+            //categeoryTitle.textColor = UIColor.white
         }
     }
     

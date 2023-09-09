@@ -39,7 +39,7 @@ struct ColorTheme {
 class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
   
     
-    
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
     @IBOutlet weak var myView: UIView!
     // @IBOutlet weak var mainCarousel: iCarousel!
     @IBOutlet weak var stackView: UIStackView!
@@ -61,7 +61,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     let mainCarousel: iCarousel = {
         let view = iCarousel()
-        view.type = .coverFlow
+        view.type = .rotary
         view.scrollSpeed = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isPagingEnabled = true
@@ -118,6 +118,15 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
        
     }
     
+    func setupCollectionView(){
+        if let flowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 40)
+            //flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 50)
+            flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        }
+        
+    }
+    
     //let cards = ["dr", "thor", "ironman", "spider", "avenger"]
     
     let cards = ["Do you believe in love?", "Do you believe in love at first sight?",
@@ -134,13 +143,15 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         FetchData.parseJSON { [weak self] categories in
             // self?.categories = categories.shuffled()
             self?.category = categories.randomElement()
+            self?.categories = categories
             self?.mainCarousel.reloadData()
+            self?.categoryCollectionView.reloadData()
         }
         setupViews()
        // tapGesture()
         print("FETCHED CAT\(DataManager().fetchSavedCategories())")
-        categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
-        
+        //categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
+        setupCollectionView()
         }
     
     
@@ -206,8 +217,8 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
             
             mainCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            mainCarousel.topAnchor.constraint(equalTo: self.categoryTitleButton.bottomAnchor, constant: 50),
-            mainCarousel.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -50),
+            mainCarousel.topAnchor.constraint(equalTo: self.categoryCollectionView.bottomAnchor, constant: 30),
+            mainCarousel.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -30),
             
             myCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             myCarousel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -251,21 +262,6 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         sheet.largestUndimmedDetentIdentifier = .none
         customizeVC.delegate = self
         present(customizeVC, animated: true)
-        
-        
-        
-        
-        /*UIView.transition(with: fontCarousel, duration: 0.7, options: .transitionCrossDissolve,  animations: {[weak self] in
-         self?.fontCarousel.isHidden = false
-         self?.myCarousel.isHidden = false
-         self?.cancelButton.isHidden = false
-         self?.stackView.isHidden = true
-         })
-         */
-        
-        
-        
-        
     }
     
     
@@ -468,7 +464,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
 extension HomeViewController: CategoriesVCDelegate {
    
     func onDismiss(category: Category) {
-        categoryTitleButton.setTitle(category.title, for: .normal)
+       // categoryTitleButton.setTitle(category.title, for: .normal)
         //categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 30, weight: .semibold)
         self.category.items.removeAll()
           self.category = category
@@ -546,7 +542,7 @@ extension HomeViewController: iCarouselDataSource {
         label.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -85).isActive = true
         
             if let category = category {
-                categoryTitleButton.setTitle(category.title, for: .normal)
+                //categoryTitleButton.setTitle(category.title, for: .normal)
                 label.text = category.items[index]
             }
         
@@ -627,6 +623,59 @@ extension HomeViewController: iCarouselDataSource {
 
 }
 
+
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! HomeCategoryCollectionViewCell
+        // let category = categories[indexPath.item]
+        cell.categories = categories[indexPath.item]
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        //guard let cell = collectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell else {return}
+        let category = categories[indexPath.row]
+        //print("SELECTED CAT\(category)")
+            self.category.items.removeAll()
+          self.category = category
+          self.mainCarousel.reloadData()
+        
+        
+    }
+    
+    /*
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell else {return}
+        //  guard let topCell = collectionView.cellForItem(at: indexPath) as? TopSpeakersCollecViewCell else {return}
+        
+        UIView.animate(withDuration: 0.3) {
+           // cell.transform = .init(scaleX: 0.95, y: 0.95)
+            //cell.categoryLbl.textColor = .black
+            //cell.contentView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        } completion: { (done) in
+            if done {
+                UIView.animate(withDuration: 0.1) {
+                   // cell.transform = .identity
+                    //                } completion: { [ weak self](done) in
+                    //                    if done {
+                    //                        self?.cellTappedAction(indexPath: indexPath)
+                    //                    }
+                    //                }
+                }
+            }
+            
+        }
+        
+        
+    }
+     */
+    
+}
 
 extension HomeViewController: iCarouselDelegate {
     

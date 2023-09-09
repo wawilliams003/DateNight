@@ -18,11 +18,10 @@ struct PaymentInfoModel {
         
         let basicInfo = PaymentInfoModel(labe1: "View all cards", label2: "Save cards to photo library", label3: "Customize cards ", label4: "Share cards", purchaseType: "BASIC")
         
-        let premiumInfo = PaymentInfoModel(labe1: "All basic features", label2: "View cards you’ve created", label3: "Play audio ", label4: "Need OPtions", purchaseType: "Premium")
+        let premiumInfo = PaymentInfoModel(labe1: "All basic features", label2: "View cards you’ve created", label3: "Play audio ", label4: "Need OPtions", purchaseType: "PREMIUM")
         
-        data.append(basicInfo)
         data.append(premiumInfo)
-        
+        data.append(basicInfo)
         return data
     }
 }
