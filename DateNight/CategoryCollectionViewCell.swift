@@ -22,8 +22,10 @@ class CategoryCollectionViewCell: UICollectionViewCell {
            // contentView.backgroundColor = color
             imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 0.25)
            // catImageView.tintColor = color
-            catImageView.image = UIImage(systemName: "person.fill")//UIImage(named: categories.image)
-            categeoryTitle.text = categories.title.uppercased()
+            catImageView.tintColor = .white
+            catImageView.image = UIImage(named: categories.image)
+           
+            categeoryTitle.text = categories.title//.uppercased()
             //categeoryTitle.textColor = UIColor.white
         }
     }

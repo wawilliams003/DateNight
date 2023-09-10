@@ -49,12 +49,18 @@ class ShowCreatedCatViewController: UIViewController, UICollectionViewDelegateFl
 
     func setupCollectionView() {
         if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            let width = collectionView.frame.size.width / 2-8
-            //let height = collectionView.frame.size.width / 2
-            flowLayout.itemSize = CGSize(width: width, height: width)
-            flowLayout.scrollDirection = .vertical
-            flowLayout.sectionInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-            flowLayout.minimumLineSpacing = 5
+//            let width = collectionView.frame.size.width / 2-8
+//            //let height = collectionView.frame.size.width / 2
+//            flowLayout.itemSize = CGSize(width: width, height: width)
+//            flowLayout.scrollDirection = .vertical
+//            flowLayout.sectionInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+//            flowLayout.minimumLineSpacing = 5
+            
+            flowLayout.minimumLineSpacing = 20
+            // flowLayout.minimumInteritemSpacing = 15
+            flowLayout.itemSize = CGSize(width: (view.frame.size.width/2)-30,
+                                         height: 170)
+            flowLayout.sectionInset = UIEdgeInsets(top: 15, left: 20, bottom: 5, right: 20)
         }
         
     }
