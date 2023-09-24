@@ -12,6 +12,7 @@ import iCarousel
 import AVFoundation
 import SwiftUI
 import MessageUI
+import FirebaseAuth
 
 struct ColorTheme {
     static let lightColor = UIColor.init("30314B", alpha: 1.0)
@@ -155,21 +156,33 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         }
     
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        //mainCarousel.dataSource = nil
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //print("USER\(FirebaseAuth.Auth.auth().currentUser)")
+       // validateAuth()
     }
     
     
     
     //MARK: Helper Functions
+    
+    func validateAuth() {
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let vc = storyboard!.instantiateViewController(withIdentifier: "LogInViewController") as! LogInViewController
+            let navVC = UINavigationController(rootViewController: vc)
+            navVC.modalPresentationStyle = .overFullScreen
+            present(navVC, animated: true)
+        } else {
+            // SHow KonnectView with iCarausel
+            
+            let vc = storyboard!.instantiateViewController(withIdentifier: "KonnectViewController") as! KonnectViewController
+            let navVC = UINavigationController(rootViewController: vc)
+            navVC.modalPresentationStyle = .overFullScreen
+            present(navVC, animated: true)
+            
+        }
+        
+    }
     /*
      func parseJSON() {
      guard let path = Bundle.main.path(forResource: "data", ofType: "json") else {return}
@@ -342,11 +355,10 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     
     @IBAction func showChat(_ sender: Any) {
-        
-        let vc = UIHostingController(rootView: ContentView())
-        present(vc, animated: true)
-        
-        
+        validateAuth()
+        //let vc = UIHostingController(rootView: ContentView())
+        //present(vc, animated: true)
+       
     }
     
     @IBAction func showCategories()  {

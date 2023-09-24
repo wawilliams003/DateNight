@@ -24,7 +24,7 @@ struct MainView: View {
     @State var keyboardYOffset: CGFloat = 0
     
     //let keyString = ("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")
-    var openAI =  OpenAISwift(config: OpenAISwift.Config.makeDefaultOpenAI(apiKey: "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"))
+    var openAI =  OpenAISwift(config: OpenAISwift.Config.makeDefaultOpenAI(apiKey: ""))
     //let open = OpenAISwift(config: OpenAISwift.Config)
     
     

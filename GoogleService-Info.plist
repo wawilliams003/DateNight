@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>644867068725-kj0i69blht2uml4g2m1g3qcoeg2ket5m.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.644867068725-kj0i69blht2uml4g2m1g3qcoeg2ket5m</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBpuOe4URpFi2XP1K0XKZcob-u022gFLNE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>644867068725</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>waynewilliamsapps.DateNight</string>
+	<key>PROJECT_ID</key>
+	<string>konnect-d70df</string>
+	<key>STORAGE_BUCKET</key>
+	<string>konnect-d70df.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:644867068725:ios:9d0f1834c3c865ffac727c</string>
+</dict>
+</plist>

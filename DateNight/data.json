@@ -50,7 +50,7 @@
      {
          "title": "Goals",
          "image": "goals",
-         "color": "2db6b3",
+         "color": "00A676",
          "items": [
              "Do you set goals?",
              "What goal/s are you currently working on?",
@@ -64,7 +64,7 @@
      {
          "title": "Relationship",
          "image": "goals",
-         "color": "2db6b3",
+         "color": "2e2532",
          "items": [
              "Do you set goals?",
              "What goal/s are you currently working on?",
@@ -78,7 +78,7 @@
      {
          "title": "Couples",
          "image": "couple",
-         "color": "2db6b3",
+         "color": "164ba1",
          "items": [
              " What is making you feel alive lately?",
              " Is there a song that makes you think of me?",
@@ -110,7 +110,7 @@
      {
          "title": "First Date",
          "image": "first-date",
-         "color": "2db6b3",
+         "color": "967d69",
          "items": [
              "What brings you joy?",
              "What are the top 3 qualities you’re looking for in a significant other?",
@@ -139,9 +139,9 @@
      {
          "title": "Sex",
          "image": "sex",
-         "color": "2db6b3",
+         "color": "014421",
          "items": [
-             "True or False: \n Sex that doesn't result in organism is trash.",
+             "True or False: \n Sex that doesn't result in orgasm is trash.",
              "Do you believe in sex after marriage? If no, defend your answer.",
              "How long should 2 people date before having sex? Why?",
              "What's one of your sexual fantasies?",
@@ -165,7 +165,7 @@
      {
          "title": "Miscellaneous",
          "image": "miscellaneous",
-         "color": "2db6b3",
+         "color": "ff1694",
          "items": [
              "What's something you'd like to learn or be better at?",
              "Are you an introvert or an extrovert? ",
@@ -185,7 +185,7 @@
      {
          "title": "Conversation Starters",
          "image": "conversations",
-         "color": "2db6b3",
+         "color": "5c2751",
          "items": [
               "Have you ever been in love before?",
              "Tell me the story of your first love.",
