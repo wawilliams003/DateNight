@@ -13,6 +13,8 @@ import AVFoundation
 import SwiftUI
 import MessageUI
 import FirebaseAuth
+import GoogleSignIn
+import FirebaseCore
 
 struct ColorTheme {
     static let lightColor = UIColor.init("30314B", alpha: 1.0)
@@ -153,6 +155,9 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         print("FETCHED CAT\(DataManager().fetchSavedCategories())")
         //categoryTitleButton.titleLabel?.font = UIFont.systemFont(ofSize: 25, weight: .medium)
         setupCollectionView()
+        
+       // logOut()
+//        googleSignIn()
         }
     
     
@@ -162,6 +167,17 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
        // validateAuth()
     }
     
+    func logOut(){
+        
+        do  {
+           try FirebaseAuth.Auth.auth().signOut()
+            print("USER LOGGED OUT")
+        } catch {
+            
+        }
+        
+       
+    }
     
     
     //MARK: Helper Functions
@@ -174,13 +190,48 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
             present(navVC, animated: true)
         } else {
             // SHow KonnectView with iCarausel
-            
+
             let vc = storyboard!.instantiateViewController(withIdentifier: "KonnectViewController") as! KonnectViewController
             let navVC = UINavigationController(rootViewController: vc)
             navVC.modalPresentationStyle = .overFullScreen
             present(navVC, animated: true)
-            
+
         }
+        
+    }
+    
+    func googleSignIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+          guard error == nil else {
+              print("Failure to sign in with google")
+              return
+          }
+
+          guard let user = result?.user,
+            let idToken = user.idToken?.tokenString
+          else {
+            return
+          }
+
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: user.accessToken.tokenString)
+
+            
+            Auth.auth().signIn(with: credential) { result, error in
+                print("SUCCESS SIGNING IN USER")
+              // At this point, our user is signed in
+            }
+          
+        }
+        
+        
         
     }
     /*

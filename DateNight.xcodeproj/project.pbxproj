@@ -16,6 +16,12 @@
 		B020D3D72AC00871003B1BED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B020D3D62AC00871003B1BED /* GoogleService-Info.plist */; };
 		B020D3D92AC01B38003B1BED /* KonnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3D82AC01B38003B1BED /* KonnectViewController.swift */; };
 		B020D3DB2AC01D04003B1BED /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3DA2AC01D04003B1BED /* DatabaseManager.swift */; };
+		B020D3DE2AC0FEC6003B1BED /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B020D3DD2AC0FEC6003B1BED /* GoogleSignInSwift */; };
+		B020D3E02AC53D57003B1BED /* TableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3DF2AC53D57003B1BED /* TableHeader.swift */; };
+		B020D3E22AC79EFF003B1BED /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3E12AC79EFF003B1BED /* StorageManager.swift */; };
+		B020D3E52AC7B06F003B1BED /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = B020D3E42AC7B06F003B1BED /* ProgressHUD */; };
+		B020D3E72AC7CCDA003B1BED /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3E62AC7CCDA003B1BED /* SearchViewController.swift */; };
+		B020D3EA2AC7DD7E003B1BED /* SearchUserTableviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3E92AC7DD7E003B1BED /* SearchUserTableviewCell.swift */; };
 		B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45B29F6295E0075E816 /* CircleButtonView.swift */; };
 		B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */; };
 		B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A46129F634760075E816 /* ShowCreatedCatCell.swift */; };
@@ -72,6 +78,10 @@
 		B020D3D62AC00871003B1BED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B020D3D82AC01B38003B1BED /* KonnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonnectViewController.swift; sourceTree = "<group>"; };
 		B020D3DA2AC01D04003B1BED /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		B020D3DF2AC53D57003B1BED /* TableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableHeader.swift; sourceTree = "<group>"; };
+		B020D3E12AC79EFF003B1BED /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		B020D3E62AC7CCDA003B1BED /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		B020D3E92AC7DD7E003B1BED /* SearchUserTableviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserTableviewCell.swift; sourceTree = "<group>"; };
 		B038A45B29F6295E0075E816 /* CircleButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
 		B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatViewController.swift; sourceTree = "<group>"; };
 		B038A46129F634760075E816 /* ShowCreatedCatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatCell.swift; sourceTree = "<group>"; };
@@ -121,10 +131,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B020D3DE2AC0FEC6003B1BED /* GoogleSignInSwift in Frameworks */,
 				B020D3D12AC005C7003B1BED /* FirebaseDatabaseSwift in Frameworks */,
 				B0AFEA6B29B92D04007A29B9 /* Toast in Frameworks */,
 				B020D3CF2AC005C7003B1BED /* FirebaseAuth in Frameworks */,
 				B03FE09C2A86F2ED00944998 /* OpenAISwift in Frameworks */,
+				B020D3E52AC7B06F003B1BED /* ProgressHUD in Frameworks */,
 				B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */,
 				B020D3D32AC005C7003B1BED /* FirebaseStorage in Frameworks */,
 				B0C6FA772958290500C5B3EB /* Disk in Frameworks */,
@@ -159,8 +171,17 @@
 				B020D3C92ABD48D9003B1BED /* LogInViewController.swift */,
 				B020D3CB2ABD48E5003B1BED /* RegisterViewController.swift */,
 				B020D3D82AC01B38003B1BED /* KonnectViewController.swift */,
+				B020D3E62AC7CCDA003B1BED /* SearchViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B020D3E82AC7DD55003B1BED /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B020D3E92AC7DD7E003B1BED /* SearchUserTableviewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		B03FE0A72A86FEE500944998 /* SwiftUI */ = {
@@ -179,6 +200,7 @@
 		B0BF953E294950200099C33F = {
 			isa = PBXGroup;
 			children = (
+				B020D3E82AC7DD55003B1BED /* Cells */,
 				B020D3D62AC00871003B1BED /* GoogleService-Info.plist */,
 				B020D3C62AA3A6CD003B1BED /* HomeCategoryCollectionViewCell.swift */,
 				B076CA442A9ACE0D00FCC868 /* PurchaseInfoCollectionViewCell.swift */,
@@ -248,6 +270,7 @@
 				B03FE0AA2A92ED3200944998 /* ShowPaymentOptionsView.xib */,
 				B03FE0AC2A92EE3700944998 /* ShowPaymentOptionsView.swift */,
 				B03FE0A72A86FEE500944998 /* SwiftUI */,
+				B020D3DF2AC53D57003B1BED /* TableHeader.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -260,6 +283,7 @@
 				B0C6FA7C29582BAB00C5B3EB /* Extensions.swift */,
 				B076CA462A9AEA9C00FCC868 /* Constants.swift */,
 				B020D3DA2AC01D04003B1BED /* DatabaseManager.swift */,
+				B020D3E12AC79EFF003B1BED /* StorageManager.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -289,6 +313,8 @@
 				B020D3CE2AC005C7003B1BED /* FirebaseAuth */,
 				B020D3D02AC005C7003B1BED /* FirebaseDatabaseSwift */,
 				B020D3D22AC005C7003B1BED /* FirebaseStorage */,
+				B020D3DD2AC0FEC6003B1BED /* GoogleSignInSwift */,
+				B020D3E42AC7B06F003B1BED /* ProgressHUD */,
 			);
 			productName = DateNight;
 			productReference = B0BF9547294950200099C33F /* DateNight.app */;
@@ -323,6 +349,8 @@
 				B0AFEA6929B92D04007A29B9 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 				B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 				B020D3CD2AC005C7003B1BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B020D3DC2AC0FEC6003B1BED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				B020D3E32AC7B06F003B1BED /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 			);
 			productRefGroup = B0BF9548294950200099C33F /* Products */;
 			projectDirPath = "";
@@ -404,10 +432,13 @@
 				B03FE0A92A8B04F600944998 /* ContentView.swift in Sources */,
 				B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */,
 				B0AFEA6829B2C4A3007A29B9 /* CustomCollectionViewCell.swift in Sources */,
+				B020D3E72AC7CCDA003B1BED /* SearchViewController.swift in Sources */,
 				B0F8D8AC2964C0D10069B057 /* BottomSheetViewController.swift in Sources */,
+				B020D3E02AC53D57003B1BED /* TableHeader.swift in Sources */,
 				B076CA472A9AEA9C00FCC868 /* Constants.swift in Sources */,
 				B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */,
 				B020D3D92AC01B38003B1BED /* KonnectViewController.swift in Sources */,
+				B020D3E22AC79EFF003B1BED /* StorageManager.swift in Sources */,
 				B038A4662A04ADFA0075E816 /* CustomToastView.swift in Sources */,
 				B076CA412A9AC3E000FCC868 /* PaymentViewController.swift in Sources */,
 				B076CA452A9ACE0D00FCC868 /* PurchaseInfoCollectionViewCell.swift in Sources */,
@@ -424,6 +455,7 @@
 				B0BF954F294950200099C33F /* HomeViewController.swift in Sources */,
 				B03FE0992A86F14600944998 /* HistoryModel.xcdatamodeld in Sources */,
 				B03FE09E2A86F3B100944998 /* MainView.swift in Sources */,
+				B020D3EA2AC7DD7E003B1BED /* SearchUserTableviewCell.swift in Sources */,
 				B03FE0A62A86F4A400944998 /* String+Extension.swift in Sources */,
 				B0BF956329498AE40099C33F /* CategoryCollectionViewCell.swift in Sources */,
 				B03FE0AD2A92EE3700944998 /* ShowPaymentOptionsView.swift in Sources */,
@@ -584,6 +616,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DateNight/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow this app to save photo to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -613,6 +646,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DateNight/Info.plist;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow this app to save photo to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -664,6 +698,22 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		B020D3DC2AC0FEC6003B1BED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
+		B020D3E32AC7B06F003B1BED /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
 		B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
@@ -705,6 +755,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B020D3CD2AC005C7003B1BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		B020D3DD2AC0FEC6003B1BED /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B020D3DC2AC0FEC6003B1BED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		B020D3E42AC7B06F003B1BED /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B020D3E32AC7B06F003B1BED /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
 		};
 		B03FE09B2A86F2ED00944998 /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -7,14 +7,16 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
+import FirebaseCore
 
 class LogInViewController: UIViewController {
 
     
     @IBOutlet weak var emailTextfield: UITextField!
     @IBOutlet weak var passwordTextfield: UITextField!
-
-    
+    @IBOutlet weak var signInButton: GIDSignInButton!
+    //private let googleLogInButton = GIDSignInButton()
     
     
     override func viewDidLoad() {
@@ -49,6 +51,46 @@ class LogInViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    func googleSignIn() {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+          guard error == nil else {
+              print("Failure to sign in with google")
+              return
+          }
+
+          guard let user = result?.user,
+            let idToken = user.idToken?.tokenString
+          else {
+            return
+          }
+
+          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                         accessToken: user.accessToken.tokenString)
+
+            
+            Auth.auth().signIn(with: credential) { result, error in
+                print("SUCCESS SIGNING IN USER")
+              // At this point, our user is signed in
+            }
+          
+        }
+        
+        
+        
+    }
+    
+    @IBAction func addGoogleSignInButtton() {
+        googleSignIn()
+        
+    }
+    
     @IBAction func loginBtn() {
         emailTextfield.resignFirstResponder()
         passwordTextfield.resignFirstResponder()
@@ -65,6 +107,9 @@ class LogInViewController: UIViewController {
                 print("ERROR LON IN USER")
                 return
             }
+            
+            let user = result.user
+            UserDefaults.standard.set(email, forKey: "email")
             
             print("LOG IN SUCCESS \(result.user.displayName)")
             

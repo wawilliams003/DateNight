@@ -9,6 +9,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseCore
 
+
 class RegisterViewController: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
@@ -78,10 +79,34 @@ class RegisterViewController: UIViewController {
                     print("Error Creating User\(String(describing: error?.localizedDescription))")
                     return
                 }
-                DatabaseManager.shared.insertUser(with: KonnectUser(name: name, email: email, isActive: false))
+                
+                let user = KonnectUser(name: name, email: email, isActive: false)
+                
+                DatabaseManager.shared.insertUser(with: user, completion: { success in
+                    if success {
+                        guard let image = self?.profilePicImageView.image, let data = image.pngData() else {
+                            
+                            return
+                        }
+                        
+                        let filename = user.profilePictureFileName
+                        StorageManager.shared.uploadProfilePic(with: data, fileName: filename) { result in
+                            switch result {
+                            case .success(let downloadUrl):
+                                UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                print(downloadUrl)
+                            case .failure(let error):
+                                print("Storage Maanger Error \(error)")
+                            }
+                        }
+                      
+                        
+                        
+                    }
+                })
                 
                 
-                
+               
             }
         }
         
