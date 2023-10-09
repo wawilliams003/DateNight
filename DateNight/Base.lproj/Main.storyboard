@@ -2395,9 +2395,23 @@
                                                 <action selector="searchBtn" destination="Nls-EN-FkD" eventType="touchUpInside" id="Fzh-7e-guo"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KhN-of-rXq">
+                                            <rect key="frame" x="245" y="47.666666666666657" width="82" height="35"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="82" id="gaH-ab-JRj"/>
+                                                <constraint firstAttribute="height" constant="35" id="u0r-KM-ieR"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" title="LogOut"/>
+                                            <connections>
+                                                <action selector="logOutBtn" destination="Nls-EN-FkD" eventType="touchUpInside" id="Z6O-3T-iNa"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemPinkColor"/>
                                     <constraints>
+                                        <constraint firstItem="KhN-of-rXq" firstAttribute="centerY" secondItem="t6l-oQ-Qoz" secondAttribute="centerY" id="37U-SV-iJq"/>
+                                        <constraint firstItem="t6l-oQ-Qoz" firstAttribute="leading" secondItem="KhN-of-rXq" secondAttribute="trailing" constant="16" id="Dkp-ZF-PQI"/>
                                         <constraint firstItem="lkv-LY-eks" firstAttribute="centerY" secondItem="s0u-zm-SkS" secondAttribute="centerY" id="GkM-Lb-J7R"/>
                                         <constraint firstItem="wO2-oR-W4o" firstAttribute="centerY" secondItem="s0u-zm-SkS" secondAttribute="centerY" id="h3L-Ed-F1e"/>
                                         <constraint firstItem="wO2-oR-W4o" firstAttribute="leading" secondItem="s0u-zm-SkS" secondAttribute="leading" constant="15" id="ip6-xA-9V3"/>
@@ -2520,7 +2534,7 @@
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="3Ir-GT-zl5"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Qax-K5-iYs" firstAttribute="leading" secondItem="3Ir-GT-zl5" secondAttribute="leading" id="6CH-7S-qwh"/>
                             <constraint firstItem="3Ir-GT-zl5" firstAttribute="bottom" secondItem="Qax-K5-iYs" secondAttribute="bottom" id="DVj-V8-4tx"/>
@@ -2535,6 +2549,50 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YDg-HZ-lC4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="635" y="2060"/>
+        </scene>
+        <!--Konnect Session View Controller-->
+        <scene sceneID="lD2-Di-SUM">
+            <objects>
+                <viewController storyboardIdentifier="KonnectSessionViewController" id="UeU-h7-VNG" customClass="KonnectSessionViewController" customModule="DateNight" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HNk-sb-ZaQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Vs-ND-4Qt">
+                                <rect key="frame" x="20" y="59" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="DZ8-t9-PgO"/>
+                                    <constraint firstAttribute="height" constant="35" id="Zvu-n9-7Pg"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="xmark.circle.fill" catalog="system"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8e3-en-Sx9">
+                                <rect key="frame" x="20" y="743" width="353" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="J3c-FB-xq6"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Connect"/>
+                                <connections>
+                                    <action selector="connectSession" destination="UeU-h7-VNG" eventType="touchUpInside" id="3zX-wH-AGL"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="k9J-DD-hmT"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="k9J-DD-hmT" firstAttribute="bottom" secondItem="8e3-en-Sx9" secondAttribute="bottom" constant="40" id="2pd-iH-Vt8"/>
+                            <constraint firstItem="k9J-DD-hmT" firstAttribute="trailing" secondItem="8e3-en-Sx9" secondAttribute="trailing" constant="20" id="OMy-lr-O1h"/>
+                            <constraint firstItem="3Vs-ND-4Qt" firstAttribute="leading" secondItem="k9J-DD-hmT" secondAttribute="leading" constant="20" id="R3g-cR-aDO"/>
+                            <constraint firstItem="3Vs-ND-4Qt" firstAttribute="top" secondItem="k9J-DD-hmT" secondAttribute="top" id="TX4-ic-kAl"/>
+                            <constraint firstItem="8e3-en-Sx9" firstAttribute="leading" secondItem="k9J-DD-hmT" secondAttribute="leading" constant="20" id="XwD-D5-Ocy"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="scG-J7-rhk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1382" y="2048"/>
         </scene>
     </scenes>
     <resources>
@@ -2555,6 +2613,7 @@
         <image name="square.and.arrow.up.on.square.fill" catalog="system" width="119" height="128"/>
         <image name="square.grid.2x2.fill" catalog="system" width="128" height="114"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="123"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

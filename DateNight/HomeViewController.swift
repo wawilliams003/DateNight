@@ -158,6 +158,8 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         
        // logOut()
 //        googleSignIn()
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {return}
+        print("CURRENT EMAIL\(currentEmail)")
         }
     
     

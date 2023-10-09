@@ -13,6 +13,8 @@ class SearchViewController: UIViewController {
     
     @IBOutlet weak var tableview: UITableView!
     
+    public var completion: (([String: String]) -> ())?
+    
     private var users = [[String:String]]()
     private var hasFetched = false
     private var results = [[String:String]]()
@@ -29,10 +31,10 @@ class SearchViewController: UIViewController {
         label.isHidden = true
         label.text = "No Results"
         label.textAlignment = .center
-        label.textColor = .green
+        label.textColor = .red
         label.font = .systemFont(ofSize: 25, weight: .medium)
-        
-        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .blue
         return label
     }()
     
@@ -42,6 +44,10 @@ class SearchViewController: UIViewController {
         searchBar.delegate = self
         navigationItem.titleView = searchBar
         searchBar.showsCancelButton = true
+        
+        view.addSubview(noResultLabel)
+        noResultLabel.frame = CGRect(x: 40, y: -200, width: tableview.frame.size.width/2 - 20, height: 100)
+        
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(searchCancelButton))
 //        searchBar.becomeFirstResponder()
         
@@ -52,7 +58,21 @@ class SearchViewController: UIViewController {
         
     }
     
-    
+    func celltappedAlert() {
+        let alert = UIAlertController(title: "Select Option", message: "Send a connect request", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Connect with Wayne", style: .default, handler: { [weak self] _ in
+            
+            guard let storyboard = self?.storyboard, let vc = storyboard.instantiateViewController(withIdentifier: "KonnectSessionViewController") as? KonnectSessionViewController else {return}
+            vc.modalPresentationStyle = .fullScreen
+            self?.present(vc, animated: true)
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(alert, animated: true)
+        
+    }
     
 
     /*
@@ -76,7 +96,24 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.name.text = results[indexPath.row]["name"]
         
+        
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let targetUserData = results[indexPath.row]
+            
+        
+        
+        guard let storyboard = self.storyboard, let vc = storyboard.instantiateViewController(withIdentifier: "KonnectSessionViewController") as? KonnectSessionViewController else {return}
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        
+        vc.results = targetUserData
+        present(nav, animated: true)
+       
+        //celltappedAlert()
     }
     
     
@@ -141,6 +178,7 @@ extension SearchViewController: UISearchBarDelegate {
     func updateUI() {
         if results.isEmpty {
             self.noResultLabel.isHidden = false
+            ProgressHUD.dismiss()
         } else {
             self.noResultLabel.isHidden = true
             self.tableview.reloadData()

@@ -43,5 +43,19 @@ class FetchData {
         
         
     }
-    
+  
+}
+
+struct Sender {
+    var photoURL: String
+    var senderId: String
+    var displayName: String
+}
+
+
+struct UsersCard {
+    var sender: Sender
+    var cardId: String
+    var sentDate: Date
+    var text: String
 }

@@ -16,6 +16,9 @@ struct Constants {
         let height = UIScreen.main.bounds.size.width
     }
     
-    
+    var currentUserEmail: String? {
+        guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String else {return nil }
+        return currentUserEmail
+    }
     
 }

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FirebaseAuth
 class KonnectViewController: UIViewController {
 
     
@@ -88,6 +88,23 @@ class KonnectViewController: UIViewController {
         
     }
 
+    @IBAction func logOutBtn() {
+        logOut()
+    }
+    
+    
+    func logOut(){
+        
+        do  {
+           try FirebaseAuth.Auth.auth().signOut()
+            print("USER LOGGED OUT")
+        } catch {
+            
+        }
+        
+       
+    }
+    
     /*
     // MARK: - Navigation
 
