@@ -7,6 +7,10 @@
 
 import UIKit
 import FirebaseAuth
+
+
+
+
 class KonnectViewController: UIViewController {
 
     
@@ -14,24 +18,54 @@ class KonnectViewController: UIViewController {
     
     @IBOutlet weak var headerView: TableHeader!
     
+    private var connections = [Connection]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         barbuttons()
         
         setupHeader()
+        startListeningForConnections()
     }
     
-    
+    private func startListeningForConnections(){
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        
+        DatabaseManager.shared.getAllConnections(for: safeEmail) { result in
+            switch result {
+            case .success(let connections):
+                print("Successfully get connections")
+                guard !connections.isEmpty else {
+                    return
+                }
+                self.connections = connections
+                DispatchQueue.main.async {
+                    self.tableview.reloadData()
+                }
+                
+            case .failure(let error):
+                print("ERROR getting connections\(error)")
+                
+            }
+        }
+        
+        
+    }
     
     func setupHeader(){
         tableview.tableHeaderView = headerView
-        headerView.frame = CGRect(x: 0, y: 0, width: tableview.frame.width, height: 130)
-        
+        headerView.frame = CGRect(x: 0, y: 0, width: tableview.frame.width, height: 200)
+        //headerView.name.text = "HET"
+        headerView.configure()
+        /*
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {return }
         let safeEmail = DatabaseManager.safeEmail(email: email)
-        let filename = safeEmail + "_profile_picture_png"
+        let filename = safeEmail + "_profile_picture.png"
         let path = "images/"+filename
-        
+        //headerView.profileImage.
         
         StorageManager.shared.downloadURL(file: path) { [weak self] result in
             //let defaultImage = UIImageView
@@ -43,7 +77,7 @@ class KonnectViewController: UIViewController {
             }
         }
         
-        
+        */
         
        // headerView.name.text = "NAME"
         
@@ -120,28 +154,52 @@ class KonnectViewController: UIViewController {
 
 extension KonnectViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return connections.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableview.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! KonnectVCTableCell
+        cell.connection = connections[indexPath.row]
+        
+        
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableview.deselectRow(at: indexPath, animated: true)
+        
+        let connection = connections[indexPath.row]
+        
+        guard let storyboard = self.storyboard, let vc = storyboard.instantiateViewController(withIdentifier: "KonnectSessionViewController") as? KonnectSessionViewController else {return}
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        vc.connection = connection
+        
+       
+        present(nav, animated: true)
+    }
+    
 }
 
 extension KonnectViewController: UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        headerView.name.text = "NAME"
-//        return headerView
-//    }
-//
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        200
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return  80
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+
+        headerView.name.text = "SOME NAME"
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
 }

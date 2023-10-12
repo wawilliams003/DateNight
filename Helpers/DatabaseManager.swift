@@ -9,6 +9,7 @@ import Foundation
 import FirebaseDatabase
 import UIKit
 
+
 final class DatabaseManager {
     
     static let shared = DatabaseManager()
@@ -252,7 +253,36 @@ extension DatabaseManager {
     }
     
     
-    public func getConnection(for email: String, completion: @escaping (Swift.Result<String, Error>) -> Void) {
+    public func getAllConnections(for email: String, completion: @escaping (Swift.Result<[Connection], Error>) -> Void) {
+        
+        database.child("\(email)/connections").observe(.value, with: { snapshot in
+            guard let value = snapshot.value as? [[String: Any]] else {
+                completion(.failure(DatabaseErrors.failedToFetch))
+                return }
+            
+            let connections: [Connection] = value.compactMap { dictionary in
+                guard let connectionId = dictionary["id"] as? String,
+                        let name = dictionary["name"] as? String,
+                      let otherUserEmail = dictionary["other_user_email"] as? String,
+                      let latestCard = dictionary["latest_card"] as? [String: Any],
+                      let date = latestCard["date"] as? String,
+                      let text = latestCard["text"] as? String else {
+                    return nil
+                    
+                }
+                
+                let latestCardObject = LatestCard(date: date, text: text)
+
+                return Connection(id: connectionId, name: name
+                                  , otherUserEmail: otherUserEmail , latestCard: latestCardObject)
+                
+            }
+            
+            completion(.success(connections))
+
+        })
+
+       
         
     }
     
@@ -261,5 +291,44 @@ extension DatabaseManager {
         
     }
     
+    /// Get all Cards fior given connection
+    public func getAllCardsForCOnncetion( with id: String, completion: @escaping (Swift.Result<[UsersCard], Error>) -> ()) {
+        database.child("\(id)/usersCard").observe(.value) { [weak self] snapshot, error in
+            guard let value = snapshot.value as? [[String: Any]] else {
+                completion(.failure(DatabaseErrors.failedToFetch))
+                return
+            }
+            
+            let userCard: [UsersCard] = value.compactMap { dictionary in
+                guard let name = dictionary["name"] as? String,
+                      let isActive = dictionary["is_active"] as? Bool,
+                      let cardId = dictionary["id"] as? String,
+                      let content = dictionary["content"] as? String,
+                      let dateString = dictionary["date"] as? String,
+                      let  senderEmail = dictionary["sender_email"] as? String,
+                      let date = self?.dateFormatter.date(from: dateString)   else {
+                    return nil
+                }
+                
+                let sender = Sender(photoURL: "",
+                                    senderId: senderEmail,
+                                    displayName: name)
+                
+                
+               return UsersCard(sender: sender, cardId: cardId, sentDate: date, text: content,  isActive: isActive)
+            }
+            //print("USER CARD \(userCard)")
+            completion(.success(userCard))
+        }
+        
+        
+        
+    }
+    
+    
+    
     
 }
+    
+    
+

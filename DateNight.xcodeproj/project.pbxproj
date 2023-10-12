@@ -25,6 +25,8 @@
 		B020D3EC2AC8F40F003B1BED /* KonnectSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3EB2AC8F40F003B1BED /* KonnectSessionViewController.swift */; };
 		B020D3EE2AC8FA8A003B1BED /* KonnectSessionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B020D3ED2AC8FA8A003B1BED /* KonnectSessionView.xib */; };
 		B020D3F02AC8FB14003B1BED /* KonnectSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020D3EF2AC8FB14003B1BED /* KonnectSessionView.swift */; };
+		B020D3F32AD523AC003B1BED /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B020D3F22AD523AC003B1BED /* Kingfisher */; };
+		B027F4B02AD776C60093BD17 /* KonnectVCTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027F4AF2AD776C60093BD17 /* KonnectVCTableCell.swift */; };
 		B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45B29F6295E0075E816 /* CircleButtonView.swift */; };
 		B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */; };
 		B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A46129F634760075E816 /* ShowCreatedCatCell.swift */; };
@@ -88,6 +90,7 @@
 		B020D3EB2AC8F40F003B1BED /* KonnectSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonnectSessionViewController.swift; sourceTree = "<group>"; };
 		B020D3ED2AC8FA8A003B1BED /* KonnectSessionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KonnectSessionView.xib; sourceTree = "<group>"; };
 		B020D3EF2AC8FB14003B1BED /* KonnectSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonnectSessionView.swift; sourceTree = "<group>"; };
+		B027F4AF2AD776C60093BD17 /* KonnectVCTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KonnectVCTableCell.swift; sourceTree = "<group>"; };
 		B038A45B29F6295E0075E816 /* CircleButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
 		B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatViewController.swift; sourceTree = "<group>"; };
 		B038A46129F634760075E816 /* ShowCreatedCatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatCell.swift; sourceTree = "<group>"; };
@@ -145,6 +148,7 @@
 				B020D3E52AC7B06F003B1BED /* ProgressHUD in Frameworks */,
 				B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */,
 				B020D3D32AC005C7003B1BED /* FirebaseStorage in Frameworks */,
+				B020D3F32AD523AC003B1BED /* Kingfisher in Frameworks */,
 				B0C6FA772958290500C5B3EB /* Disk in Frameworks */,
 				BE20F9012548500A175D3ED4 /* Pods_DateNight.framework in Frameworks */,
 			);
@@ -187,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				B020D3E92AC7DD7E003B1BED /* SearchUserTableviewCell.swift */,
+				B027F4AF2AD776C60093BD17 /* KonnectVCTableCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -324,6 +329,7 @@
 				B020D3D22AC005C7003B1BED /* FirebaseStorage */,
 				B020D3DD2AC0FEC6003B1BED /* GoogleSignInSwift */,
 				B020D3E42AC7B06F003B1BED /* ProgressHUD */,
+				B020D3F22AD523AC003B1BED /* Kingfisher */,
 			);
 			productName = DateNight;
 			productReference = B0BF9547294950200099C33F /* DateNight.app */;
@@ -360,6 +366,7 @@
 				B020D3CD2AC005C7003B1BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B020D3DC2AC0FEC6003B1BED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				B020D3E32AC7B06F003B1BED /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+				B020D3F12AD523AC003B1BED /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = B0BF9548294950200099C33F /* Products */;
 			projectDirPath = "";
@@ -478,6 +485,7 @@
 				B0F8D8AF29655A230069B057 /* FavoritesCollectionReusableView.swift in Sources */,
 				B03FE0A22A86F44000944998 /* SwiftUIModel.swift in Sources */,
 				B0BF9566294999DF0099C33F /* HeaderCollectionReusableView.swift in Sources */,
+				B027F4B02AD776C60093BD17 /* KonnectVCTableCell.swift in Sources */,
 				B0BF954D294950200099C33F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -726,6 +734,14 @@
 				minimumVersion = 13.0.0;
 			};
 		};
+		B020D3F12AD523AC003B1BED /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
@@ -777,6 +793,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B020D3E32AC7B06F003B1BED /* XCRemoteSwiftPackageReference "ProgressHUD" */;
 			productName = ProgressHUD;
+		};
+		B020D3F22AD523AC003B1BED /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B020D3F12AD523AC003B1BED /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		B03FE09B2A86F2ED00944998 /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;

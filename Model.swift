@@ -58,4 +58,36 @@ struct UsersCard {
     var cardId: String
     var sentDate: Date
     var text: String
+    var isActive: Bool = false
+}
+
+
+struct UsersCardSent {
+    let content: String
+    let date: Date
+    let id: String
+    let isActive: Bool
+    let name: String
+    let senderEmail: String
+}
+
+
+struct Connection {
+    let id: String
+    let name: String
+    let otherUserEmail: String
+    let latestCard: LatestCard
+    //let imageUrl = UserDefaults.standard.value(forKey: "")
+}
+
+
+struct LatestCard {
+    let date: String
+    let text: String
+}
+
+struct AppUSer {
+    var name: String
+    var email: String
+    var imageUrl: URL
 }

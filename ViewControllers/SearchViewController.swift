@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import Kingfisher
 
 class SearchViewController: UIViewController {
 
@@ -95,8 +96,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchUserTableviewCell
         
         cell.name.text = results[indexPath.row]["name"]
-        
-        
+        //let url = results[indexPath.row][""]
+        let urlPath = (UserDefaults.standard.value(forKey: "profile_picture_url") as? String)!
+        let url = URL(string: urlPath)!
+        cell.imageView?.kf.setImage(with: url)
         return cell
     }
     

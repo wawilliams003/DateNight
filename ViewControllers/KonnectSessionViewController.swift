@@ -8,6 +8,13 @@
 import UIKit
 import iCarousel
 
+
+
+
+
+
+
+
 class KonnectSessionViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -16,10 +23,27 @@ class KonnectSessionViewController: UIViewController {
     
     public var results : [String: String]?
     
+    var otherConnectedUser: AppUSer?
+    
+    var userCards = [UsersCard]()
+    
+    var connection: Connection?
+    
+    var appUser: AppUSer? {
+        guard let name = results?["name"] as? String,
+              let email = results?["email"] as? String,
+              let imageUrl = URL(string: UserDefaults.standard.value(forKey: "profile_picture_url") as? String ?? "")
+                else {return nil}
+        let user = AppUSer(name: name, email: email, imageUrl: imageUrl)
+        
+        return user
+    }
+    
     private var selfSender: Sender? {
         guard let email =  UserDefaults.standard.value(forKey: "email") as? String else {return nil}
-         return Sender(photoURL: "", senderId: "",
-               displayName: email)
+        let safeEmail = DatabaseManager.safeEmail(email: email)
+        return Sender(photoURL: "", senderId: "",
+               displayName: safeEmail)
     }
     
     
@@ -40,8 +64,18 @@ class KonnectSessionViewController: UIViewController {
             activateConstraint()
         mainCarousel.delegate = self
         mainCarousel.dataSource = self
-       
-        print("RESULT\(results)")
+        
+        guard let connection = connection else {return}
+        navigationItem.title = "Connected with " + connection.name
+       // let imageView = UIImageView()
+        
+        listenForOtherUser(id: connection.id)
+        
+//        imageView.kf.setImage(with: otherUser.imageUrl)
+//        navigationItem.titleView = imageView
+//        imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+       // print("RESULT\(results)")
+        //print("USERUSER\(appUser)")
        // mainCarousel.frame = CGRect(x: 20, y: 100, width: view.frame.width - 20, height: 300)
         // Do any additional setup after loading the view.
     }
@@ -49,6 +83,25 @@ class KonnectSessionViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        print("CONNECTION \(connection)")
+        
+    }
+    
+    private func listenForOtherUser(id: String) {
+        
+        DatabaseManager.shared.getAllCardsForCOnncetion(with: id) { [weak self] result in
+            switch result {
+            case .success(let userCards):
+                guard !userCards.isEmpty else {
+                    return
+                }
+                self?.userCards = userCards
+                print("USER CAWRD \(userCards)")
+                
+            case .failure(let error):
+                print("Failed to get USER CARDS\(error)")
+            }
+        }
         
     }
     
@@ -86,7 +139,7 @@ class KonnectSessionViewController: UIViewController {
                 print("Failed to send")
             }
         }
-        navigationItem.title = name
+       // navigationItem.title = name
         
     }
     
