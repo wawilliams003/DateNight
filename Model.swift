@@ -77,6 +77,7 @@ struct Connection {
     let name: String
     let otherUserEmail: String
     let latestCard: LatestCard
+    let sender: Int
     //let imageUrl = UserDefaults.standard.value(forKey: "")
 }
 
@@ -90,4 +91,44 @@ struct AppUSer {
     var name: String
     var email: String
     var imageUrl: URL
+}
+
+
+struct Notification {
+    var id: String
+    var didChecked = false
+    var creationDate: Date
+    var receiverEmail: String
+    var senderEmail: String
+    var senderName: String
+    /*
+    init(dictionary: [String: AnyObject]) {
+
+        if let id = dictionary["id"] as? String {
+            self.id = id
+        }
+        //self.id = (result["checked"] as? String)! else {return}
+        if let checked = dictionary["checked"] as? Int {
+            if checked == 0 {
+                self.didChecked = false
+            } else {
+                self.didChecked = true
+            }
+        }
+
+        if let creationDate = dictionary["creationDate"] as? Double {
+            self.creationDate = Date(timeIntervalSince1970: creationDate)
+        }
+        
+        if let receiverEmail = dictionary["receiverEmail"] as? String {
+            self.receiverEmail = receiverEmail
+        }
+        
+        if let senderEmail = dictionary["senderEmail"] as? String {
+            self.senderEmail = senderEmail
+        }
+        
+    }
+*/
+    
 }

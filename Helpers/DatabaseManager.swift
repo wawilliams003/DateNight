@@ -16,6 +16,8 @@ final class DatabaseManager {
     
     private let database = Database.database().reference()
     
+   static let notificationRef = Database.database().reference().child("notifications")
+    
     /// Inserts new user to database
     public func insertUser(with user: KonnectUser, completion: @escaping (Bool) -> ()){
         let values: [String : Any] = ["name": user.name,
@@ -145,7 +147,11 @@ extension DatabaseManager {
     
     
     public func createConnection(with withOtherUserEmail: String, withCard: UsersCard, name: String, complection: @escaping (Bool) -> ()) {
-        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {return}
+        guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String,
+        let currentName = UserDefaults.standard.value(forKey: "name") as? String else {
+            return
+            
+        }
         let safeEmail = DatabaseManager.safeEmail(email: currentEmail)
         
         let ref = database.child("\(safeEmail)")
@@ -165,15 +171,45 @@ extension DatabaseManager {
             let newConnectionData : [String: Any] = [
                 "id":connectionID,
                 "other_user_email": withOtherUserEmail,
-                "name": name,
+                "other_user_name": name,
+                "sender": 0,
                 "latest_card": [
                     "date": dateString,
-                    "text": "Some Card"
-                
+                    "text": "Creator"
+                    
                 ]
             
             ]
             
+            let recipient_newConnectionData : [String: Any] = [
+                "id":connectionID,
+                "other_user_email": safeEmail,
+                "other_user_name": currentName,
+                "sender": 1,
+                "latest_card": [
+                    "date": dateString,
+                    "text": "Recipient"
+                    
+                ]
+            
+            ]
+            
+            // Update Recipient Connection Entry
+            self?.database.child("\(withOtherUserEmail)/connections").observeSingleEvent(of: .value) { [weak self] snapshot in
+                if var connections = snapshot.value as? [[String:Any]]  {
+                    // append
+                    
+                    connections.append(recipient_newConnectionData)
+                    self?.database.child("\(withOtherUserEmail)/connections").setValue(connections)
+                    
+                } else {
+                    
+                    // Create New Recipient connection
+                    self?.database.child("\(withOtherUserEmail)/connections").setValue([recipient_newConnectionData])
+                    
+                    
+                }
+            }
 
             if var connections = userNode["connections"] as? [[String: Any]] {
                 // connection array for current user
@@ -255,6 +291,8 @@ extension DatabaseManager {
     
     public func getAllConnections(for email: String, completion: @escaping (Swift.Result<[Connection], Error>) -> Void) {
         
+        //let listener =  database.child("\(email)/connections")
+        
         database.child("\(email)/connections").observe(.value, with: { snapshot in
             guard let value = snapshot.value as? [[String: Any]] else {
                 completion(.failure(DatabaseErrors.failedToFetch))
@@ -262,8 +300,9 @@ extension DatabaseManager {
             
             let connections: [Connection] = value.compactMap { dictionary in
                 guard let connectionId = dictionary["id"] as? String,
-                        let name = dictionary["name"] as? String,
+                        let name = dictionary["other_user_name"] as? String,
                       let otherUserEmail = dictionary["other_user_email"] as? String,
+                      let sender = dictionary["sender"] as? Int,
                       let latestCard = dictionary["latest_card"] as? [String: Any],
                       let date = latestCard["date"] as? String,
                       let text = latestCard["text"] as? String else {
@@ -274,7 +313,7 @@ extension DatabaseManager {
                 let latestCardObject = LatestCard(date: date, text: text)
 
                 return Connection(id: connectionId, name: name
-                                  , otherUserEmail: otherUserEmail , latestCard: latestCardObject)
+                                  , otherUserEmail: otherUserEmail , latestCard: latestCardObject, sender: sender)
                 
             }
             
@@ -286,8 +325,51 @@ extension DatabaseManager {
         
     }
     
-    public func sendCard(to user: String, card: UsersCard, completion: @escaping (Bool) ->()) {
-        
+    public func sendCard(to connection: String, card: UsersCard, name: String, completion: @escaping (Bool) ->()) {
+        self.database.child("\(connection)/usersCard").observeSingleEvent(of: .value) { snapshot in
+            guard var currentCards = snapshot.value as? [[String: Any]] else {
+               completion(false)
+                return
+            }
+            
+            let cardDate = card.sentDate
+            let dateString = self.dateFormatter.string(from: cardDate)
+            
+            guard let myEmail =  UserDefaults.standard.value(forKey: "email") as? String else {
+                completion(false)
+                return }
+
+            let currentUserEmail = DatabaseManager.safeEmail(email: myEmail)
+            
+            let newCard: [String: Any] = [
+                "id":card.cardId,
+                "content": card.text,
+                "date": dateString,
+                "sender_email":currentUserEmail,
+                "is_active": false,
+                "name": name
+            ]
+            
+            currentCards.append(newCard)
+            
+            self.database.child("\(connection)/usersCard").setValue(currentCards) { error, _ in
+                guard error == nil else {
+                    completion(false)
+                    return
+                }
+                completion(true)
+            }
+            
+//            let value: [String: Any] = [
+//                "usersCard": [
+//                  card
+//                ]
+//            ]
+            
+            
+            
+        }
+
         
     }
     
@@ -320,13 +402,21 @@ extension DatabaseManager {
             //print("USER CARD \(userCard)")
             completion(.success(userCard))
         }
-        
-        
-        
     }
     
+    public func getDataFor(path: String, completion: @escaping (Swift.Result<Any, Error>) ->()) {
+        self.database.child("\(path)").observeSingleEvent(of: .value) { snapshot in
+            guard let value = snapshot.value else {
+                completion(.failure(DatabaseErrors.failedToFetch))
+                return
+            }
+            
+            completion(.success(value))
+            
+        }  
+    }
     
-    
+     
     
 }
     

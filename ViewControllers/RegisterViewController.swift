@@ -81,6 +81,8 @@ class RegisterViewController: UIViewController {
                 }
                 
                 let user = KonnectUser(name: name, email: email, isActive: false)
+                UserDefaults.standard.set(name, forKey: "name")
+
                 
                 DatabaseManager.shared.insertUser(with: user, completion: { success in
                     if success {

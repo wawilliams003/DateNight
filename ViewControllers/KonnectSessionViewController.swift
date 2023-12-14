@@ -7,27 +7,25 @@
 
 import UIKit
 import iCarousel
-
-
-
-
-
-
+import ProgressHUD
+//import Toast
 
 
 class KonnectSessionViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var showCardText: UILabel!
+    @IBOutlet weak var inputTextField: UITextField!
     
     public var completion: (([String: String]) -> ())?
-    
     public var results : [String: String]?
-    
-    var otherConnectedUser: AppUSer?
-    
-    var userCards = [UsersCard]()
-    
-    var connection: Connection?
+    private  var otherConnectedUser: AppUSer?
+    private var userCards = [UsersCard]()
+    public var connection: Connection?
+    private var name = ""
+    private var text = ""
+    var categories = [Category]()
+    var category: Category!
     
     var appUser: AppUSer? {
         guard let name = results?["name"] as? String,
@@ -45,7 +43,7 @@ class KonnectSessionViewController: UIViewController {
         return Sender(photoURL: "", senderId: "",
                displayName: safeEmail)
     }
-    
+   
     
     let mainCarousel: iCarousel = {
         let view = iCarousel()
@@ -67,27 +65,37 @@ class KonnectSessionViewController: UIViewController {
         
         guard let connection = connection else {return}
         navigationItem.title = "Connected with " + connection.name
+        name = connection.name
        // let imageView = UIImageView()
-        
-        listenForOtherUser(id: connection.id)
-        
-//        imageView.kf.setImage(with: otherUser.imageUrl)
-//        navigationItem.titleView = imageView
-//        imageView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
-       // print("RESULT\(results)")
-        //print("USERUSER\(appUser)")
-       // mainCarousel.frame = CGRect(x: 20, y: 100, width: view.frame.width - 20, height: 300)
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print("CONNECTION \(connection)")
+        setupCollectionView()
+        getAllCards(id: connection.id)
         
     }
     
-    private func listenForOtherUser(id: String) {
+    func fetchData(){
+        FetchData.parseJSON { [weak self] categories in
+            // self?.categories = categories.shuffled()
+            self?.category = categories.randomElement()
+            self?.categories = categories
+            self?.mainCarousel.reloadData()
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    func setupCollectionView(){
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.itemSize = CGSize(width: view.frame.size.width/3, height: 45)
+            //flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 50)
+            flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+            flowLayout.scrollDirection = .horizontal
+        }
+        
+    }
+    
+    
+    
+    
+    private func getAllCards(id: String) {
         
         DatabaseManager.shared.getAllCardsForCOnncetion(with: id) { [weak self] result in
             switch result {
@@ -96,6 +104,10 @@ class KonnectSessionViewController: UIViewController {
                     return
                 }
                 self?.userCards = userCards
+                DispatchQueue.main.async {
+                    self?.showCardText.text = userCards.last?.text
+                    ProgressHUD.remove()
+                }
                 print("USER CAWRD \(userCards)")
                 
             case .failure(let error):
@@ -109,10 +121,9 @@ class KonnectSessionViewController: UIViewController {
     func activateConstraint() {
         
         NSLayoutConstraint.activate([
-            
             mainCarousel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainCarousel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            mainCarousel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+            mainCarousel.topAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: 40),
             mainCarousel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
         ])
     }
@@ -123,18 +134,19 @@ class KonnectSessionViewController: UIViewController {
     
     
     private func createSession(result: [String: String]) {
-        guard let name = result["name"],
-              let email = result["email"] else {return}
+        guard let otherUserName = result["name"],
+              let otherUserEmail = result["email"] else {return}
         
-        guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String else {return }
+        guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String,
+              let name = UserDefaults.standard.value(forKey: "name") as? String      else {return }
          let sender =  Sender(photoURL: "", senderId: currentUserEmail,
-                              displayName: "")
+                              displayName: name)
         
         let usersCard = UsersCard(sender: sender, cardId: createMessageID(), sentDate: Date(), text: "First Card")
         
-        DatabaseManager.shared.createConnection(with: email, withCard: usersCard, name: name) {  success in
+        DatabaseManager.shared.createConnection(with: otherUserEmail, withCard: usersCard, name: otherUserName ) {  success in
             if success {
-                print("Message Sewnt")
+                print("Session Created")
             } else {
                 print("Failed to send")
             }
@@ -143,11 +155,50 @@ class KonnectSessionViewController: UIViewController {
         
     }
     
-    @IBAction func connectSession() {
-        guard let result = self.results else {return}
-        createSession(result: result)
+    
+    private func sendCard(){
+        
+        
+        ProgressHUD.show("Waiting for \(name).....", symbol: "Symbol", interaction: false)
+        
+        guard let connection = connection, let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String else {return }
+        
+        let name = connection.name
+         
+        let sender =  Sender(photoURL: "", senderId: currentUserEmail,
+                              displayName: name)
+        let card = UsersCard(sender: sender, cardId: createMessageID(), sentDate: Date(), text: inputTextField.text ?? "Hello")
+
+        DatabaseManager.shared.sendCard(to: connection.id, card: card, name: name) { success in
+            if success {
+                print("SUCCESS sending Card")
+            } else {
+                print("ERROR sending Card")
+            }
+        }
+        
     }
     
+    
+    @IBAction func SendCard() {
+        
+        sendCard()
+    }
+    
+    
+    @IBAction func connectSession() {
+      //  guard let result = self.results else {return}
+      //  createSession(result: result)
+        
+        //
+        //ProgressHUD.remove()
+        
+    }
+    
+    
+    @IBAction func dismiss() {
+        dismiss(animated: true)
+    }
 
     /*
     // MARK: - Navigation
@@ -161,27 +212,41 @@ class KonnectSessionViewController: UIViewController {
 
 }
 
+extension KonnectSessionViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as!
+        KonnectSessionCell
+        cell.category = categories[indexPath.item]
+        
+        return cell
+    }
+    
+    
+    
+    
+    
+}
+
 extension KonnectSessionViewController: iCarouselDataSource, iCarouselDelegate {
     
     func numberOfItems(in carousel: iCarousel) -> Int {
-        return 4
+        return categories.count
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let view = Bundle.main.loadNibNamed("KonnectSessionView", owner: self)?.first as? KonnectSessionView
         
+        let view = Bundle.main.loadNibNamed("KonnectSessionView", owner: self)?.first as? KonnectSessionView
+        view?.frame = carousel.frame//CGRect(x: 0, y: 0, width: 200, height: 300)
+        
+        //let imageView = UIImageView()
+        //imageView.backgroundColor = .brown
         
         return view!
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+ 
     
 }

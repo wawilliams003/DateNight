@@ -123,7 +123,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     func setupCollectionView(){
         if let flowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 40)
+            flowLayout.itemSize = CGSize(width: view.frame.size.width/3, height: 60)
             //flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 50)
             flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         }

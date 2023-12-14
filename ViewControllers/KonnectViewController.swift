@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 
-
+var count = 0
 
 class KonnectViewController: UIViewController {
 
@@ -34,16 +34,33 @@ class KonnectViewController: UIViewController {
         }
         let safeEmail = DatabaseManager.safeEmail(email: email)
         
-        DatabaseManager.shared.getAllConnections(for: safeEmail) { result in
+        DatabaseManager.shared.getAllConnections(for: safeEmail) { [weak self] result in
             switch result {
             case .success(let connections):
                 print("Successfully get connections")
+                guard let last = connections.last else {return}
+                
+                //UserDefaults.standard.set(<#T##value: Any?##Any?#>, forKey: <#T##String#>)
+                print("COunt\(connections.count)")
+               
+//                if last.sender == 1 {
+//                    self?.connectAlert()
+//                }
+                /*
+                if last.latestCard.text == "Recipient" {
+                    
+                    print("Show alert")
+                } else {
+                    
+                }
+                 */
+                
                 guard !connections.isEmpty else {
                     return
                 }
-                self.connections = connections
+                self?.connections = connections
                 DispatchQueue.main.async {
-                    self.tableview.reloadData()
+                    self?.tableview.reloadData()
                 }
                 
             case .failure(let error):
@@ -51,13 +68,27 @@ class KonnectViewController: UIViewController {
                 
             }
         }
-        
-        
     }
+    
+    
+    func connectAlert(){
+        let alert = UIAlertController(title: "Wants to conenct with you", message: "You can accept or deny request", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Accept", style: .default, handler: { _ in
+            print("Connected")
+        }))
+        
+        
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: { _ in
+            print("Didn't Connect")
+        }))
+        
+        present(alert, animated: true)
+    }
+    
     
     func setupHeader(){
         tableview.tableHeaderView = headerView
-        headerView.frame = CGRect(x: 0, y: 0, width: tableview.frame.width, height: 200)
+        headerView.frame = CGRect(x: 0, y: 0, width: tableview.frame.width, height: 220)
         //headerView.name.text = "HET"
         headerView.configure()
         /*
@@ -127,6 +158,12 @@ class KonnectViewController: UIViewController {
     }
     
     
+    @IBAction func notificationBtn() {
+        let vc = storyboard!.instantiateViewController(withIdentifier: "NotificationsViewController") as! NotificationsViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
     func logOut(){
         
         do  {
@@ -178,7 +215,7 @@ extension KonnectViewController: UITableViewDataSource {
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         vc.connection = connection
-        
+        //vc.results = 
        
         present(nav, animated: true)
     }

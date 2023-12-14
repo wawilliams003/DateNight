@@ -59,7 +59,7 @@ class LogInViewController: UIViewController {
         GIDSignIn.sharedInstance.configuration = config
 
         // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { result, error in
           guard error == nil else {
               print("Failure to sign in with google")
               return
@@ -108,9 +108,24 @@ class LogInViewController: UIViewController {
                 return
             }
             
+            let safeEmail = DatabaseManager.safeEmail(email: email)
+            DatabaseManager.shared.getDataFor(path: safeEmail) { result in
+                switch result {
+                case .success(let data):
+                    guard let userData = data as? [String: Any],
+                          let name = userData["name"] as? String else {
+                        return
+                    }
+                    UserDefaults.standard.set(name, forKey: "name")
+                    
+                case .failure(let error):
+                    print("Failed to read user data\(error)")
+                    
+                }
+            }
            
-            //UserDefaults.standard.set(email, forKey: "email")
-            //self?.dismiss(animated: true)
+            UserDefaults.standard.set(email, forKey: "email")
+            self?.dismiss(animated: true)
             print("LOG IN SUCCESS")
            
             

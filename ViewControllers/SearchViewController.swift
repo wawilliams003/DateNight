@@ -52,6 +52,7 @@ class SearchViewController: UIViewController {
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(searchCancelButton))
 //        searchBar.becomeFirstResponder()
         
+        print("RESULT\(results.first)")
     }
     
     @objc func searchCancelButton() {
@@ -75,14 +76,59 @@ class SearchViewController: UIViewController {
         
     }
     
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    private func createMessageID() -> String {
+        return UUID().uuidString
     }
-    */
+    
+    
+    private func createSession(result: [String: String]) {
+        guard let otherUserName = result["name"],
+              let otherUserEmail = result["email"] else {return}
+        
+        guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String,
+              let name = UserDefaults.standard.value(forKey: "name") as? String      else {return }
+         let sender =  Sender(photoURL: "", senderId: currentUserEmail,
+                              displayName: name)
+        
+        let usersCard = UsersCard(sender: sender, cardId: createMessageID(), sentDate: Date(), text: "First Card")
+        
+        DatabaseManager.shared.createConnection(with: otherUserEmail, withCard: usersCard, name: otherUserName ) {  success in
+            if success {
+                print("Session Created")
+            } else {
+                print("Failed to send")
+            }
+        }
+       // navigationItem.title = name
+        
+    }
+
+    func sendNotification(result: [String: String]){
+        guard let email =  UserDefaults.standard.value(forKey: "email") as? String,
+              let senderName = UserDefaults.standard.value(forKey: "name") as? String,
+              let otherUserEmail = result["email"] else {return}
+        let creationDate = Int(Date().timeIntervalSince1970)
+        let currentUserEmail = DatabaseManager.safeEmail(email: email)
+        
+        let notificationRef = DatabaseManager.notificationRef.child(otherUserEmail).childByAutoId()
+        
+        
+        let values = ["checked": 0,
+                      "creationDate": creationDate,
+                      "senderEmail":currentUserEmail,
+                      "senderName": senderName,
+                      "id": notificationRef.key ?? "",
+                      "receiverEmail": otherUserEmail] as [String : Any]
+        
+        notificationRef.setValue(values) { error, ref in
+            guard error == nil else {
+                print("Notification Failed")
+                return
+            }
+            
+            print("Notification Success")
+        }
+    }
 
 }
 
@@ -105,17 +151,23 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let targetUserData = results[indexPath.row]
+        let result = results[indexPath.row]
             
+        sendNotification(result: result)
         
-        
+        /*
         guard let storyboard = self.storyboard, let vc = storyboard.instantiateViewController(withIdentifier: "KonnectSessionViewController") as? KonnectSessionViewController else {return}
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         
-        vc.results = targetUserData
-        present(nav, animated: true)
+        vc.results = result
+        createSession(result: result)
        
+        
+        //let connection = Connection(id: <#T##String#>, name: <#T##String#>, otherUserEmail: <#T##String#>, latestCard: //<#T##LatestCard#>)
+        //print("result \(targetUserData)")
+        present(nav, animated: true)
+         */
         //celltappedAlert()
     }
     
