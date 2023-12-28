@@ -101,6 +101,7 @@ struct Notification {
     var receiverEmail: String
     var senderEmail: String
     var senderName: String
+    var type: Int
     /*
     init(dictionary: [String: AnyObject]) {
 

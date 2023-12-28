@@ -49,13 +49,6 @@ class HomeCategoryCollectionViewCell: UICollectionViewCell {
                    }
                    
                }
-               
-              
-               //self.contentView.backgroundColor = isSelected ? ColorTheme.lightTeal : UIColor.clear
-              // self.coverView.layer.borderWidth = isSelected ? 2 : 0 ///0/UIColor.clear
-              // self.coverView.layer.borderColor = isSelected ? color.cgColor : UIColor.clear.cgColor //UIColor.label.cgColor
-              // self.categoryLbl.textColor = isSelected ? color : UIColor.white
-              // self.coverView.backgroundColor = isSelected ? UIColor.white.withAlphaComponent(0.5): UIColor.clear
            }
        }
     

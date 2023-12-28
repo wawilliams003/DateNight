@@ -26,7 +26,8 @@ class NotificationsViewController: UIViewController {
             case .success(let notifications):
                 DispatchQueue.main.async {
                     self?.notifications = notifications
-                    self?.tableview.reloadData()
+                    self?.handleSortNotificatio()
+                    //self?.tableview.reloadData()
                 }
  
             case .failure(let error):
@@ -48,6 +49,16 @@ class NotificationsViewController: UIViewController {
      */
     
     
+    
+    
+    
+    func handleSortNotificatio(){
+        self.notifications.sort { n1, n2 in
+            return n1.creationDate > n2.creationDate
+        }
+        self.tableview.reloadData()
+    }
+    
     func fetchNotifications(completion: @escaping (Swift.Result<[Notification], Error>) -> Void) {
         guard let email = Constants().currentUserEmail else {return}
         let safeEmail = DatabaseManager.safeEmail(email: email)
@@ -62,10 +73,11 @@ class NotificationsViewController: UIViewController {
                         let dateDboule = value["creationDate"] as? Double,
                       let receiverEmail = value["receiverEmail"] as? String,
                       let senderName = value["senderName"] as? String,
+                      let type = value["type"] as? Int,
                       let senderEmail = value["senderEmail"] as? String else {return}
                 
                 date = Date(timeIntervalSince1970: dateDboule)
-                let notification = Notification(id: id, creationDate: date, receiverEmail: receiverEmail, senderEmail: senderEmail, senderName: senderName)
+                let notification = Notification(id: id, creationDate: date, receiverEmail: receiverEmail, senderEmail: senderEmail, senderName: senderName, type: type)
                 notifications.append(notification)
                 
             }
@@ -76,11 +88,12 @@ class NotificationsViewController: UIViewController {
     }
     
     
-    func showBottomSheetVC(){
+    func showBottomSheetVC(notification: Notification){
         let bottomSheetVC = storyboard!.instantiateViewController(withIdentifier: "NotificationBottomSheetVC") as! NotificationBottomSheetVC
         
         guard let sheet = bottomSheetVC.presentationController as? UISheetPresentationController
         else {return}
+        bottomSheetVC.notification = notification
         
         if #available(iOS 16.0, *) {
             sheet.detents = [.custom {_ in
@@ -92,6 +105,7 @@ class NotificationsViewController: UIViewController {
         sheet.preferredCornerRadius = 24
         sheet.prefersGrabberVisible = false
         sheet.largestUndimmedDetentIdentifier = .none
+        sheet.prefersGrabberVisible = true
         // sheet.largestUndimmedDetentIdentifier = .medium
         //let image = currentCarouselView?.screenshot()
         //bottomSheetVC.screenshot = image
@@ -133,7 +147,9 @@ extension NotificationsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableview.deselectRow(at: indexPath, animated: true)
         
-        showBottomSheetVC()
+        let notification = notifications[indexPath.row]
+        
+        showBottomSheetVC(notification: notification)
         
         
     }

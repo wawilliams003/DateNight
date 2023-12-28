@@ -26,6 +26,8 @@ class KonnectSessionViewController: UIViewController {
     private var text = ""
     var categories = [Category]()
     var category: Category!
+    var selectedCategory: Category!
+    var carouselIndex = 0
     
     var appUser: AppUSer? {
         guard let name = results?["name"] as? String,
@@ -51,6 +53,7 @@ class KonnectSessionViewController: UIViewController {
         view.scrollSpeed = 0.5
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isPagingEnabled = true
+        view.isUserInteractionEnabled = true
         return view
     }()
     
@@ -60,6 +63,7 @@ class KonnectSessionViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(mainCarousel)
             activateConstraint()
+        fetchData()
         mainCarousel.delegate = self
         mainCarousel.dataSource = self
         
@@ -69,13 +73,14 @@ class KonnectSessionViewController: UIViewController {
        // let imageView = UIImageView()
         setupCollectionView()
         getAllCards(id: connection.id)
-        
+        tapGesture()
     }
     
     func fetchData(){
         FetchData.parseJSON { [weak self] categories in
+            self?.selectedCategory = categories.randomElement()
             // self?.categories = categories.shuffled()
-            self?.category = categories.randomElement()
+            //self?.category = categories.randomElement()
             self?.categories = categories
             self?.mainCarousel.reloadData()
             self?.collectionView.reloadData()
@@ -155,6 +160,27 @@ class KonnectSessionViewController: UIViewController {
         
     }
     
+    private func sendCard(text: String) {
+        
+        ProgressHUD.show("Waiting for \(name).....", symbol: "Symbol", interaction: false)
+        
+        guard let connection = connection, let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String else {return }
+        
+        let name = connection.name
+         
+        let sender =  Sender(photoURL: "", senderId: currentUserEmail,
+                              displayName: name)
+        let card = UsersCard(sender: sender, cardId: createMessageID(), sentDate: Date(), text: text)
+
+        DatabaseManager.shared.sendCard(to: connection.id, card: card, name: name) { success in
+            if success {
+                print("SUCCESS sending Card")
+            } else {
+                print("ERROR sending Card")
+            }
+        }
+    }
+    
     
     private func sendCard(){
         
@@ -179,10 +205,25 @@ class KonnectSessionViewController: UIViewController {
         
     }
     
+    func tapGesture(){
+        let gesture = UITapGestureRecognizer()
+        gesture.numberOfTapsRequired = 2
+        gesture.addTarget(self, action: #selector(gestureAction))
+        
+        mainCarousel.addGestureRecognizer(gesture)
+    }
+    
+    
+    @objc func gestureAction() {
+        let item = selectedCategory.items[carouselIndex]
+        print("ITEM\(item)")
+    }
+    
+    
     
     @IBAction func SendCard() {
         
-        sendCard()
+       // sendCard()
     }
     
     
@@ -226,6 +267,10 @@ extension KonnectSessionViewController: UICollectionViewDataSource, UICollection
     }
     
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedCategory = categories[indexPath.item]
+        mainCarousel.reloadData()
+    }
     
     
     
@@ -234,19 +279,33 @@ extension KonnectSessionViewController: UICollectionViewDataSource, UICollection
 extension KonnectSessionViewController: iCarouselDataSource, iCarouselDelegate {
     
     func numberOfItems(in carousel: iCarousel) -> Int {
-        return categories.count
+        
+        return (selectedCategory.items.count) //?? categories.randomElement()!.items.count
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         
-        let view = Bundle.main.loadNibNamed("KonnectSessionView", owner: self)?.first as? KonnectSessionView
-        view?.frame = carousel.frame//CGRect(x: 0, y: 0, width: 200, height: 300)
+        guard let konnectSessionView = Bundle.main.loadNibNamed("KonnectSessionView", owner: self)?.first as? KonnectSessionView else {return UIView()}
+        konnectSessionView.frame = carousel.frame//CGRect(x: 0, y: 0, width: 200, height: 300)
         
-        //let imageView = UIImageView()
-        //imageView.backgroundColor = .brown
+        //konnectSessionView.category = selectedCategory?.items[index] ?? categories.randomElement()
+        konnectSessionView.cardLabel.text = selectedCategory.items[index]
         
-        return view!
+        let myIndex = 1 + index
+        let remainingCard = selectedCategory.items.count
+    
+        //let infoLbl = UILabel()
+        konnectSessionView.countLabel.text = "\(myIndex)/\(remainingCard)"
+        konnectSessionView.countLabel.layer.cornerRadius = 20
+        konnectSessionView.countLabel.layer.borderColor = UIColor.secondaryLabel.cgColor
+        konnectSessionView.countLabel.layer.borderWidth = 1
+        
+        return konnectSessionView
     }
  
+    
+    func carouselDidEndDecelerating(_ carousel: iCarousel) {
+        self.carouselIndex = carousel.currentItemIndex
+    }
     
 }

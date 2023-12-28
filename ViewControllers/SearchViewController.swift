@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import ProgressHUD
 import Kingfisher
 
 class SearchViewController: UIViewController {
@@ -18,7 +17,8 @@ class SearchViewController: UIViewController {
     
     private var users = [[String:String]]()
     private var hasFetched = false
-    private var results = [[String:String]]()
+    private var filteredUsers = [[String:String]]()
+    private var inSearchMode = false
     
     private let searchBar: UISearchBar  = {
         let searchBar = UISearchBar()
@@ -52,8 +52,27 @@ class SearchViewController: UIViewController {
 //        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(searchCancelButton))
 //        searchBar.becomeFirstResponder()
         
-        print("RESULT\(results.first)")
+        //print("RESULT\(results.first)")
+        
+        fecthUsers()
     }
+    
+    
+    func fecthUsers() {
+        DatabaseManager.shared.getAllUsers {[weak self] result in
+            switch result {
+            case .success(let usersCollection):
+                self?.users = usersCollection
+                self?.tableview.reloadData()
+            case.failure(let error):
+                print("FAILED TO FECTH USER \(error)")
+                
+            }
+        }
+        
+        
+    }
+    
     
     @objc func searchCancelButton() {
         dismiss(animated: true)
@@ -118,6 +137,7 @@ class SearchViewController: UIViewController {
                       "senderEmail":currentUserEmail,
                       "senderName": senderName,
                       "id": notificationRef.key ?? "",
+                      "type": 0,
                       "receiverEmail": otherUserEmail] as [String : Any]
         
         notificationRef.setValue(values) { error, ref in
@@ -135,23 +155,34 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return results.count
+        
+       // return inSearchMode ? filteredUsers.count : users.count
+        if inSearchMode {
+            return filteredUsers.count
+        } else {
+            return users.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SearchUserTableviewCell
         
-        cell.name.text = results[indexPath.row]["name"]
-        //let url = results[indexPath.row][""]
-        let urlPath = (UserDefaults.standard.value(forKey: "profile_picture_url") as? String)!
-        let url = URL(string: urlPath)!
-        cell.imageView?.kf.setImage(with: url)
+        if inSearchMode {
+            cell.user = filteredUsers[indexPath.row]
+            
+        } else {
+            cell.user = users[indexPath.row]
+        }
+        
+        
         return cell
+        
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let result = results[indexPath.row]
+        let result = filteredUsers[indexPath.row]
             
         sendNotification(result: result)
         
@@ -172,10 +203,51 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CGFloat(65)
+    }
+    
 }
 
 
 extension SearchViewController: UISearchBarDelegate {
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        let searchText = searchText.lowercased()
+        
+        if searchText.isEmpty || searchText == " " {
+            inSearchMode = false
+            tableview.reloadData()
+            
+        } else {
+            inSearchMode = true
+            
+            filteredUsers = users.filter({ user in
+                guard let name = user["name"]?.lowercased()  else {
+                    return false
+                }
+                
+                return name.contains(searchText)
+            })
+            self.tableview.reloadData()
+        }
+        
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        inSearchMode = false
+        searchBar.text = nil
+        searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+        tableview.reloadData()
+    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text, !text.replacingOccurrences(of: " ", with: "").isEmpty else {
@@ -183,11 +255,6 @@ extension SearchViewController: UISearchBarDelegate {
         
         searchBar.resignFirstResponder()
         
-        results.removeAll()
-        ProgressHUD.animationType = .circleSpinFade
-        ProgressHUD.show()
-        
-        self.searchUser(query: text)
     }
     
     func searchUser(query: String) {
@@ -213,7 +280,7 @@ extension SearchViewController: UISearchBarDelegate {
     func filterUsers(with term: String) {
         guard hasFetched else {return}
         
-        ProgressHUD.dismiss()
+       
         
         let results: [[String: String]] = self.users.filter({
             guard let name = $0["name"]?.lowercased()  else {
@@ -224,16 +291,16 @@ extension SearchViewController: UISearchBarDelegate {
             
         })
         
-        self.results = results
+        self.filteredUsers = results
         self.updateUI()
     }
     
         
     
     func updateUI() {
-        if results.isEmpty {
+        if filteredUsers.isEmpty {
             self.noResultLabel.isHidden = false
-            ProgressHUD.dismiss()
+            
         } else {
             self.noResultLabel.isHidden = true
             self.tableview.reloadData()

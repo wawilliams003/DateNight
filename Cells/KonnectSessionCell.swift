@@ -16,7 +16,10 @@ class KonnectSessionCell: UICollectionViewCell {
         didSet {
             guard let category = category else {return }
             titleLbl.text = category.title
-            iconImageView.image = UIImage(named: category.image)
+            layer.cornerRadius = 6
+            layer.borderColor = UIColor.link.cgColor
+            layer.borderWidth = 1
+          //  iconImageView.image = UIImage(named: category.image)
         }
     }
     
@@ -26,6 +29,22 @@ class KonnectSessionCell: UICollectionViewCell {
         
         
     }
+    
+    override var isSelected: Bool {
+           didSet {
+               UIView.animate(withDuration: 0.3) { [weak self] in
+                   self?.transform = self!.isSelected ? .init(scaleX: 0.85, y: 0.85) : .identity
+                   //self?.coverView.backgroundColor = self!.isSelected ? UIColor.white.withAlphaComponent(0.3): UIColor.clear
+               } completion: { (done) in
+                   if done {
+                       UIView.animate(withDuration: 0.1) {
+                          // self.transform = .identity
+                       }
+                   }
+                   
+               }
+           }
+       }
     
     
 }

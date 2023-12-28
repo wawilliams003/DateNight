@@ -18,10 +18,20 @@
                     <rect key="frame" x="0.0" y="0.0" width="390" height="339"/>
                     <color key="backgroundColor" systemColor="secondarySystemGroupedBackgroundColor"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OL8-GG-0fL">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="20" translatesAutoresizingMaskIntoConstraints="NO" id="OL8-GG-0fL">
                     <rect key="frame" x="30" y="30" width="330" height="279"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
-                    <color key="textColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" systemColor="linkColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymk-Cw-vec">
+                    <rect key="frame" x="175" y="249" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Cbu-4V-ZOg"/>
+                        <constraint firstAttribute="width" constant="40" id="Pmd-hr-dsX"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="13"/>
+                    <color key="textColor" systemColor="secondaryLabelColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -30,7 +40,9 @@
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="XWe-c6-brq" secondAttribute="trailing" id="3Ml-gP-VgU"/>
                 <constraint firstItem="OL8-GG-0fL" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="30" id="5BX-BG-iIc"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ymk-Cw-vec" secondAttribute="bottom" constant="50" id="BLK-4Q-2Nc"/>
                 <constraint firstItem="XWe-c6-brq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="PNM-pf-j0E"/>
+                <constraint firstItem="Ymk-Cw-vec" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PrZ-0z-ugu"/>
                 <constraint firstItem="OL8-GG-0fL" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="30" id="QMb-2L-R97"/>
                 <constraint firstItem="XWe-c6-brq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Se1-M9-yg2"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="XWe-c6-brq" secondAttribute="bottom" id="TXw-MP-PxN"/>
@@ -38,11 +50,22 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="OL8-GG-0fL" secondAttribute="trailing" constant="30" id="kFh-6h-ugW"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="cardLabel" destination="OL8-GG-0fL" id="Ezg-78-rEf"/>
+                <outlet property="countLabel" destination="Ymk-Cw-vec" id="gZQ-kZ-Q2s"/>
+                <outlet property="frameImageView" destination="XWe-c6-brq" id="4YL-xl-rlg"/>
+            </connections>
             <point key="canvasLocation" x="135.38461538461539" y="-136.13744075829382"/>
         </view>
     </objects>
     <resources>
         <image name="frame4" width="2046" height="2295"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondarySystemGroupedBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

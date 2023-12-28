@@ -37,24 +37,6 @@ class KonnectViewController: UIViewController {
         DatabaseManager.shared.getAllConnections(for: safeEmail) { [weak self] result in
             switch result {
             case .success(let connections):
-                print("Successfully get connections")
-                guard let last = connections.last else {return}
-                
-                //UserDefaults.standard.set(<#T##value: Any?##Any?#>, forKey: <#T##String#>)
-                print("COunt\(connections.count)")
-               
-//                if last.sender == 1 {
-//                    self?.connectAlert()
-//                }
-                /*
-                if last.latestCard.text == "Recipient" {
-                    
-                    print("Show alert")
-                } else {
-                    
-                }
-                 */
-                
                 guard !connections.isEmpty else {
                     return
                 }
@@ -130,7 +112,7 @@ class KonnectViewController: UIViewController {
     func barbuttons() {
         let leftBtn = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(leftBtnAction))
         self.navigationItem.leftBarButtonItem = leftBtn
-        let rightBtn = UIBarButtonItem(title: "Register", image: nil, target: self, action: #selector(rightBtnAction))
+        let rightBtn = UIBarButtonItem(title: "SignOut", image: nil, target: self, action: #selector(rightBtnAction))
         self.navigationItem.rightBarButtonItem = rightBtn
         
     }
@@ -141,9 +123,10 @@ class KonnectViewController: UIViewController {
 
     
     @objc func rightBtnAction() {
-        let vc = storyboard!.instantiateViewController(withIdentifier: "RegisterViewController") as!
-        RegisterViewController
-        self.navigationController?.pushViewController(vc, animated: true)
+//        let vc = storyboard!.instantiateViewController(withIdentifier: "RegisterViewController") as!
+//        RegisterViewController
+//        self.navigationController?.pushViewController(vc, animated: true)
+        logOut()
     }
     
     @IBAction func searchBtn() {

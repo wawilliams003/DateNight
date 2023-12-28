@@ -123,7 +123,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     func setupCollectionView(){
         if let flowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: view.frame.size.width/3, height: 60)
+            flowLayout.itemSize = CGSize(width: view.frame.size.width/3, height: 40)
             //flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 50)
             flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         }
@@ -587,11 +587,11 @@ extension HomeViewController: iCarouselDataSource {
             //imageView.layer.borderColor = UIColor.lightGray.cgColor
             //imageView.layer.borderWidth = 1
             let label = UILabel()
-        let categoryImageView = UIImageView(image: UIImage(named: "\(category.image)"))
-        categoryImageView.tintColor = UIColor.red
-        categoryImageView.frame = CGRect(x: Int(imageView.frame.size.width/2 - 15), y: Int(imageView.frame.size.height - 440), width: 30, height: 30)
+//        let categoryImageView = UIImageView(image: UIImage(named: "\(category.image)"))
+//        categoryImageView.tintColor = UIColor.red
+//        categoryImageView.frame = CGRect(x: Int(imageView.frame.size.width/2 - 15), y: Int(imageView.frame.size.height - 440), width: 30, height: 30)
        //UIColor.init(named: "category.color")
-        imageView.addSubview(categoryImageView)
+       // imageView.addSubview(categoryImageView)
            // label.textColor = .black
             label.textColor = backgroundColor
             //label.tintColor = UIColor.red
