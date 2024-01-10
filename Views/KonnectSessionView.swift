@@ -17,7 +17,7 @@ class KonnectSessionView: UIView {
         super.awakeFromNib()
         
     }
-    
+    /*
     var category: Category? {
         didSet{
             guard let category = category else {return}
@@ -30,7 +30,7 @@ class KonnectSessionView: UIView {
         }
     }
     
-    
+    */
     
     /*
     // Only override draw() if you perform custom drawing.

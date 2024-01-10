@@ -373,6 +373,38 @@ extension DatabaseManager {
         
     }
     
+    public func getLastCard(with id: String, completion: @escaping (Swift.Result<UsersCard, Error>) -> ()) {
+        database.child("\(id)/usersCard").observe(.childAdded) { [weak self] snapshot, error in
+            guard let value = snapshot.value as? [[String: Any]] else {
+                completion(.failure(DatabaseErrors.failedToFetch))
+                return
+            }
+            
+            let userCard: [UsersCard] = value.compactMap { dictionary in
+                guard let name = dictionary["name"] as? String,
+                      let isActive = dictionary["is_active"] as? Bool,
+                      let cardId = dictionary["id"] as? String,
+                      let content = dictionary["content"] as? String,
+                      let dateString = dictionary["date"] as? String,
+                      let  senderEmail = dictionary["sender_email"] as? String,
+                      let date = self?.dateFormatter.date(from: dateString)   else {
+                    return nil
+                }
+                
+                let sender = Sender(photoURL: "",
+                                    senderEmail: senderEmail,
+                                    displayName: name)
+                
+                
+                return UsersCard(sender: sender, cardId: cardId, sentDate: date, text: content,  isActive: isActive)
+                
+            }
+            
+            completion(.success(userCard.last!))
+        }
+    }
+    
+    
     /// Get all Cards fior given connection
     public func getAllCardsForCOnncetion( with id: String, completion: @escaping (Swift.Result<[UsersCard], Error>) -> ()) {
         database.child("\(id)/usersCard").observe(.value) { [weak self] snapshot, error in
@@ -393,7 +425,7 @@ extension DatabaseManager {
                 }
                 
                 let sender = Sender(photoURL: "",
-                                    senderId: senderEmail,
+                                    senderEmail: senderEmail,
                                     displayName: name)
                 
                 

@@ -25,7 +25,7 @@ class ShowCreatedCatCell: UICollectionViewCell {
             self.layer.cornerRadius = 10
             self.clipsToBounds = true
             guard let categories = category else {return}
-            let color = UIColor.init(categories.color)
+           // let color = UIColor.init(categories.color)
             imageViewBackgroundView.backgroundColor = UIColor(categories.color, alpha: 1)
             //catImageView.tintColor = color
             //catImageView.image = UIImage(systemName: categories.image)

@@ -25,7 +25,7 @@ class NotificationBottomSheetVC: UIViewController {
         setupViews()
         fetchUserImage()
         
-        print("NOTIFICATION\(notification)")
+       // print("NOTIFICATION\(notification)")
         // Do any additional setup after loading the view.
     }
     
@@ -131,7 +131,7 @@ class NotificationBottomSheetVC: UIViewController {
         
         guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String,
               let name = UserDefaults.standard.value(forKey: "name") as? String      else {return }
-         let sender =  Sender(photoURL: "", senderId: currentUserEmail,
+         let sender =  Sender(photoURL: "", senderEmail: currentUserEmail,
                               displayName: name)
         
         let usersCard = UsersCard(sender: sender, cardId: createMessageID(), sentDate: Date(), text: "First Card")

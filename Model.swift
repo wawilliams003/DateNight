@@ -48,7 +48,7 @@ class FetchData {
 
 struct Sender {
     var photoURL: String
-    var senderId: String
+    var senderEmail: String
     var displayName: String
 }
 

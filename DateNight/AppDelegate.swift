@@ -10,9 +10,11 @@ import FirebaseAuth
 import FirebaseCore
 import GoogleSignInSwift
 import GoogleSignIn
+import UserNotifications
+import Firebase
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
 
 
@@ -20,9 +22,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FirebaseApp.configure()
         
-        
+        attemptToRegisterForNotification(application: application)
         // Override point for customization after application launch.
         return true
+    }
+    
+    func attemptToRegisterForNotification(application: UIApplication){
+        Messaging.messaging().delegate = self
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        let options: UNAuthorizationOptions = [.alert, .badge, .sound]
+        UNUserNotificationCenter.current().requestAuthorization(options: options) { authorized, error in
+            if authorized {
+                print("SUCCESSSSFULLY REGISTERED")
+            }
+        }
+        
+        application.registerForRemoteNotifications()
+        
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("DEBUG: REGISTERED FOR NOTIFICATION WITH DEBVICE TOKEN\(deviceToken)")
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        print("DEBUG: Registered for Noticiation, with Token\(fcmToken)")
     }
 
     // MARK: UISceneSession Lifecycle

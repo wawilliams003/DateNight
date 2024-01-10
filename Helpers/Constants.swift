@@ -18,7 +18,10 @@ struct Constants {
     
     var currentUserEmail: String? {
         guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String else {return nil }
-        return currentUserEmail
+        
+        return DatabaseManager.safeEmail(email: currentUserEmail) //currentUserEmail
     }
+    
+    
     
 }

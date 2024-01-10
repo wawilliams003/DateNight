@@ -106,7 +106,7 @@ class SearchViewController: UIViewController {
         
         guard let currentUserEmail =  UserDefaults.standard.value(forKey: "email") as? String,
               let name = UserDefaults.standard.value(forKey: "name") as? String      else {return }
-         let sender =  Sender(photoURL: "", senderId: currentUserEmail,
+         let sender =  Sender(photoURL: "", senderEmail: currentUserEmail,
                               displayName: name)
         
         let usersCard = UsersCard(sender: sender, cardId: createMessageID(), sentDate: Date(), text: "First Card")
@@ -182,8 +182,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let result = filteredUsers[indexPath.row]
+        var result = [String:String]() //filteredUsers[indexPath.row]
             
+        if inSearchMode {
+            result = filteredUsers[indexPath.row]
+        } else {
+            result = users[indexPath.row]
+        }
+        
         sendNotification(result: result)
         
         /*

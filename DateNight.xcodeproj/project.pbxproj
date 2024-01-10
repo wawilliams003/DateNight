@@ -31,6 +31,8 @@
 		B027F4B42B278F680093BD17 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027F4B32B278F680093BD17 /* NotificationsViewController.swift */; };
 		B027F4B62B2791300093BD17 /* NotificationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027F4B52B2791300093BD17 /* NotificationsTableViewCell.swift */; };
 		B027F4B82B2BC1EE0093BD17 /* NotificationBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B027F4B72B2BC1EE0093BD17 /* NotificationBottomSheetVC.swift */; };
+		B027F4BB2B3FC1C90093BD17 /* BLTNBoard in Frameworks */ = {isa = PBXBuildFile; productRef = B027F4BA2B3FC1C90093BD17 /* BLTNBoard */; };
+		B027F4C02B4470E30093BD17 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B027F4BF2B4470E30093BD17 /* FirebaseMessaging */; };
 		B038A45C29F6295E0075E816 /* CircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45B29F6295E0075E816 /* CircleButtonView.swift */; };
 		B038A46029F62BEC0075E816 /* ShowCreatedCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */; };
 		B038A46229F634760075E816 /* ShowCreatedCatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B038A46129F634760075E816 /* ShowCreatedCatCell.swift */; };
@@ -99,6 +101,7 @@
 		B027F4B32B278F680093BD17 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		B027F4B52B2791300093BD17 /* NotificationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewCell.swift; sourceTree = "<group>"; };
 		B027F4B72B2BC1EE0093BD17 /* NotificationBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationBottomSheetVC.swift; sourceTree = "<group>"; };
+		B027F4C12B4479E70093BD17 /* DateNight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DateNight.entitlements; sourceTree = "<group>"; };
 		B038A45B29F6295E0075E816 /* CircleButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleButtonView.swift; sourceTree = "<group>"; };
 		B038A45F29F62BEC0075E816 /* ShowCreatedCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatViewController.swift; sourceTree = "<group>"; };
 		B038A46129F634760075E816 /* ShowCreatedCatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowCreatedCatCell.swift; sourceTree = "<group>"; };
@@ -149,12 +152,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B020D3DE2AC0FEC6003B1BED /* GoogleSignInSwift in Frameworks */,
+				B027F4BB2B3FC1C90093BD17 /* BLTNBoard in Frameworks */,
 				B020D3D12AC005C7003B1BED /* FirebaseDatabaseSwift in Frameworks */,
 				B0AFEA6B29B92D04007A29B9 /* Toast in Frameworks */,
 				B020D3CF2AC005C7003B1BED /* FirebaseAuth in Frameworks */,
 				B03FE09C2A86F2ED00944998 /* OpenAISwift in Frameworks */,
 				B020D3E52AC7B06F003B1BED /* ProgressHUD in Frameworks */,
 				B0BF955F294960EC0099C33F /* Koloda.framework in Frameworks */,
+				B027F4C02B4470E30093BD17 /* FirebaseMessaging in Frameworks */,
 				B020D3D32AC005C7003B1BED /* FirebaseStorage in Frameworks */,
 				B020D3F32AD523AC003B1BED /* Kingfisher in Frameworks */,
 				B0C6FA772958290500C5B3EB /* Disk in Frameworks */,
@@ -254,6 +259,7 @@
 		B0BF9549294950200099C33F /* DateNight */ = {
 			isa = PBXGroup;
 			children = (
+				B027F4C12B4479E70093BD17 /* DateNight.entitlements */,
 				B038A46129F634760075E816 /* ShowCreatedCatCell.swift */,
 				B0C6FA6E294EDF8B00C5B3EB /* data.json */,
 				B0BF954A294950200099C33F /* AppDelegate.swift */,
@@ -342,6 +348,8 @@
 				B020D3DD2AC0FEC6003B1BED /* GoogleSignInSwift */,
 				B020D3E42AC7B06F003B1BED /* ProgressHUD */,
 				B020D3F22AD523AC003B1BED /* Kingfisher */,
+				B027F4BA2B3FC1C90093BD17 /* BLTNBoard */,
+				B027F4BF2B4470E30093BD17 /* FirebaseMessaging */,
 			);
 			productName = DateNight;
 			productReference = B0BF9547294950200099C33F /* DateNight.app */;
@@ -379,6 +387,7 @@
 				B020D3DC2AC0FEC6003B1BED /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				B020D3E32AC7B06F003B1BED /* XCRemoteSwiftPackageReference "ProgressHUD" */,
 				B020D3F12AD523AC003B1BED /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B027F4B92B3FC1C80093BD17 /* XCRemoteSwiftPackageReference "BulletinBoard" */,
 			);
 			productRefGroup = B0BF9548294950200099C33F /* Products */;
 			projectDirPath = "";
@@ -648,8 +657,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DateNight/DateNight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BKH3GS3PN2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DateNight/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow this app to save photo to your photo library";
@@ -678,8 +689,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DateNight/DateNight.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BKH3GS3PN2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DateNight/Info.plist;
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Allow this app to save photo to your photo library";
@@ -758,6 +771,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		B027F4B92B3FC1C80093BD17 /* XCRemoteSwiftPackageReference "BulletinBoard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexaubry/BulletinBoard.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		B03FE09A2A86F2ED00944998 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
@@ -814,6 +835,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B020D3F12AD523AC003B1BED /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		B027F4BA2B3FC1C90093BD17 /* BLTNBoard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B027F4B92B3FC1C80093BD17 /* XCRemoteSwiftPackageReference "BulletinBoard" */;
+			productName = BLTNBoard;
+		};
+		B027F4BF2B4470E30093BD17 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B020D3CD2AC005C7003B1BED /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
 		B03FE09B2A86F2ED00944998 /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;

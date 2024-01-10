@@ -123,7 +123,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
     
     func setupCollectionView(){
         if let flowLayout = categoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.itemSize = CGSize(width: view.frame.size.width/3, height: 40)
+            flowLayout.itemSize = CGSize(width: view.frame.size.width/3, height: 35)
             //flowLayout.itemSize = CGSize(width: view.frame.size.width/2.5, height: 50)
             flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         }
@@ -210,7 +210,7 @@ class HomeViewController: UIViewController, UIContextMenuInteractionDelegate {
         GIDSignIn.sharedInstance.configuration = config
 
         // Start the sign in flow!
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) {  result, error in
           guard error == nil else {
               print("Failure to sign in with google")
               return
@@ -710,14 +710,24 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //guard let cell = collectionView.cellForItem(at: indexPath) as? HomeCategoryCollectionViewCell else {return}
+        
         let category = categories[indexPath.row]
         //print("SELECTED CAT\(category)")
             self.category.items.removeAll()
           self.category = category
           self.mainCarousel.reloadData()
         
+        collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+
+    }
+    
+    func scrollToItemAtIndexPath(_ indexPath: NSIndexPath,
+                                 atScrollPosition scrollPosition: UICollectionView.ScrollPosition,
+                                 animated: Bool) {
+       
         
     }
+    
     
     /*
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
